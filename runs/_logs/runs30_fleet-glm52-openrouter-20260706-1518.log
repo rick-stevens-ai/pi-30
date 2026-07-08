@@ -1,0 +1,117 @@
+==== fleet-glm52-openrouter-20260706-1518 (z-ai/glm-5.2) START Mon Jul  6 15:18:46 CDT 2026 ====
+[P1] stats CLI
+P1: PASS
+[P2] LRU cache + bundled tests
+P2: PASS
+[P3] Roman numerals iterate-until-green
+P3: PASS green in 2
+[P4] stable softmax vs oracle
+P4: PASS in 3
+[P5] matmul GFLOP/s
+P5: round 2 -> 39.2182 GFLOP/s
+P5: PASS 39.2182 GFLOP/s
+[P6] reproducible FP reduction
+P6: PASS critic+verifier in 5
+[P7] parallel backends fan-out
+P7: PASS
+[P8] ODE convergence + reflection
+P8: PASS in 2
+P8: memory.md     4609->    4794 bytes
+[P9] levenshtein tournament best-of-4
+P9: cand_1 score=20.051
+P9: cand_2 score=20.736
+P9: cand_3 score=15.996
+P9: cand_4 score=20.075
+P9: PASS champion=cand_2 @ 20.736
+[P10] prime sieve capstone
+P10: cand_1 verdict=CLEAN score=29.0830
+P10: cand_2 verdict=CLEAN score=35.5122
+P10: cand_3 verdict=CLEAN score=36.5134
+P10: PASS champion=cand_3 @ 36.5134
+[P11] balanced parens iterate-until-green
+P11: PASS green in 2
+[P12] base-N conversion oracle
+P12: PASS in 2
+[P13] mini-JSON parser iterate-until-green
+P13: PASS green in 2
+[P14] weighted Dijkstra vs BFS-ref oracle
+P14: PASS in 2
+[P15] word-frequency top-k measurement (Mtok/s)
+P15: round 1 -> 0.1225 Mtok/s
+P15: round 2 -> 30.5777 Mtok/s
+P15: PASS 30.5777 Mtok/s
+[P16] thread-safe counter generator+critic
+P16: PASS critic+verifier in 1
+[P17] serializer fan-out (csv/kv/pylit + codec)
+P17: PASS
+[P18] Welford online variance reflection
+P18: PASS in 2
+[P19] fast-doubling Fibonacci tournament
+P19: cand_1 score=0
+P19: cand_2 score=207.9272
+P19: cand_3 score=0
+P19: cand_4 score=207.2664
+P19: PASS champion=cand_2 @ 207.9272
+[P20] TTL-LRU with injected clock iterate-until-green
+P20: PASS green in 2
+[P21] interval merge oracle
+P21: PASS in 2
+[P22] toposort + cycle detect iterate-until-green
+P22: PASS green in 2
+[P23] prime-count sieve measurement (Mn/s)
+P23: round 1 -> 0.1479 Mn/s
+P23: round 2 -> 221.8812 Mn/s
+P23: PASS 221.8812 Mn/s
+[P24] token-bucket rate limiter generator+critic
+P24: PASS critic+verifier in 1
+[P25] 3-stage stats pipeline fan-out
+P25: FAIL
+[P26] Newton sqrt to full precision reflection
+P26: PASS in 2
+[P27] overlapping substring count tournament
+P27: cand_1 score=0.2655
+P27: cand_2 score=0.2803
+P27: cand_3 score=0.3199
+P27: PASS champion=cand_3 @ 0.3199
+[P28] matrix determinant vs numpy oracle
+P28: PASS in 2
+[P29] precedence calculator (no eval) iterate-until-green
+P29: PASS green in 2
+[P30] sort-kernel capstone tournament + critic + bench
+P30: cand_1 verdict=CLEAN score=0.3819
+P30: cand_2 verdict=CLEAN score=7.0291
+P30: cand_3 verdict=CLEAN score=0.2409
+P30: PASS champion=cand_2 @ 7.0291
+==== fleet-glm52-openrouter-20260706-1518 DONE Mon Jul  6 16:02:23 CDT 2026 ====
+===== SUMMARY (fleet-glm52-openrouter-20260706-1518 / z-ai/glm-5.2) =====
+P1: PASS
+P2: PASS
+P3: PASS green in 2
+P4: PASS in 3
+P5: PASS 39.2182 GFLOP/s
+P6: PASS critic+verifier in 5
+P7: PASS
+P8: PASS in 2
+P9: PASS champion=cand_2 @ 20.736
+P10: PASS champion=cand_3 @ 36.5134
+P11: PASS green in 2
+P12: PASS in 2
+P13: PASS green in 2
+P14: PASS in 2
+P15: PASS 30.5777 Mtok/s
+P16: PASS critic+verifier in 1
+P17: PASS
+P18: PASS in 2
+P19: PASS champion=cand_2 @ 207.9272
+P20: PASS green in 2
+P21: PASS in 2
+P22: PASS green in 2
+P23: PASS 221.8812 Mn/s
+P24: PASS critic+verifier in 1
+P25: FAIL
+P26: PASS in 2
+P27: PASS champion=cand_3 @ 0.3199
+P28: PASS in 2
+P29: PASS green in 2
+P30: PASS champion=cand_2 @ 7.0291
+SCORE: 29/30 passed

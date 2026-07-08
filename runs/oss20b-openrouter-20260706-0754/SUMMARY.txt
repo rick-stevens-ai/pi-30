@@ -1,0 +1,92 @@
+===== SUMMARY (oss20b-openrouter-20260706-0754 / openai/gpt-oss-20b:free) =====
+P1: PASS
+P2: FAIL
+P3: FAIL after 8
+P4: FAIL after 6
+P5: PASS 35.8360 GFLOP/s
+P6: FAIL
+P7: FAIL
+P8: FAIL after 6
+P9: FAIL no correct candidate
+P10: FAIL no correct candidate
+P11: FAIL after 5
+P12: FAIL after 5
+P13: FAIL after 6
+P14: FAIL after 5
+P15: STOP plateau best=0.1142
+P16: FAIL
+P17: FAIL
+P18: PASS in 5
+P19: PASS champion=cand_1 @ 155.9383
+P20: FAIL after 5
+P21: FAIL after 5
+P22: FAIL after 5
+P23: STOP plateau best=0.1513
+P24: FAIL
+P25: FAIL
+P26: FAIL after 5
+P27: PASS champion=cand_3 @ 0.2912
+P28: FAIL after 5
+P29: FAIL after 6
+P30: PASS champion=cand_1 @ 7.0553
+P1: PASS  [resumed-skip]
+P2: FAIL
+P3: FAIL after 8
+P4: FAIL after 6
+P5: PASS 35.8360 GFLOP/s  [resumed-skip]
+P6: FAIL
+P7: FAIL
+P8: PASS in 2
+P9: FAIL no correct candidate
+P10: FAIL no correct candidate
+P11: PASS green in 4
+P12: FAIL after 5
+P13: FAIL after 6
+P14: FAIL after 5
+P15: STOP plateau best=0.1226
+P16: PASS critic+verifier in 5
+P17: FAIL
+P18: PASS in 5  [resumed-skip]
+P19: PASS champion=cand_1 @ 155.9383  [resumed-skip]
+P20: FAIL after 5
+P21: FAIL after 5
+P22: FAIL after 5
+P23: STOP plateau best=0.1557
+P24: FAIL
+P25: FAIL
+P26: FAIL after 5
+P27: PASS champion=cand_3 @ 0.2912  [resumed-skip]
+P28: FAIL after 5
+P29: FAIL after 6
+P30: PASS champion=cand_1 @ 7.0553  [resumed-skip]
+P1: PASS  [resumed-skip]  [resumed-skip]
+P2: FAIL
+P3: FAIL after 8
+P4: FAIL after 6
+P5: PASS 35.8360 GFLOP/s  [resumed-skip]  [resumed-skip]
+P6: FAIL
+P7: FAIL
+P8: PASS in 2  [resumed-skip]
+P9: PASS champion=cand_2 @ 13.479
+P10: FAIL no correct candidate
+P11: PASS green in 4  [resumed-skip]
+P12: FAIL after 5
+P13: FAIL after 6
+P14: FAIL after 5
+P15: STOP plateau best=0.1226
+P16: PASS critic+verifier in 5  [resumed-skip]
+P17: FAIL
+P18: PASS in 5  [resumed-skip]  [resumed-skip]
+P19: PASS champion=cand_1 @ 155.9383  [resumed-skip]  [resumed-skip]
+P20: FAIL after 5
+P21: FAIL after 5
+P22: FAIL after 5
+P23: STOP plateau best=0.1526
+P24: FAIL
+P25: FAIL
+P26: FAIL after 5
+P27: PASS champion=cand_3 @ 0.2912  [resumed-skip]  [resumed-skip]
+P28: FAIL after 5
+P29: FAIL after 6
+P30: PASS champion=cand_1 @ 7.0553  [resumed-skip]  [resumed-skip]
+SCORE: 25/30 passed

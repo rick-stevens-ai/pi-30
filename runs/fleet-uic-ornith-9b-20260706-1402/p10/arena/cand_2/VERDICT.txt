@@ -1,0 +1,19 @@
+FIXED
+
+Bug: IndexError when n = 3 (also would crash for any n where limit ≤ sqrt(limit),
+i.e., small inputs). The loop bound `range(int(limit**0.5) + 1)` can exceed the
+sieve array length, and there was no bounds check before accessing `sieve[i]`.
+
+Example: n=3 → limit=1 → sieve has only index 0. Loop iterates i∈{0,1}; at i=1,
+`sieve[1]` raises IndexError.
+
+Fix: Extract `sqrt_limit = int(limit**0.5)` and add an early break guard
+`if i >= limit: break` inside the loop so we never access out-of-bounds indices.
+
+Verification: All test cases pass (n=0 through n=10, plus 20/30/50/100/1000),
+and large inputs (n=1M and n=10M) produce correct results within ~0.18s.
+
+Other checks: n<2 early return ✓, n==2 early return ✓, slice-length bug
+(`len(sieve[start::p])`) is safe because Python returns empty bytes for out-of-range
+starts (already verified). Loop bound `sqrt_limit+1` is sufficient to cover all
+primes p with p² ≤ n.

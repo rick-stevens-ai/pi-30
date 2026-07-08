@@ -1,0 +1,13 @@
+CLEAN
+
+Inspection of sieve.py (cand_3) — no bugs found.
+
+Checks performed:
+- n < 2: handled correctly (returns [])
+- n included (off-by-one): size = (n+1)>>1 correctly covers all odd integers in [1..n]
+- Even numbers: never stored in sieve; 2 always prepended for n >= 2
+- Slice-length formula: ceiling division ((size-start+stride-1)//stride) matches len(range(start,size,stride))
+- Index arithmetic: sift[p>>1] and start=(p*p)>>1 both correct for odd-only layout
+- Reconstruction: "if i and flag" correctly skips index 0 (odd number 1)
+- All self-tests pass including primes_up_to(2,000,000) == 148,933 primes
+- Edge-case spot-checks (n=0..14, n=1000) all correct

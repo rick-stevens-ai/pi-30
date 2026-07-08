@@ -1,0 +1,119 @@
+==== fleet-qwen36-27b-20260705-2040 (qwen36-27b) START Sun Jul  5 20:40:19 CDT 2026 ====
+[P1] stats CLI
+P1: PASS
+[P2] LRU cache + bundled tests
+P2: PASS
+[P3] Roman numerals iterate-until-green
+P3: PASS green in 2
+[P4] stable softmax vs oracle
+P4: PASS in 4
+[P5] matmul GFLOP/s
+P5: round 2 -> 0.0064 GFLOP/s
+P5: round 3 -> 8.7820 GFLOP/s
+P5: PASS 8.7820 GFLOP/s
+[P6] reproducible FP reduction
+P6: PASS critic+verifier in 1
+[P7] parallel backends fan-out
+P7: PASS
+[P8] ODE convergence + reflection
+P8: PASS in 2
+P8: memory.md      395->     622 bytes
+[P9] levenshtein tournament best-of-4
+P9: cand_1 score=0
+P9: cand_3 score=0
+P9: cand_4 score=0
+P9: FAIL no correct candidate
+[P10] prime sieve capstone
+P10: cand_1 verdict=CLEAN score=0
+P10: cand_2 verdict=CLEAN score=0
+P10: cand_3 verdict=FIXED score=0
+P10: FAIL no correct candidate
+[P11] balanced parens iterate-until-green
+P11: PASS green in 2
+[P12] base-N conversion oracle
+P12: PASS in 2
+[P13] mini-JSON parser iterate-until-green
+P13: PASS green in 2
+[P14] weighted Dijkstra vs BFS-ref oracle
+P14: PASS in 2
+[P15] word-frequency top-k measurement (Mtok/s)
+P15: round 1 -> 0.1127 Mtok/s
+P15: round 2 -> 27.9738 Mtok/s
+P15: PASS 27.9738 Mtok/s
+[P16] thread-safe counter generator+critic
+P16: PASS critic+verifier in 1
+[P17] serializer fan-out (csv/kv/pylit + codec)
+P17: PASS
+[P18] Welford online variance reflection
+P18: PASS in 2
+[P19] fast-doubling Fibonacci tournament
+P19: cand_1 score=0
+P19: cand_3 score=193.1807
+P19: cand_4 score=0
+P19: PASS champion=cand_3 @ 193.1807
+[P20] TTL-LRU with injected clock iterate-until-green
+P20: PASS green in 2
+[P21] interval merge oracle
+P21: PASS in 2
+[P22] toposort + cycle detect iterate-until-green
+P22: PASS green in 2
+[P23] prime-count sieve measurement (Mn/s)
+P23: round 1 -> 0.1099 Mn/s
+P23: round 2 -> 192.1445 Mn/s
+P23: PASS 192.1445 Mn/s
+[P24] token-bucket rate limiter generator+critic
+==== fleet-qwen36-27b-20260705-2040 (qwen36-27b) START Sun Jul  5 22:33:54 CDT 2026 ====
+P1: PASS  [resumed-skip]
+P2: PASS  [resumed-skip]
+P3: PASS green in 2  [resumed-skip]
+P4: PASS in 4  [resumed-skip]
+P5: PASS 8.7820 GFLOP/s  [resumed-skip]
+P6: PASS critic+verifier in 1  [resumed-skip]
+P7: PASS  [resumed-skip]
+P8: PASS in 2  [resumed-skip]
+[P9] levenshtein tournament best-of-4
+P9: cand_1 score=17.071
+P9: cand_2 score=0
+P9: cand_3 score=0
+P9: cand_4 score=0
+P9: PASS champion=cand_1 @ 17.071
+[P10] prime sieve capstone
+P10: cand_1 verdict=FIXED score=36.4248
+P10: cand_2 verdict=CLEAN score=31.9492
+P10: cand_3 verdict=CLEAN score=33.0624
+P10: PASS champion=cand_1 @ 36.4248
+P11: PASS green in 2  [resumed-skip]
+P12: PASS in 2  [resumed-skip]
+P13: PASS green in 2  [resumed-skip]
+P14: PASS in 2  [resumed-skip]
+P15: PASS 27.9738 Mtok/s  [resumed-skip]
+P16: PASS critic+verifier in 1  [resumed-skip]
+P17: PASS  [resumed-skip]
+P18: PASS in 2  [resumed-skip]
+P19: PASS champion=cand_3 @ 193.1807  [resumed-skip]
+P20: PASS green in 2  [resumed-skip]
+P21: PASS in 2  [resumed-skip]
+P22: PASS green in 2  [resumed-skip]
+P23: PASS 192.1445 Mn/s  [resumed-skip]
+[P24] token-bucket rate limiter generator+critic
+P24: PASS critic+verifier in 3
+[P25] 3-stage stats pipeline fan-out
+P25: PASS
+[P26] Newton sqrt to full precision reflection
+P26: PASS in 2
+[P27] overlapping substring count tournament
+P27: cand_1 score=0.0898
+P27: cand_2 score=0.0706
+P27: cand_3 score=0
+P27: cand_4 score=0.0569
+P27: PASS champion=cand_1 @ 0.0898
+[P28] matrix determinant vs numpy oracle
+P28: PASS in 2
+[P29] precedence calculator (no eval) iterate-until-green
+P29: PASS green in 2
+[P30] sort-kernel capstone tournament + critic + bench
+P30: cand_1 verdict=CLEAN score=0.2647
+P30: cand_2 verdict=CLEAN score=0.2657
+P30: cand_3 verdict=CLEAN score=0.2621
+P30: PASS champion=cand_2 @ 0.2657
+==== fleet-qwen36-27b-20260705-2040 DONE Sun Jul  5 23:56:11 CDT 2026 ====

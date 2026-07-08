@@ -1,0 +1,1 @@
+import numpy as np\n\n\ndef matmul(a, b):\n    return np.matmul(a, b)

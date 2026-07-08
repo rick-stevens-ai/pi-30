@@ -1,0 +1,8 @@
+==== or-nemotron3super-120b (nvidia/nemotron-3-super-120b-a12b:free via openrouter-free) FANOUT-RERUN START Sun Jul  5 10:13:16 CDT 2026 ====
+[P7] parallel backends fan-out
+P7: FAIL
+[P17] serializer fan-out (csv/kv/pylit + codec)
+P17: FAIL
+[P25] 3-stage stats pipeline fan-out
+P25: FAIL
+==== or-nemotron3super-120b FANOUT-RERUN DONE Sun Jul  5 10:15:20 CDT 2026 ====

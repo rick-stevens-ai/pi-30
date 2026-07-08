@@ -1,0 +1,12 @@
+CLEAN
+
+All edge cases handled correctly:
+- Empty lists: returns []
+- Singletons: works correctly
+- Duplicates: multiset preserved, stable sort
+- Negatives: sorted correctly (largest negative first)
+- Mixed: negatives and non-negatives combined correctly
+- Large numbers: works with arbitrary precision
+- Type validation: rejects non-integers
+
+The radix sort implementation is stable and preserves the multiset exactly.

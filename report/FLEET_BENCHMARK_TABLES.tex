@@ -1,0 +1,141 @@
+% pi Agent-Loop Fleet Benchmark --- LaTeX booktabs tables
+% Updated 2026-07-04 (reconciled against on-disk state: m1 + sparks + CherryRd)
+% Requires: \usepackage{booktabs}
+% THREE segmented sets --- do NOT cross-merge (different numbering/subsets).
+
+% ---------------------------------------------------------------
+% Table 1: Fleet-30 summary (P1--P30, run_model_30.sh)
+% ---------------------------------------------------------------
+\begin{table}[t]
+  \centering
+  \caption{Fleet-30 benchmark (P1--P30). Verdicts from verifier exit codes.
+    oss120 and kimi are complete, valid 30/30 lanes. The three all-fail
+    spark lanes are run defects (same models score 8--9/10 on mesh-10),
+    not capability, and are candidates for a clean re-run.}
+  \label{tab:fleet30}
+  \begin{tabular}{llrl}
+    \toprule
+    Model & Provider / path & Score & Status \\
+    \midrule
+    oss120 (gpt-oss-120b)      & cels-chicago-3-direct $\to$ vLLM 0.14.1 & 30/30 & complete, clean \\
+    kimi (Kimi-K2.6)           & cels-direct            & 30/30 & complete, clean \\
+    nemotron-3 (cels)          & cels-direct            & 22 P  & partial, hung @P27 \\
+    llama70                    & cels-direct            & 18 P  & full run, 18/30 \\
+    spark devstral2-24b        & spark (ollama)         & 24/30 & full run \\
+    spark qwen3-14b            & spark (ollama)         & 18 P  & stopped $\sim$P29 \\
+    spark glm-4.7-flash        & spark (ollama)         & 0/23  & all-fail (harness/adapter) \\
+    spark nemotron3-super-120b & spark (ollama)         & 0/27  & all-fail (harness/adapter) \\
+    spark deepseek-r1-32b      & spark (ollama)         & 0/22  & all-fail (harness/adapter) \\
+    \bottomrule
+  \end{tabular}
+
+  \vspace{2pt}
+  {\footnotesize
+   ``P'' = PASS count where the run did not cover all 30 problems.}
+\end{table}
+
+% ---------------------------------------------------------------
+% Table 2: oss120 per-problem detail (30/30 PASS)
+% ---------------------------------------------------------------
+\begin{table}[t]
+  \centering
+  \caption{oss120 (gpt-oss-120b) per-problem results on Fleet-30, all PASS,
+    via cels-chicago-3-direct into vLLM 0.14.1. Wall time $\approx$9m10s.
+    (kimi also 30/30 clean; per-problem detail in RESULTS file.)}
+  \label{tab:oss120detail}
+  \begin{tabular}{llll}
+    \toprule
+    P & Metric / note & P & Metric / note \\
+    \midrule
+    P1  & stats CLI               & P16 & critic+verifier in 1 \\
+    P2  & ---                     & P17 & --- \\
+    P3  & green in 2              & P18 & in 2 \\
+    P4  & in 3                    & P19 & champ cand\_3 @ 202.337 \\
+    P5  & 33.2675 GFLOP/s         & P20 & green in 2 \\
+    P6  & critic+verifier in 1    & P21 & in 2 \\
+    P7  & fan-out                 & P22 & green in 2 \\
+    P8  & in 2; mem 2362$\to$2471 & P23 & 127.9359 Mn/s \\
+    P9  & champ cand\_3 @ 14.980  & P24 & verifier (critic n/s) \\
+    P10 & champ cand\_3 @ 38.211  & P25 & --- \\
+    P11 & green in 2              & P26 & in 2 \\
+    P12 & in 2                    & P27 & champ cand\_3 @ 0.2780 \\
+    P13 & green in 2              & P28 & in 2 \\
+    P14 & in 2                    & P29 & green in 2 \\
+    P15 & 29.6412 Mtok/s          & P30 & champ cand\_3 @ 6.7359 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------
+% Table 3: mesh-extract-10 (sparks, subset set) --- SEPARATE
+% ---------------------------------------------------------------
+\begin{table}[t]
+  \centering
+  \caption{mesh-extract-10 benchmark, 10-problem SUBSET
+    \{P1--P5, P11, P12, P13, P18, P23\}, from
+    \texttt{spark:\char`~/VIBE-CODING/pi-problems-30/runs\_extract/}.
+    Canonical per-problem verdicts (multi-round lines deduped). 17 models.
+    Not comparable cell-for-cell with Fleet-30 or aggB-10.}
+  \label{tab:mesh10}
+  \begin{tabular}{llrl}
+    \toprule
+    Model & Backend & Score & Fails \\
+    \midrule
+    gptoss20b            & Spark/Ollama          & 10/10 & --- \\
+    qwen36-27b           & mesh/local            & 10/10 & --- \\
+    gemma4-31b           & OpenCode/local        & 9/10  & P23 incomplete \\
+    glm47flash           & mesh/local            & 9/10  & P13 \\
+    nemotron3nano        & mesh/local            & 9/10  & P13 \\
+    or-gptoss120b        & OpenRouter            & 9/10  & P4 \\
+    or-nemotron-super    & OpenRouter            & 9/10  & P4 \\
+    oc-gemma4-31b        & OpenCode              & 9/10  & P4 \\
+    spark-gptoss20b      & Spark/Ollama (2$\times$) & 9/10 & P4 (18/20 raw) \\
+    spark-qwen3coder30b  & Spark/Ollama (2$\times$) & 9/10 & P4 (18/20 raw) \\
+    devstral2            & mesh/local            & 8/10  & P1, P4 \\
+    northminicode        & mesh/local            & 8/10  & P4, P13 \\
+    oc-glm51             & OpenCode              & 8/10  & P4, P23 incomplete \\
+    oc-qwen3coder480b    & OpenCode              & 8/10  & P4, P13 \\
+    qwen36-35b           & mesh/local            & 8/10  & P1, P3 \\
+    spark-qwen3-14b      & Spark/Ollama          & 7/10  & P1, P4, P13 \\
+    or-llama33-70b       & OpenRouter            & 2/10  & only P3, P5 pass \\
+    \bottomrule
+  \end{tabular}
+
+  \vspace{2pt}
+  {\footnotesize
+   Per-problem pass count (of 17): P1=14, P2=17, P3=16, P4=10, P5=17,
+   P11=17, P12=17, P13=13, P18=17, P23=14 (+3 incomplete).
+   P4 is a discriminator, NOT a universal failure --- the earlier
+   ``0/11 pass P4'' held only for the smaller 11-model snapshot.}
+\end{table}
+
+% ---------------------------------------------------------------
+% Table 4: aggB-10 (Ollie's lane, SEPARATE 10-problem set)
+% ---------------------------------------------------------------
+\begin{table}[t]
+  \centering
+  \caption{aggB-10 benchmark (P1--P10 canonical, Ollie's lane). Separate
+    problem numbering from BOTH Fleet-30 and mesh-extract-10; not comparable
+    cell-for-cell. Kukla's proxied m1 route shows a reproducible $-2$ delta
+    (P2, P7) vs native spark.}
+  \label{tab:aggb10}
+  \begin{tabular}{llr}
+    \toprule
+    Model & Fleet & Score \\
+    \midrule
+    gpt-oss-120b (alcf)     & CELS/ALCF & 10/10 \\
+    sophia-gptoss20b        & Sophia    & 9/10 \\
+    qwen3-coder-480b        & CELS/ALCF & 7/10 \\
+    sophia-llama31-8b       & Sophia    & 6/10 \\
+    sophia-llama31-70b      & Sophia    & 6/10 \\
+    sophia-llama33-70b      & Sophia    & 5/10 \\
+    kimi-k2.5               & CELS/ALCF & 4/10 \\
+    minimax-m2.5            & CELS/ALCF & 4/10 \\
+    llama70                 & CELS      & 4/10 \\
+    sophia-llama4-scout     & Sophia    & 4/10 \\
+    sophia-llama4-maverick  & Sophia    & 4/10 \\
+    sophia-gemma3-27b       & Sophia    & 4/10 \\
+    sophia-mixtral-8x22b    & Sophia    & 4/10 \\
+    \bottomrule
+  \end{tabular}
+\end{table}

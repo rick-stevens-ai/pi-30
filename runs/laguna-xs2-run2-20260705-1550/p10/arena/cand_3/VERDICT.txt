@@ -1,0 +1,9 @@
+CLEAN
+
+The sieve.py implementation is correct. All edge cases handled properly:
+- n < 2: returns []
+- n == 2: returns [2] (special case avoids size=0)
+- n included: primes <= n correctly returned
+- Even numbers: handled correctly (2 is special-cased, odds-only sieve for rest)
+- Slice-length: calculation (size - start + step - 1) // step is correct and never overflows
+- No off-by-one errors found in testing up to n=10000

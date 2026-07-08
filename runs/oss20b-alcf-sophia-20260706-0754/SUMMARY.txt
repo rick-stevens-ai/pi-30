@@ -1,0 +1,32 @@
+===== SUMMARY (oss20b-alcf-sophia-20260706-0754 / openai/gpt-oss-20b) =====
+P1: PASS
+P2: PASS
+P3: PASS green in 2
+P4: FAIL after 6
+P5: PASS 56.4454 GFLOP/s
+P6: PASS critic+verifier in 1
+P7: PASS
+P8: PASS in 2
+P9: PASS champion=cand_4 @ 18.522
+P10: PASS champion=cand_1 @ 37.5776
+P11: PASS green in 2
+P12: PASS in 4
+P13: PASS green in 2
+P14: PASS in 2
+P15: PASS 27.5020 Mtok/s
+P16: PASS critic+verifier in 2
+P17: FAIL
+P18: FAIL after 5
+P19: FAIL no correct candidate
+P20: FAIL after 5
+P21: FAIL after 5
+P22: FAIL after 5
+P23: STOP plateau best=0.1434
+P24: FAIL
+P25: FAIL
+P26: PASS in 2
+P27: PASS champion=cand_3 @ 0.2939
+P28: PASS in 2
+P29: PASS green in 4
+P30: PASS champion=cand_3 @ 7.0414
+SCORE: 20/30 passed

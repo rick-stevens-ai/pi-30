@@ -1,0 +1,8 @@
+CLEAN
+
+No bugs found in sieve.py. Verified via:
+- Edge cases n < 2 (n = -1, 0, 1), n = 2, n = 3 all return correct results.
+- Upper-bound correctness for both even and odd n (limit formula produces the right largest candidate).
+- Composite marking loop correctly starts at i² with stride i on the compact odd-only sieve.
+- All returned values confirmed prime via independent primality test.
+- Prime counts match known π(n) up to n = 200 and full enumeration up to n = 1000.

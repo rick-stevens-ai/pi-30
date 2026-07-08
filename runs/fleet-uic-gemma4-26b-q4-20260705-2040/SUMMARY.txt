@@ -1,0 +1,56 @@
+===== SUMMARY (fleet-uic-gemma4-26b-q4-20260705-2040 / uic-gemma4-26b-q4) =====
+P1: PASS
+P2: PASS
+P3: PASS green in 6
+P4: PASS in 5
+P5: PASS 34.4325 GFLOP/s
+P6: FAIL
+P7: PASS
+P8: PASS in 2
+P9: PASS champion=cand_3 @ 22.970
+P10: PASS champion=cand_1 @ 35.4037
+P11: PASS green in 2
+P12: PASS in 2
+P13: PASS green in 3
+P14: PASS in 2
+P15: PASS 27.6025 Mtok/s
+P16: PASS critic+verifier in 1
+P17: FAIL
+P18: PASS in 2
+P19: PASS champion=cand_2 @ 187.3127
+P20: PASS green in 2
+P21: PASS in 2
+P22: PASS green in 2
+P23: STOP plateau best=0.1450
+P24: FAIL
+P1: PASS  [resumed-skip]
+P2: PASS  [resumed-skip]
+P3: PASS green in 6  [resumed-skip]
+P4: PASS in 5  [resumed-skip]
+P5: PASS 34.4325 GFLOP/s  [resumed-skip]
+P6: FAIL
+P7: PASS  [resumed-skip]
+P8: PASS in 2  [resumed-skip]
+P9: PASS champion=cand_3 @ 22.970  [resumed-skip]
+P10: PASS champion=cand_1 @ 35.4037  [resumed-skip]
+P11: PASS green in 2  [resumed-skip]
+P12: PASS in 2  [resumed-skip]
+P13: PASS green in 3  [resumed-skip]
+P14: PASS in 2  [resumed-skip]
+P15: PASS 27.6025 Mtok/s  [resumed-skip]
+P16: PASS critic+verifier in 1  [resumed-skip]
+P17: FAIL
+P18: PASS in 2  [resumed-skip]
+P19: PASS champion=cand_2 @ 187.3127  [resumed-skip]
+P20: PASS green in 2  [resumed-skip]
+P21: PASS in 2  [resumed-skip]
+P22: PASS green in 2  [resumed-skip]
+P23: STOP plateau best=0.1513
+P24: FAIL
+P25: PASS
+P26: PASS in 2
+P27: PASS champion=cand_4 @ 0.3280
+P28: PASS in 4
+P29: PASS green in 4
+P30: PASS champion=cand_3 @ 6.5682
+SCORE: 46/30 passed

@@ -1,0 +1,27 @@
+# Stable in-place quicksort wrapper returning List sorted ascending
+
+from typing import Iterable
+
+
+def my_sort(xs) -> list:
+    """
+    Sorts an iterable of comparable items and returns a new immutable order.
+    
+    This implementation uses stable Timsort (via built-in Python sort)
+    which maintains relative ordering for equal elements - essential
+    when multisets must preserve original sequence integrity.
+
+    Args:
+        xs: Any finite, indexable collection with __lt__ comparisons
+
+    Returns:
+        List[T] sorted ascending; preserves stability across duplicate values
+        
+         Edge cases handled by built‑in sort():
+            • Empty input → [] (safe for iteration)
+        
+             For custom algorithm that doesn't use Python's Timsort,
+               ensure stable partitioning or merge logic to preserve
+              relative ordering of items with equal keys.
+    """
+    

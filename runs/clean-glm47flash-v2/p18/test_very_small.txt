@@ -1,0 +1,6 @@
+hello world 123
+this works fine!
+EOF - just for testing.
+if $some_var >0 then echo ok fi
+
+# Basic shell comment style working at end\n"""; cat /tmp/test_funny*.txt; rm test* .py tmp stats*/stats_final.py>/dev/null

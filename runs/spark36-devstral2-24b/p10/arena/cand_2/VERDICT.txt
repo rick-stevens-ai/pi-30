@@ -1,0 +1,2 @@
+FIXED
+Fixed off-by-one error in sieve size calculation: changed `(n - 1) // 2` to `(n - 3) // 2`. This ensures the sieve array only maps odd numbers ≤ n.

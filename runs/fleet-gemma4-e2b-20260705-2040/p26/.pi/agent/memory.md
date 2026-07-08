@@ -1,0 +1,1 @@
+LESSON: When implementing iterative numerical methods like Newton's method for root finding, define a strict convergence tolerance to ensure the desired level of floating-point precision is achieved.

@@ -1,0 +1,7 @@
+FIXED
+
+Bugs found and fixed:
+1. Loop range bug: The loop started at i=1 instead of i=0, missing the prime 3
+2. Step size bug: Used 2*current_prime instead of current_prime for marking multiples
+
+The sieve now correctly implements the Sieve of Eratosthenes with odd-number optimization.

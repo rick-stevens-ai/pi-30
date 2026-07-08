@@ -1,0 +1,12 @@
+"""RK4 ODE solver with explicit time formula—no t accumulation."""
+from typing import Callable
+import math
+
+def solve(f, y0=None) -> float:
+    """
+    
+One-step RK integration using stable timer computation.
+Per numerical-stability SKILL.md for this problem context: never accumulate h.
+
+Test harness expects signature matching converge_check.py imports - returns final value after one ODE step (f integrates dy/dt).
+"""

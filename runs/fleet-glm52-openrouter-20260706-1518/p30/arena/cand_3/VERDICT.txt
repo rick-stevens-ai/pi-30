@@ -1,0 +1,20 @@
+CLEAN
+
+Reviewed sort.py my_sort with fresh/hostile eyes for stability, multiset
+preservation, and edge cases.
+
+Findings:
+- Stability holds: _merge takes left on ties (buf[i] <= a[j]); _insertion_sort
+  uses strict >; descending natural runs use strict > for detection so equal
+  keys are never part of a reversed run. Targeted tagged-duplicate tests
+  (random, mod-7, descending blocks, all-same-key 5000) all match sorted().
+- Multiset preserved exactly: elements only relocated; length invariant holds;
+  Counter checks pass.
+- Edge cases: empty (n<2 -> []), singleton, all-dupes, negatives, bigints,
+  reversed, near-sorted, mixed numeric types all pass built-in suite + extra
+  adversarial tests.
+- No input mutation: operates on list(xs) copy.
+- Single temp buffer sized n, indices always within bounds; runs contiguous,
+  non-overlapping, covering [0,n).
+
+No bug identified; no changes made.

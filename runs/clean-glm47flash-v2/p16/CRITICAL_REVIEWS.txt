@@ -1,0 +1,11 @@
+# P16 SEED race demonstration incomplete
+
+## FINDINGS:
+
+### 1. BROKEN LOCK INITIALIZATION - NameError
+- `self._lock = locking.RLock()` uses undefined variable/module **`locking**`
+- No import statement imports RLocked anywhere, only threading imported with wrong purpose per comment claiming GIL concern (contradicted by Python's true semantics)
+
+No actual data races observable—code raises exception before accessing any shared state.
+
+---

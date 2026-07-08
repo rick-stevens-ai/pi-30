@@ -1,0 +1,32 @@
+===== SUMMARY (or-nemotron3super-120b / nvidia/nemotron-3-super-120b-a12b:free) =====
+P1: PASS
+P2: PASS
+P3: PASS green in 8
+P4: PASS in 2
+P5: PASS 42.1848 GFLOP/s
+P6: PASS critic+verifier in 1
+P7: FAIL
+P8: PASS in 2
+P9: PASS champion=cand_3 @ 18.397
+P10: PASS champion=cand_3 @ 33.7936
+P11: PASS green in 2
+P12: PASS in 3
+P13: FAIL after 6
+P14: PASS in 3
+P15: PASS 28.3842 Mtok/s
+P16: PASS critic+verifier in 3
+P17: FAIL
+P18: PASS in 2
+P19: PASS champion=cand_2 @ 209.1886
+P20: PASS green in 4
+P21: PASS in 2
+P22: PASS green in 2
+P23: PASS 233.5266 Mn/s
+P24: PASS verifier (critic not satisfied)
+P25: FAIL
+P26: PASS in 3
+P27: PASS champion=cand_3 @ 0.3316
+P28: PASS in 2
+P29: PASS green in 2
+P30: PASS champion=cand_1 @ 0.3111
+SCORE: 26/30 passed

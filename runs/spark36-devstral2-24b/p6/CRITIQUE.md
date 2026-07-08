@@ -1,0 +1,2 @@
+NO_ISSUES
+The reduce.py file does not depend on nchunks or non-deterministic FP ordering. The code uses a canonical ordering by sorting the input list by absolute value before summing, which ensures bit-identical results regardless of chunking scheme.

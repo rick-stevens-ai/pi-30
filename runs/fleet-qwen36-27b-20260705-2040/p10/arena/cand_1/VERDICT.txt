@@ -1,0 +1,17 @@
+FIXED
+
+Bug: off-by-one in sieve array size.
+
+The original formula:
+    limit = n - 2
+    size = (limit // 2) + 1
+
+produced an array one slot too large, so the last index mapped to an odd
+number strictly greater than n.  For example:
+  - n=2  → array included index for 3  → primes_up_to(2) returned [2, 3]
+  - n=10 → array included index for 11 → primes_up_to(10) returned [2,3,5,7,11]
+
+Fix: replace both lines with the correct count of odd numbers ≤ n:
+    size = (n - 1) // 2
+
+All smoke tests and additional edge-case tests now pass.

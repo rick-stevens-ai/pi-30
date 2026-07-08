@@ -1,0 +1,121 @@
+==== fleet-uic-qwen36-35b-a3b-20260705-2040 (uic-qwen36-35b-a3b) START Sun Jul  5 20:40:19 CDT 2026 ====
+[P1] stats CLI
+P1: PASS
+[P2] LRU cache + bundled tests
+P2: PASS
+[P3] Roman numerals iterate-until-green
+P3: PASS green in 2
+[P4] stable softmax vs oracle
+P4: PASS in 2
+[P5] matmul GFLOP/s
+P5: round 2 -> 12.9825 GFLOP/s
+P5: PASS 12.9825 GFLOP/s
+[P6] reproducible FP reduction
+P6: PASS critic+verifier in 1
+[P7] parallel backends fan-out
+P7: PASS
+[P8] ODE convergence + reflection
+P8: PASS in 2
+P8: memory.md     1590->    1590 bytes
+[P9] levenshtein tournament best-of-4
+P9: cand_1 score=15.605
+P9: cand_2 score=0
+P9: cand_3 score=0
+P9: cand_4 score=17.185
+P9: PASS champion=cand_4 @ 17.185
+[P10] prime sieve capstone
+P10: cand_1 verdict= score=0
+P10: cand_2 verdict= score=34.7063
+P10: cand_3 verdict= score=0
+P10: PASS champion=cand_2 @ 34.7063
+[P11] balanced parens iterate-until-green
+P11: PASS green in 2
+[P12] base-N conversion oracle
+P12: PASS in 2
+[P13] mini-JSON parser iterate-until-green
+P13: PASS green in 2
+[P14] weighted Dijkstra vs BFS-ref oracle
+P14: PASS in 2
+[P15] word-frequency top-k measurement (Mtok/s)
+P15: round 1 -> 0.1130 Mtok/s
+P15: round 2 -> 28.2408 Mtok/s
+P15: PASS 28.2408 Mtok/s
+[P16] thread-safe counter generator+critic
+P16: PASS critic+verifier in 2
+[P17] serializer fan-out (csv/kv/pylit + codec)
+P17: FAIL
+[P18] Welford online variance reflection
+P18: PASS in 2
+[P19] fast-doubling Fibonacci tournament
+P19: cand_1 score=147.7723
+P19: cand_2 score=196.7229
+P19: cand_3 score=185.5259
+P19: cand_4 score=198.5917
+P19: PASS champion=cand_4 @ 198.5917
+[P20] TTL-LRU with injected clock iterate-until-green
+P20: PASS green in 3
+[P21] interval merge oracle
+P21: PASS in 3
+[P22] toposort + cycle detect iterate-until-green
+P22: PASS green in 2
+[P23] prime-count sieve measurement (Mn/s)
+P23: round 1 -> 0.1413 Mn/s
+P23: round 2 -> 0.1259 Mn/s
+P23: round 3 -> 80.6010 Mn/s
+P23: PASS 80.6010 Mn/s
+[P24] token-bucket rate limiter generator+critic
+P24: PASS critic+verifier in 2
+[P25] 3-stage stats pipeline fan-out
+P25: PASS
+[P26] Newton sqrt to full precision reflection
+P26: PASS in 3
+[P27] overlapping substring count tournament
+P27: cand_1 score=0.0738
+P27: cand_2 score=0.2644
+P27: cand_3 score=0.3119
+P27: cand_4 score=0.3268
+P27: PASS champion=cand_4 @ 0.3268
+[P28] matrix determinant vs numpy oracle
+P28: PASS in 2
+[P29] precedence calculator (no eval) iterate-until-green
+P29: PASS green in 3
+[P30] sort-kernel capstone tournament + critic + bench
+P30: cand_1 verdict= score=0
+P30: cand_2 verdict= score=0
+==== fleet-uic-qwen36-35b-a3b-20260705-2040 (uic-qwen36-35b-a3b) START Mon Jul  6 13:40:54 CDT 2026 ====
+P1: PASS  [resumed-skip]
+P2: PASS  [resumed-skip]
+P3: PASS green in 2  [resumed-skip]
+P4: PASS in 2  [resumed-skip]
+P5: PASS 12.9825 GFLOP/s  [resumed-skip]
+P6: PASS critic+verifier in 1  [resumed-skip]
+P7: PASS  [resumed-skip]
+P8: PASS in 2  [resumed-skip]
+P9: PASS champion=cand_4 @ 17.185  [resumed-skip]
+P10: PASS champion=cand_2 @ 34.7063  [resumed-skip]
+P11: PASS green in 2  [resumed-skip]
+P12: PASS in 2  [resumed-skip]
+P13: PASS green in 2  [resumed-skip]
+P14: PASS in 2  [resumed-skip]
+P15: PASS 28.2408 Mtok/s  [resumed-skip]
+P16: PASS critic+verifier in 2  [resumed-skip]
+[P17] serializer fan-out (csv/kv/pylit + codec)
+P17: PASS
+P18: PASS in 2  [resumed-skip]
+P19: PASS champion=cand_4 @ 198.5917  [resumed-skip]
+P20: PASS green in 3  [resumed-skip]
+P21: PASS in 3  [resumed-skip]
+P22: PASS green in 2  [resumed-skip]
+P23: PASS 80.6010 Mn/s  [resumed-skip]
+P24: PASS critic+verifier in 2  [resumed-skip]
+P25: PASS  [resumed-skip]
+P26: PASS in 3  [resumed-skip]
+P27: PASS champion=cand_4 @ 0.3268  [resumed-skip]
+P28: PASS in 2  [resumed-skip]
+P29: PASS green in 3  [resumed-skip]
+[P30] sort-kernel capstone tournament + critic + bench
+P30: cand_1 verdict= score=0
+P30: cand_2 verdict= score=0
+P30: cand_3 verdict= score=0.2331
+P30: PASS champion=cand_3 @ 0.2331
+==== fleet-uic-qwen36-35b-a3b-20260705-2040 DONE Mon Jul  6 13:52:22 CDT 2026 ====

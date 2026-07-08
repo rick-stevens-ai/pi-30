@@ -1,0 +1,39 @@
+[P1 L1] single-shot stats CLI
+P1: PASS
+[P2 L2] LRU cache + bundled tests
+P2: PASS (independent verifier)
+P2: agent's own tests green
+[P3 L3] Roman numerals iterate-until-green
+P3: PASS green in 2 iteration(s)
+[P4 L4] numerically-stable softmax vs oracle
+P4: PASS matches oracle in 3 (OK maxerr=1.110e-16)
+[P5 L5] matmul GFLOP/s optimization
+P5: round 1 -> 0.0062 GFLOP/s (best 0)
+P5: round 2 -> 61.3427 GFLOP/s (best 0.0062)
+P5: PASS hit target 61.3427 GFLOP/s
+[P6 L6] reproducible FP reduction (generator+critic)
+P6: PASS critic satisfied + verifier green in 1 (OK bit-identical: 2.1800000000000248e+18)
+[P7 L7] parallel backends fan-out + integrate
+P7: workers done; backends present: 0/3
+P7: PASS
+[P8 L8] ODE integrator convergence + memory reflection
+P8: PASS converged in 2 (OK converged)
+P8: memory.md grew      170 ->      348 bytes (reflection recorded)
+[P9 L9] levenshtein tournament best-of-4
+P9: cand_* no artifact
+P9: FAIL no correct candidate
+[P10 L10] prime sieve capstone (tournament+critic+bench)
+P10: cand_* no artifact
+P10: FAIL no correct candidate
+
+===== SUMMARY =====
+P1: PASS
+P2: PASS (independent verifier)
+P3: PASS green in 2 iteration(s)
+P4: PASS matches oracle in 3 (OK maxerr=1.110e-16)
+P5: PASS hit target 61.3427 GFLOP/s
+P6: PASS critic satisfied + verifier green in 1 (OK bit-identical: 2.1800000000000248e+18)
+P7: PASS
+P8: PASS converged in 2 (OK converged)
+P9: FAIL no correct candidate
+P10: FAIL no correct candidate

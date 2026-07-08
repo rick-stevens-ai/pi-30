@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# editor / OS
+.DS_Store
+._*
+
+# backups & scratch
+*.bak
+*.bak-*
+*.was10-bak-*
+*~
+*.orig
+
+# LaTeX build artifacts
+*.aux
+*.out
+*.toc
+report/*.log
+
+# local runtime state (do not commit)
+or_backoff_status.txt
+*.boot.log

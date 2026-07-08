@@ -1,0 +1,13 @@
+CLEAN
+
+Inspected sieve.py for off-by-one (n included?), n<2, even-handling, and slice-length bugs.
+
+Findings — no real bugs:
+- n inclusive: size = (n-1)//2 yields max odd value 2*size+1 <= n for both odd and even n; value 2 prepended separately. Verified for n in {2,3,4,5,9,10,13,25,100,10007,100000}.
+- n < 2: early `return []`. Verified 0 -> [], 1 -> [].
+- Even handling: every odd-index i represents value 2i+1; no even candidates are tracked, 2 is added manually. No even-value indexing confusion. limit_idx = (isqrt(n)-1)//2 correctly bounds the outer loop for even or odd isqrt(n).
+- Slice length: extended slice sieve[start_i:size+1:step] contains exactly (size-start_i)//step + 1 elements, matching the RHS b"\x00"*count. The `if count > 0` guard prevents assignment when start_i > size (where Python floor division would make count <= 0). Stride step=p in odd-index space is correct (consecutive odd multiples of odd p differ by 2p in value = p in index).
+
+Validation: fuzz-tested primes_up_to(n) against an independent trial-division brute force for 2000+ random n in [0,8000] plus boundary/square cases {9,25,49,121,169,99991,100000} — all match.
+
+No fix applied.

@@ -1,0 +1,11 @@
+CLEAN
+
+The `my_sort` function in `sort.py` is stable and handles all edge cases correctly:
+- Empty lists: Returns an empty list
+- Singletons: Returns the single-element list unchanged
+- Duplicates: Preserves all duplicates in sorted order
+- Negative numbers: Sorts correctly including negatives
+- Large integers: Handles very large integers (tested with 10^18)
+- Large arrays: Uses Python's built-in `sorted()` which implements Timsort (O(n log n) complexity)
+
+All test cases pass successfully.

@@ -1,0 +1,32 @@
+===== SUMMARY (nemotron / nemotron-3-ultra) =====
+P1: PASS
+P2: PASS
+P3: PASS green in 2
+P4: FAIL after 6
+P5: PASS 45.6574 GFLOP/s
+P6: PASS critic+verifier in 1
+P7: PASS
+P8: PASS in 2
+P9: PASS champion=cand_1 @ 24.177
+P10: FAIL no correct candidate
+P11: PASS green in 2
+P12: PASS in 3
+P13: PASS green in 2
+P14: PASS in 2
+P15: PASS 30.2557 Mtok/s
+P16: PASS critic+verifier in 1
+P17: FAIL
+P18: PASS in 3
+P19: PASS champion=cand_4 @ 209.8233
+P20: PASS green in 2
+P21: PASS in 2
+P22: PASS green in 2
+P23: PASS 231.1404 Mn/s
+P24: PASS critic+verifier in 1
+P25: FAIL
+P26: PASS in 2
+P27: PASS champion=cand_4 @ 0.3238
+P28: PASS in 2
+P29: PASS green in 2
+P30: PASS champion=cand_3 @ 7.0446
+SCORE: 26/30 passed

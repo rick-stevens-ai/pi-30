@@ -1,0 +1,16 @@
+FIXED
+
+Bug: off-by-one in sieve capacity (limit calculation).
+
+Root cause: `limit = n // 2` computes the wrong number of odd-number slots.
+The mapping is index i → value 2*i+1, so max representable odd value is
+2*(limit-1)+1 = 2*limit - 1. With limit = n//2 this gives 2*(n//2)-1 which is
+always one less than n when n is odd (e.g., n=5 → limit=2 → covers only up to 3).
+
+Symptom: every odd prime at position n was missing from the output.
+Verified by failing for all odd primes in [5, 29] and passing for even n
+(where n itself isn't an odd prime being tested).
+
+Fix: `limit = (n + 1) // 2` — ensures `(2*limit - 1) >= n`, covering all
+odd values ≤ n. The collection loop (`for i in range(1, limit)`) then
+automatically picks them up.

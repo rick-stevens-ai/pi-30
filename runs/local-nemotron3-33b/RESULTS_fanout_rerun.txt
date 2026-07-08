@@ -1,0 +1,8 @@
+==== local-nemotron3-33b (nemotron3:33b via spark-95fe) FANOUT-RERUN START Sun Jul  5 10:31:50 CDT 2026 ====
+[P7] parallel backends fan-out
+P7: FAIL
+[P17] serializer fan-out (csv/kv/pylit + codec)
+P17: FAIL
+[P25] 3-stage stats pipeline fan-out
+P25: PASS
+==== local-nemotron3-33b FANOUT-RERUN DONE Sun Jul  5 10:57:59 CDT 2026 ====

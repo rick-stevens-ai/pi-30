@@ -1,0 +1,118 @@
+==== fleet-uic-laguna-xs2-20260705-2040 (uic-laguna-xs2) START Sun Jul  5 20:40:19 CDT 2026 ====
+[P1] stats CLI
+P1: PASS
+[P2] LRU cache + bundled tests
+P2: PASS
+[P3] Roman numerals iterate-until-green
+P3: PASS green in 2
+[P4] stable softmax vs oracle
+P4: PASS in 4
+[P5] matmul GFLOP/s
+P5: round 2 -> 40.1749 GFLOP/s
+P5: PASS 40.1749 GFLOP/s
+[P6] reproducible FP reduction
+P6: PASS critic+verifier in 1
+[P7] parallel backends fan-out
+P7: PASS
+[P8] ODE convergence + reflection
+P8: PASS in 2
+P8: memory.md     1590->    1765 bytes
+[P9] levenshtein tournament best-of-4
+P9: cand_1 score=15.341
+P9: cand_2 score=13.382
+P9: cand_3 score=15.448
+P9: cand_4 score=11.198
+P9: PASS champion=cand_3 @ 15.448
+[P10] prime sieve capstone
+P10: cand_1 verdict= score=0
+P10: cand_2 verdict=CLEAN score=28.2356
+P10: cand_3 verdict=CLEAN score=0
+P10: PASS champion=cand_2 @ 28.2356
+[P11] balanced parens iterate-until-green
+P11: PASS green in 2
+[P12] base-N conversion oracle
+P12: PASS in 2
+[P13] mini-JSON parser iterate-until-green
+P13: PASS green in 2
+[P14] weighted Dijkstra vs BFS-ref oracle
+P14: PASS in 2
+[P15] word-frequency top-k measurement (Mtok/s)
+P15: round 1 -> 0.1132 Mtok/s
+P15: round 2 -> 26.9478 Mtok/s
+P15: PASS 26.9478 Mtok/s
+[P16] thread-safe counter generator+critic
+P16: PASS critic+verifier in 1
+[P17] serializer fan-out (csv/kv/pylit + codec)
+P17: PASS
+[P18] Welford online variance reflection
+P18: PASS in 2
+[P19] fast-doubling Fibonacci tournament
+P19: cand_1 score=0
+P19: cand_2 score=0
+P19: cand_3 score=205.3248
+P19: cand_4 score=192.1014
+P19: PASS champion=cand_3 @ 205.3248
+[P20] TTL-LRU with injected clock iterate-until-green
+P20: PASS green in 2
+[P21] interval merge oracle
+P21: PASS in 2
+[P22] toposort + cycle detect iterate-until-green
+P22: PASS green in 2
+[P23] prime-count sieve measurement (Mn/s)
+P23: round 1 -> 0.1276 Mn/s
+P23: round 2 -> 210.2073 Mn/s
+P23: PASS 210.2073 Mn/s
+[P24] token-bucket rate limiter generator+critic
+P24: PASS critic+verifier in 1
+[P25] 3-stage stats pipeline fan-out
+P25: PASS
+[P26] Newton sqrt to full precision reflection
+P26: PASS in 2
+[P27] overlapping substring count tournament
+P27: cand_1 score=0.2899
+P27: cand_2 score=0.0671
+P27: cand_3 score=0.2192
+P27: cand_4 score=0.1097
+P27: PASS champion=cand_1 @ 0.2899
+[P28] matrix determinant vs numpy oracle
+P28: PASS in 2
+[P29] precedence calculator (no eval) iterate-until-green
+P29: PASS green in 2
+[P30] sort-kernel capstone tournament + critic + bench
+P30: cand_1 verdict=CLEAN score=0.9257
+P30: cand_2 verdict=FIXED score=0.4222
+P30: cand_3 verdict=CLEAN score=0.2693
+P30: PASS champion=cand_1 @ 0.9257
+==== fleet-uic-laguna-xs2-20260705-2040 DONE Sun Jul  5 21:29:44 CDT 2026 ====
+===== SUMMARY (fleet-uic-laguna-xs2-20260705-2040 / uic-laguna-xs2) =====
+P1: PASS
+P2: PASS
+P3: PASS green in 2
+P4: PASS in 4
+P5: PASS 40.1749 GFLOP/s
+P6: PASS critic+verifier in 1
+P7: PASS
+P8: PASS in 2
+P9: PASS champion=cand_3 @ 15.448
+P10: PASS champion=cand_2 @ 28.2356
+P11: PASS green in 2
+P12: PASS in 2
+P13: PASS green in 2
+P14: PASS in 2
+P15: PASS 26.9478 Mtok/s
+P16: PASS critic+verifier in 1
+P17: PASS
+P18: PASS in 2
+P19: PASS champion=cand_3 @ 205.3248
+P20: PASS green in 2
+P21: PASS in 2
+P22: PASS green in 2
+P23: PASS 210.2073 Mn/s
+P24: PASS critic+verifier in 1
+P25: PASS
+P26: PASS in 2
+P27: PASS champion=cand_1 @ 0.2899
+P28: PASS in 2
+P29: PASS green in 2
+P30: PASS champion=cand_1 @ 0.9257
+SCORE: 30/30 passed

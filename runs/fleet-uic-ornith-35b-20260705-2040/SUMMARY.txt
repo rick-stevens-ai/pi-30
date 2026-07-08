@@ -1,0 +1,32 @@
+===== SUMMARY (fleet-uic-ornith-35b-20260705-2040 / uic-ornith-35b) =====
+P1: PASS
+P2: PASS
+P3: PASS green in 2
+P4: FAIL after 6
+P5: PASS 25.5466 GFLOP/s
+P6: PASS critic+verifier in 1
+P7: PASS
+P8: PASS in 2
+P9: FAIL no correct candidate
+P10: FAIL no correct candidate
+P11: PASS green in 2
+P12: PASS in 4
+P13: FAIL after 6
+P14: PASS in 2
+P15: PASS 26.6914 Mtok/s
+P16: PASS critic+verifier in 3
+P17: FAIL
+P18: PASS in 2
+P19: PASS champion=cand_3 @ 201.1044
+P20: PASS green in 2
+P21: PASS in 2
+P22: PASS green in 2
+P23: PASS 185.2123 Mn/s
+P24: FAIL
+P25: PASS
+P26: FAIL after 5
+P27: PASS champion=cand_1 @ 0.2483
+P28: PASS in 2
+P29: PASS green in 4
+P30: PASS champion=cand_2 @ 1.3322
+SCORE: 23/30 passed

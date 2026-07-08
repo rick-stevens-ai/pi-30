@@ -1,0 +1,233 @@
+==== oss20b-openrouter-20260706-0754 (openai/gpt-oss-20b:free) START Mon Jul  6 07:54:12 CDT 2026 ====
+[P1] stats CLI
+P1: PASS
+[P2] LRU cache + bundled tests
+P2: FAIL
+[P3] Roman numerals iterate-until-green
+P3: FAIL after 8
+[P4] stable softmax vs oracle
+P4: FAIL after 6
+[P5] matmul GFLOP/s
+P5: round 5 -> 35.8360 GFLOP/s
+P5: PASS 35.8360 GFLOP/s
+[P6] reproducible FP reduction
+P6: FAIL
+[P7] parallel backends fan-out
+P7: FAIL
+[P8] ODE convergence + reflection
+P8: FAIL after 6
+P8: memory.md     3871->    3871 bytes
+[P9] levenshtein tournament best-of-4
+P9: cand_1 score=0
+P9: cand_3 score=0
+P9: FAIL no correct candidate
+[P10] prime sieve capstone
+P10: cand_3 verdict= score=0
+P10: FAIL no correct candidate
+[P11] balanced parens iterate-until-green
+P11: FAIL after 5
+[P12] base-N conversion oracle
+P12: FAIL after 5
+[P13] mini-JSON parser iterate-until-green
+P13: FAIL after 6
+[P14] weighted Dijkstra vs BFS-ref oracle
+P14: FAIL after 5
+[P15] word-frequency top-k measurement (Mtok/s)
+P15: round 1 -> 0.1110 Mtok/s
+P15: round 2 -> 0.1135 Mtok/s
+P15: round 3 -> 0.1142 Mtok/s
+P15: round 4 -> 0.1135 Mtok/s
+P15: round 5 -> 0.1135 Mtok/s
+P15: STOP plateau best=0.1142
+[P16] thread-safe counter generator+critic
+P16: FAIL
+[P17] serializer fan-out (csv/kv/pylit + codec)
+P17: FAIL
+[P18] Welford online variance reflection
+P18: PASS in 5
+[P19] fast-doubling Fibonacci tournament
+P19: cand_1 score=155.9383
+P19: cand_2 score=0
+P19: cand_3 score=0
+P19: cand_4 score=0
+P19: PASS champion=cand_1 @ 155.9383
+[P20] TTL-LRU with injected clock iterate-until-green
+P20: FAIL after 5
+[P21] interval merge oracle
+P21: FAIL after 5
+[P22] toposort + cycle detect iterate-until-green
+P22: FAIL after 5
+[P23] prime-count sieve measurement (Mn/s)
+P23: round 1 -> 0.1513 Mn/s
+P23: round 2 -> 0.1497 Mn/s
+P23: round 3 -> 0.1437 Mn/s
+P23: STOP plateau best=0.1513
+[P24] token-bucket rate limiter generator+critic
+P24: FAIL
+[P25] 3-stage stats pipeline fan-out
+P25: FAIL
+[P26] Newton sqrt to full precision reflection
+P26: FAIL after 5
+[P27] overlapping substring count tournament
+P27: cand_2 score=0
+P27: cand_3 score=0.2912
+P27: PASS champion=cand_3 @ 0.2912
+[P28] matrix determinant vs numpy oracle
+P28: FAIL after 5
+[P29] precedence calculator (no eval) iterate-until-green
+P29: FAIL after 6
+[P30] sort-kernel capstone tournament + critic + bench
+P30: cand_1 verdict= score=7.0553
+P30: cand_2 verdict= score=6.4849
+P30: cand_3 verdict= score=2.1568
+P30: PASS champion=cand_1 @ 7.0553
+==== oss20b-openrouter-20260706-0754 DONE Mon Jul  6 08:57:04 CDT 2026 ====
+==== oss20b-openrouter-20260706-0754 (openai/gpt-oss-20b:free) START Mon Jul  6 15:37:44 CDT 2026 ====
+P1: PASS  [resumed-skip]
+[P2] LRU cache + bundled tests
+P2: FAIL
+[P3] Roman numerals iterate-until-green
+P3: FAIL after 8
+[P4] stable softmax vs oracle
+P4: FAIL after 6
+P5: PASS 35.8360 GFLOP/s  [resumed-skip]
+[P6] reproducible FP reduction
+P6: FAIL
+[P7] parallel backends fan-out
+P7: FAIL
+[P8] ODE convergence + reflection
+P8: PASS in 2
+P8: memory.md     4794->    4794 bytes
+[P9] levenshtein tournament best-of-4
+P9: cand_1 score=0
+P9: cand_2 score=0
+P9: cand_3 score=0
+P9: cand_4 score=0
+P9: FAIL no correct candidate
+[P10] prime sieve capstone
+P10: cand_3 verdict=CLEAN score=0
+P10: FAIL no correct candidate
+[P11] balanced parens iterate-until-green
+P11: PASS green in 4
+[P12] base-N conversion oracle
+P12: FAIL after 5
+[P13] mini-JSON parser iterate-until-green
+P13: FAIL after 6
+[P14] weighted Dijkstra vs BFS-ref oracle
+P14: FAIL after 5
+[P15] word-frequency top-k measurement (Mtok/s)
+P15: round 1 -> 0.1226 Mtok/s
+P15: round 2 -> 0.1223 Mtok/s
+P15: round 3 -> 0.1226 Mtok/s
+P15: STOP plateau best=0.1226
+[P16] thread-safe counter generator+critic
+P16: PASS critic+verifier in 5
+[P17] serializer fan-out (csv/kv/pylit + codec)
+P17: FAIL
+P18: PASS in 5  [resumed-skip]
+P19: PASS champion=cand_1 @ 155.9383  [resumed-skip]
+[P20] TTL-LRU with injected clock iterate-until-green
+P20: FAIL after 5
+[P21] interval merge oracle
+P21: FAIL after 5
+[P22] toposort + cycle detect iterate-until-green
+P22: FAIL after 5
+[P23] prime-count sieve measurement (Mn/s)
+P23: round 1 -> 0.1514 Mn/s
+P23: round 2 -> 0.1537 Mn/s
+P23: round 3 -> 0.1506 Mn/s
+P23: round 4 -> 0.1557 Mn/s
+P23: round 5 -> 0.1464 Mn/s
+P23: round 6 -> 0.1507 Mn/s
+P23: STOP plateau best=0.1557
+[P24] token-bucket rate limiter generator+critic
+P24: FAIL
+[P25] 3-stage stats pipeline fan-out
+P25: FAIL
+[P26] Newton sqrt to full precision reflection
+P26: FAIL after 5
+P27: PASS champion=cand_3 @ 0.2912  [resumed-skip]
+[P28] matrix determinant vs numpy oracle
+P28: FAIL after 5
+[P29] precedence calculator (no eval) iterate-until-green
+P29: FAIL after 6
+P30: PASS champion=cand_1 @ 7.0553  [resumed-skip]
+==== oss20b-openrouter-20260706-0754 DONE Mon Jul  6 16:21:50 CDT 2026 ====
+==== oss20b-openrouter-20260706-0754 (openai/gpt-oss-20b:free) START Mon Jul  6 16:22:21 CDT 2026 ====
+P1: PASS  [resumed-skip]  [resumed-skip]
+[P2] LRU cache + bundled tests
+P2: FAIL
+[P3] Roman numerals iterate-until-green
+P3: FAIL after 8
+[P4] stable softmax vs oracle
+P4: FAIL after 6
+P5: PASS 35.8360 GFLOP/s  [resumed-skip]  [resumed-skip]
+[P6] reproducible FP reduction
+P6: FAIL
+[P7] parallel backends fan-out
+P7: FAIL
+P8: PASS in 2  [resumed-skip]
+[P9] levenshtein tournament best-of-4
+P9: cand_1 score=0
+P9: cand_2 score=13.479
+P9: cand_3 score=13.127
+P9: cand_4 score=0
+P9: PASS champion=cand_2 @ 13.479
+[P10] prime sieve capstone
+P10: cand_1 verdict= score=0
+P10: cand_2 verdict= score=0
+P10: cand_3 verdict=CLEAN score=0
+P10: FAIL no correct candidate
+P11: PASS green in 4  [resumed-skip]
+[P12] base-N conversion oracle
+P12: FAIL after 5
+[P13] mini-JSON parser iterate-until-green
+P13: FAIL after 6
+[P14] weighted Dijkstra vs BFS-ref oracle
+P14: FAIL after 5
+[P15] word-frequency top-k measurement (Mtok/s)
+P15: round 1 -> 0.1226 Mtok/s
+P15: round 2 -> 0.1124 Mtok/s
+P15: round 3 -> 0.1202 Mtok/s
+P15: STOP plateau best=0.1226
+P16: PASS critic+verifier in 5  [resumed-skip]
+[P17] serializer fan-out (csv/kv/pylit + codec)
+P17: FAIL
+P18: PASS in 5  [resumed-skip]  [resumed-skip]
+P19: PASS champion=cand_1 @ 155.9383  [resumed-skip]  [resumed-skip]
+[P20] TTL-LRU with injected clock iterate-until-green
+P20: FAIL after 5
+[P21] interval merge oracle
+P21: FAIL after 5
+[P22] toposort + cycle detect iterate-until-green
+P22: FAIL after 5
+[P23] prime-count sieve measurement (Mn/s)
+P23: round 1 -> 0.1526 Mn/s
+P23: round 2 -> 0.1304 Mn/s
+P23: round 3 -> 0.1415 Mn/s
+P23: STOP plateau best=0.1526
+[P24] token-bucket rate limiter generator+critic
+P24: FAIL
+[P25] 3-stage stats pipeline fan-out
+P25: FAIL
+[P26] Newton sqrt to full precision reflection
+P26: FAIL after 5
+P27: PASS champion=cand_3 @ 0.2912  [resumed-skip]  [resumed-skip]
+[P28] matrix determinant vs numpy oracle
+P28: FAIL after 5
+[P29] precedence calculator (no eval) iterate-until-green
+P29: FAIL after 6
+P30: PASS champion=cand_1 @ 7.0553  [resumed-skip]  [resumed-skip]
+==== oss20b-openrouter-20260706-0754 DONE Mon Jul  6 17:14:28 CDT 2026 ====
+==== oss20b-openrouter-20260706-0754 (openai/gpt-oss-20b:free) START Mon Jul  6 17:14:58 CDT 2026 ====
+P1: PASS  [resumed-skip]  [resumed-skip]  [resumed-skip]
+[P2] LRU cache + bundled tests
+P2: FAIL
+[P3] Roman numerals iterate-until-green
+P3: FAIL after 8
+[P4] stable softmax vs oracle
+P4: FAIL after 6
+P5: PASS 35.8360 GFLOP/s  [resumed-skip]  [resumed-skip]  [resumed-skip]
+[P6] reproducible FP reduction
+P6: FAIL
+[P7] parallel backends fan-out

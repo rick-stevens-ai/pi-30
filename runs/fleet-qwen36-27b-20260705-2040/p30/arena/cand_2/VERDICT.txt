@@ -1,0 +1,15 @@
+CLEAN
+
+Reviewed my_sort (iterative bottom-up merge sort with insertion-sort cutoff):
+
+- Empty list / singletons: handled by n <= 1 early return. Correct.
+- Negatives: uses standard > / <= comparisons. Correct.
+- Duplicates / multiset preservation: verified with 1000 random tests —
+  Counter(xs) == Counter(result) always holds. Correct.
+- Stability: insertion sort uses strict > (no swap on equality); merge uses
+  <= (left element taken first on equality). Both are stable. Verified with
+  500 random tagged-element tests. Correct.
+- No mutation of input: works on list(xs) copy. Correct.
+- Large inputs (10,000 elements): passes. Correct.
+
+No bugs found.

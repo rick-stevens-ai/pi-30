@@ -1,0 +1,3 @@
+NO ISSUES
+
+No runtime behavior yet exists for the summation algorithm; _p6_parallel_reducer is defined but has no implementation that uses fum to actually sum numbers across chunks or orders them sequentially, so there’s nothing on which a non-deterministic FP ordering could manifest. Since chunk_count (not nchunks) isn’t used as an argument in any reduction step visible here and the function currently only declares its signature with documentation about deterministic behavior but lacks executable summation logic of fum applied per value or across chunks within each call, there are no real issues found regarding dependence on input orderings.

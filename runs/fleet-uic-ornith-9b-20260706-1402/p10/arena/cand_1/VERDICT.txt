@@ -1,0 +1,25 @@
+FIXED
+
+Two bugs in sieve.py:
+
+Bug 1 — `limit` off-by-one for even n (slice-length bug):
+    limit = n // 2 + 1     # WRONG when n is even
+    Index i encodes number (i*2+1). For even n, this overflows by one.
+    E.g., n=6 → limit=4 includes index 3 → number 7, which exceeds n.
+
+Fix:
+    limit = (n - 1) // 2 + 1     # maps exactly to numbers ≤ n
+
+Bug 2 — spurious `(i & 1)` filter in result comprehension:
+    odds = [... for i, v in enumerate(sieve) if v and (i & 1)]
+    The `(i & 1)` mask discards every other index. Index 0→number-1 is
+    correctly excluded, but so are valid odd primes at even indices:
+    number 5 (idx=2), number 9 would be marked but skipped, etc. This
+    silently drops ~half of all candidate primes from the output.
+
+Fix — drop `(i & 1)` entirely and iterate only over valid sieve slots:
+    odds = [(i << 1) | 1 for i in range(1, limit) if sieve[i]]
+
+The slice-assignment marking logic (sieve[base::p]) was correct; both
+bugs above produced wrong output. Verified against brute-force prime
+lists up to n=1000: all pass after fix.

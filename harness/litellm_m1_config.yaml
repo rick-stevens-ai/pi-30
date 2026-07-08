@@ -1,0 +1,121 @@
+# LiteLLM Aggregator B (m1) — fronts LOCAL-INFERENCE models on Spark + LM Studio.
+# Single OpenAI-compatible endpoint; route by model_name.
+# Companion to CherryRd Aggregator A (argo/alcf/cels server roster).
+# Started via: litellm --config litellm_m1_config.yaml --host 0.0.0.0 --port 4001
+# No DB required (general_settings store_model_in_db not set => in-memory).
+#
+# Spark36 (Ollama, OpenAI-compat): http://<tailnet-host>:11434/v1
+# LM Studio (m3acbook):            http://<tailnet-m3acbook>:1234/v1
+# Ollama/LM Studio need no real key; use a placeholder.
+
+model_list:
+  # ---- Spark36 (Ollama) capability-interesting open-weights ----
+  - model_name: "spark/gpt-oss-120b"
+    litellm_params:
+      model: "openai/gpt-oss:120b"
+      api_base: "http://<tailnet-host>:11434/v1"
+      api_key: "ollama"
+  - model_name: "spark/gpt-oss-20b"
+    litellm_params:
+      model: "openai/gpt-oss:20b"
+      api_base: "http://<tailnet-host>:11434/v1"
+      api_key: "ollama"
+  - model_name: "spark/qwen3-coder-30b"
+    litellm_params:
+      model: "openai/qwen3-coder:30b"
+      api_base: "http://<tailnet-host>:11434/v1"
+      api_key: "ollama"
+  - model_name: "spark/glm-4.7-flash"
+    litellm_params:
+      model: "openai/glm-4.7-flash:latest"
+      api_base: "http://<tailnet-host>:11434/v1"
+      api_key: "ollama"
+  - model_name: "spark/nemotron-3-super-120b"
+    litellm_params:
+      model: "openai/nemotron-3-super:120b"
+      api_base: "http://<tailnet-host>:11434/v1"
+      api_key: "ollama"
+  - model_name: "spark/deepseek-r1-32b"
+    litellm_params:
+      model: "openai/deepseek-r1:32b"
+      api_base: "http://<tailnet-host>:11434/v1"
+      api_key: "ollama"
+  - model_name: "spark/codestral-22b"
+    litellm_params:
+      model: "openai/codestral:22b"
+      api_base: "http://<tailnet-host>:11434/v1"
+      api_key: "ollama"
+  - model_name: "spark/devstral-small-2-24b"
+    litellm_params:
+      model: "openai/devstral-small-2:24b"
+      api_base: "http://<tailnet-host>:11434/v1"
+      api_key: "ollama"
+  - model_name: "spark/mistral-small-24b"
+    litellm_params:
+      model: "openai/mistral-small:24b"
+      api_base: "http://<tailnet-host>:11434/v1"
+      api_key: "ollama"
+  - model_name: "spark/qwen3-14b"
+    litellm_params:
+      model: "openai/qwen3:14b"
+      api_base: "http://<tailnet-host>:11434/v1"
+      api_key: "ollama"
+
+  # ---- LM Studio (m3acbook) capability-interesting open-weights ----
+  - model_name: "lmstudio/gpt-oss-120b"
+    litellm_params:
+      model: "openai/openai/gpt-oss-120b"
+      api_base: "http://<tailnet-m3acbook>:1234/v1"
+      api_key: "lmstudio"
+  - model_name: "lmstudio/gpt-oss-20b"
+    litellm_params:
+      model: "openai/openai/gpt-oss-20b"
+      api_base: "http://<tailnet-m3acbook>:1234/v1"
+      api_key: "lmstudio"
+  - model_name: "lmstudio/qwen3-coder-30b"
+    litellm_params:
+      model: "openai/qwen/qwen3-coder-30b"
+      api_base: "http://<tailnet-m3acbook>:1234/v1"
+      api_key: "lmstudio"
+  - model_name: "lmstudio/qwen3-next-80b"
+    litellm_params:
+      model: "openai/qwen/qwen3-next-80b"
+      api_base: "http://<tailnet-m3acbook>:1234/v1"
+      api_key: "lmstudio"
+  - model_name: "lmstudio/seed-oss-36b"
+    litellm_params:
+      model: "openai/bytedance/seed-oss-36b"
+      api_base: "http://<tailnet-m3acbook>:1234/v1"
+      api_key: "lmstudio"
+  - model_name: "lmstudio/glm-4.7-flash"
+    litellm_params:
+      model: "openai/zai-org/glm-4.7-flash"
+      api_base: "http://<tailnet-m3acbook>:1234/v1"
+      api_key: "lmstudio"
+  - model_name: "lmstudio/gemma-3-27b"
+    litellm_params:
+      model: "openai/gemma-3-27b-it"
+      api_base: "http://<tailnet-m3acbook>:1234/v1"
+      api_key: "lmstudio"
+  - model_name: "lmstudio/deepseek-r1-distill-llama-70b"
+    litellm_params:
+      model: "openai/lmstudio-community/deepseek-r1-distill-llama-70b"
+      api_base: "http://<tailnet-m3acbook>:1234/v1"
+      api_key: "lmstudio"
+  - model_name: "lmstudio/llama-3.3-70b"
+    litellm_params:
+      model: "openai/llama-3.3-70b-instruct"
+      api_base: "http://<tailnet-m3acbook>:1234/v1"
+      api_key: "lmstudio"
+  - model_name: "lmstudio/qwq-32b"
+    litellm_params:
+      model: "openai/qwq-32b-preview"
+      api_base: "http://<tailnet-m3acbook>:1234/v1"
+      api_key: "lmstudio"
+
+litellm_settings:
+  drop_params: true
+  request_timeout: 600
+
+general_settings:
+  master_key: "sk-m1-aggregator-b"

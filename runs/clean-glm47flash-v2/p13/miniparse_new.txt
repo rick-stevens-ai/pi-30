@@ -1,0 +1,5 @@
+def parse(s):
+    i=0
+	s=s
+while len(a:=s)>i and (t := a[i]).isspace():
+	print("whitespace")

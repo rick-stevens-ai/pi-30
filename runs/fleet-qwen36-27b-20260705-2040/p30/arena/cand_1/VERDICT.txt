@@ -1,0 +1,13 @@
+CLEAN
+
+Inspection of sort.py my_sort (bottom-up iterative mergesort):
+
+- Empty list: returns [] via early return (n <= 1) — correct.
+- Single element: returns copy — correct.
+- Negative numbers: <= comparison works for any comparable type — correct.
+- Duplicates: sorted correctly, verified with [1]*100 + [2]*100 + [1]*100 — correct.
+- Stability: <= in _merge (not <) ensures equal elements from the left run are written first, preserving original relative order — correct. Verified with 1000 randomized tagged-element tests.
+- Buffer role swapping: each pass merges from xs into buf then swaps roles, so xs always holds the sorted result when the loop exits — correct.
+- Stress test: 100,000 random elements matches Python's sorted() — correct.
+
+No bugs found. Implementation is sound.

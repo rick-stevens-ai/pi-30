@@ -1,0 +1,29 @@
+==== ornith-9b (ornith-9b:latest) START Sun Jul  5 12:19:04 CDT 2026 ====
+[P1] stats CLI
+P1: PASS
+[P2] LRU cache + bundled tests
+P2: FAIL
+[P3] Roman numerals iterate-until-green
+P3: PASS green in 2
+[P4] stable softmax vs oracle
+P4: FAIL after 6
+[P5] matmul GFLOP/s
+P5: round 2 -> 53.8811 GFLOP/s
+P5: PASS 53.8811 GFLOP/s
+[P6] reproducible FP reduction
+P6: PASS critic+verifier in 1
+[P7] parallel backends fan-out
+P7: FAIL
+[P8] ODE convergence + reflection
+P8: PASS in 2
+P8: memory.md      199->     199 bytes
+[P9] levenshtein tournament best-of-4
+P9: FAIL no correct candidate
+[P10] prime sieve capstone
+P10: cand_3 verdict=FIXED score=0
+P10: FAIL no correct candidate
+[P11] balanced parens iterate-until-green
+P11: PASS green in 3
+[P12] base-N conversion oracle
+P12: PASS in 2
+[P13] mini-JSON parser iterate-until-green

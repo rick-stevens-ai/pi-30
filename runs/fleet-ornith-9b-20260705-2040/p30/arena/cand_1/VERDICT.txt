@@ -1,0 +1,15 @@
+FIXED
+
+Bug: _radex() had two early-return shortcuts that dropped or corrupted negatives.
+
+  (a) `if len(pos) == 1: return pos` — silently discarded ALL negatives when
+      exactly one non-negative element was present, e.g. my_sort([-5, 2]) → [2].
+
+  (b) `if not pos: return sorted(neg)` — returned the absolute values of all-
+      negative inputs without negating them back, e.g. my_sort([-10, -2, -5])
+      → [2, 5, 10] instead of [-10, -5, -2].
+
+Fix: removed both early returns. Every input now flows through the full
+radix-sort (positives) + radix-sort (negatives by abs value) + merge pipeline,
+which correctly handles empty, single-element, all-negatives, mixed negatives-
+and-positives, duplicates, and stability preservation.

@@ -1,0 +1,18 @@
+FIXED
+
+Bug: infinite loop on every non-empty input.
+
+The outer `while xs:` loop never terminates because `_merge_sort(xs)` does not mutate
+`xs` — it only creates slices (copies) and returns new lists.  Each iteration calls
+`_merge_sort(xs)` again on the unchanged input, so `xs` is never exhausted and the
+loop runs forever.
+
+Fix: replaced the broken outer-loop scaffolding with a single call to `_merge_sort(xs[:])`.
+
+Verified edge cases after fix:
+- Empty list → []  ✓
+- Singleton → [x]  ✓
+- Negatives + positives mixed  ✓
+- Duplicates (multiset preserved)  ✓
+- Stability (equal elements keep relative order via `<=` in merge)  ✓
+- Random stress test (100 trials, n up to 50) — matches Python's built-in sorted()  ✓

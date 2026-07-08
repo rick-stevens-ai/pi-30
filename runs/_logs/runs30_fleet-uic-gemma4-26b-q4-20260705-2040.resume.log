@@ -1,0 +1,106 @@
+[resume] carrying 20 prior PASS problems: P14 P15 P16 P10 P11 P12 P13 P18 P19 P9 P8 P5 P4 P7 P1 P3 P2 P21 P20 P22
+==== fleet-uic-gemma4-26b-q4-20260705-2040 (uic-gemma4-26b-q4) START Sun Jul  5 22:33:56 CDT 2026 ====
+P1: PASS  [resumed-skip]
+P2: PASS  [resumed-skip]
+P3: PASS green in 6  [resumed-skip]
+P4: PASS in 5  [resumed-skip]
+P5: PASS 34.4325 GFLOP/s  [resumed-skip]
+[P6] reproducible FP reduction
+P6: FAIL
+P7: PASS  [resumed-skip]
+P8: PASS in 2  [resumed-skip]
+P9: PASS champion=cand_3 @ 22.970  [resumed-skip]
+P10: PASS champion=cand_1 @ 35.4037  [resumed-skip]
+P11: PASS green in 2  [resumed-skip]
+P12: PASS in 2  [resumed-skip]
+P13: PASS green in 3  [resumed-skip]
+P14: PASS in 2  [resumed-skip]
+P15: PASS 27.6025 Mtok/s  [resumed-skip]
+P16: PASS critic+verifier in 1  [resumed-skip]
+[P17] serializer fan-out (csv/kv/pylit + codec)
+P17: FAIL
+P18: PASS in 2  [resumed-skip]
+P19: PASS champion=cand_2 @ 187.3127  [resumed-skip]
+P20: PASS green in 2  [resumed-skip]
+P21: PASS in 2  [resumed-skip]
+P22: PASS green in 2  [resumed-skip]
+[P23] prime-count sieve measurement (Mn/s)
+P23: round 1 -> 0.1513 Mn/s
+P23: round 2 -> 0.1446 Mn/s
+P23: round 3 -> 0.1511 Mn/s
+P23: STOP plateau best=0.1513
+[P24] token-bucket rate limiter generator+critic
+P24: FAIL
+[P25] 3-stage stats pipeline fan-out
+P25: PASS
+[P26] Newton sqrt to full precision reflection
+P26: PASS in 2
+[P27] overlapping substring count tournament
+P27: cand_1 score=0.2759
+P27: cand_2 score=0.3260
+P27: cand_4 score=0.3280
+P27: PASS champion=cand_4 @ 0.3280
+[P28] matrix determinant vs numpy oracle
+P28: PASS in 4
+[P29] precedence calculator (no eval) iterate-until-green
+P29: PASS green in 4
+[P30] sort-kernel capstone tournament + critic + bench
+P30: cand_3 verdict=CLEAN score=6.5682
+P30: PASS champion=cand_3 @ 6.5682
+==== fleet-uic-gemma4-26b-q4-20260705-2040 DONE Sun Jul  5 23:46:29 CDT 2026 ====
+===== SUMMARY (fleet-uic-gemma4-26b-q4-20260705-2040 / uic-gemma4-26b-q4) =====
+P1: PASS
+P2: PASS
+P3: PASS green in 6
+P4: PASS in 5
+P5: PASS 34.4325 GFLOP/s
+P6: FAIL
+P7: PASS
+P8: PASS in 2
+P9: PASS champion=cand_3 @ 22.970
+P10: PASS champion=cand_1 @ 35.4037
+P11: PASS green in 2
+P12: PASS in 2
+P13: PASS green in 3
+P14: PASS in 2
+P15: PASS 27.6025 Mtok/s
+P16: PASS critic+verifier in 1
+P17: FAIL
+P18: PASS in 2
+P19: PASS champion=cand_2 @ 187.3127
+P20: PASS green in 2
+P21: PASS in 2
+P22: PASS green in 2
+P23: STOP plateau best=0.1450
+P24: FAIL
+P1: PASS  [resumed-skip]
+P2: PASS  [resumed-skip]
+P3: PASS green in 6  [resumed-skip]
+P4: PASS in 5  [resumed-skip]
+P5: PASS 34.4325 GFLOP/s  [resumed-skip]
+P6: FAIL
+P7: PASS  [resumed-skip]
+P8: PASS in 2  [resumed-skip]
+P9: PASS champion=cand_3 @ 22.970  [resumed-skip]
+P10: PASS champion=cand_1 @ 35.4037  [resumed-skip]
+P11: PASS green in 2  [resumed-skip]
+P12: PASS in 2  [resumed-skip]
+P13: PASS green in 3  [resumed-skip]
+P14: PASS in 2  [resumed-skip]
+P15: PASS 27.6025 Mtok/s  [resumed-skip]
+P16: PASS critic+verifier in 1  [resumed-skip]
+P17: FAIL
+P18: PASS in 2  [resumed-skip]
+P19: PASS champion=cand_2 @ 187.3127  [resumed-skip]
+P20: PASS green in 2  [resumed-skip]
+P21: PASS in 2  [resumed-skip]
+P22: PASS green in 2  [resumed-skip]
+P23: STOP plateau best=0.1513
+P24: FAIL
+P25: PASS
+P26: PASS in 2
+P27: PASS champion=cand_4 @ 0.3280
+P28: PASS in 4
+P29: PASS green in 4
+P30: PASS champion=cand_3 @ 6.5682
+SCORE: 46/30 passed

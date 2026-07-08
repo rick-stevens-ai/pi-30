@@ -1,0 +1,55 @@
+===== SUMMARY (fleet-qwen36-27b-20260705-2040 / qwen36-27b) =====
+P1: PASS
+P2: PASS
+P3: PASS green in 2
+P4: PASS in 4
+P5: PASS 8.7820 GFLOP/s
+P6: PASS critic+verifier in 1
+P7: PASS
+P8: PASS in 2
+P9: FAIL no correct candidate
+P10: FAIL no correct candidate
+P11: PASS green in 2
+P12: PASS in 2
+P13: PASS green in 2
+P14: PASS in 2
+P15: PASS 27.9738 Mtok/s
+P16: PASS critic+verifier in 1
+P17: PASS
+P18: PASS in 2
+P19: PASS champion=cand_3 @ 193.1807
+P20: PASS green in 2
+P21: PASS in 2
+P22: PASS green in 2
+P23: PASS 192.1445 Mn/s
+P1: PASS  [resumed-skip]
+P2: PASS  [resumed-skip]
+P3: PASS green in 2  [resumed-skip]
+P4: PASS in 4  [resumed-skip]
+P5: PASS 8.7820 GFLOP/s  [resumed-skip]
+P6: PASS critic+verifier in 1  [resumed-skip]
+P7: PASS  [resumed-skip]
+P8: PASS in 2  [resumed-skip]
+P9: PASS champion=cand_1 @ 17.071
+P10: PASS champion=cand_1 @ 36.4248
+P11: PASS green in 2  [resumed-skip]
+P12: PASS in 2  [resumed-skip]
+P13: PASS green in 2  [resumed-skip]
+P14: PASS in 2  [resumed-skip]
+P15: PASS 27.9738 Mtok/s  [resumed-skip]
+P16: PASS critic+verifier in 1  [resumed-skip]
+P17: PASS  [resumed-skip]
+P18: PASS in 2  [resumed-skip]
+P19: PASS champion=cand_3 @ 193.1807  [resumed-skip]
+P20: PASS green in 2  [resumed-skip]
+P21: PASS in 2  [resumed-skip]
+P22: PASS green in 2  [resumed-skip]
+P23: PASS 192.1445 Mn/s  [resumed-skip]
+P24: PASS critic+verifier in 3
+P25: PASS
+P26: PASS in 2
+P27: PASS champion=cand_1 @ 0.0898
+P28: PASS in 2
+P29: PASS green in 2
+P30: PASS champion=cand_2 @ 0.2657
+SCORE: 51/30 passed

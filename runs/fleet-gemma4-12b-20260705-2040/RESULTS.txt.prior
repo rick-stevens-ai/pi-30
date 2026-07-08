@@ -1,0 +1,21 @@
+==== fleet-gemma4-12b-20260705-2040 (gemma4-12b) START Sun Jul  5 20:40:19 CDT 2026 ====
+[P1] stats CLI
+P1: PASS
+[P2] LRU cache + bundled tests
+P2: PASS
+[P3] Roman numerals iterate-until-green
+P3: PASS green in 2
+[P4] stable softmax vs oracle
+P4: FAIL after 6
+[P5] matmul GFLOP/s
+P5: round 2 -> 3.2989 GFLOP/s
+P5: round 3 -> 42.0306 GFLOP/s
+P5: PASS 42.0306 GFLOP/s
+[P6] reproducible FP reduction
+P6: PASS critic+verifier in 4
+[P7] parallel backends fan-out
+P7: PASS
+[P8] ODE convergence + reflection
+P8: PASS in 2
+P8: memory.md     1293->    1433 bytes
+[P9] levenshtein tournament best-of-4

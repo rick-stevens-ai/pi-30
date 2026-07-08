@@ -1,0 +1,15 @@
+CLEAN
+
+---
+
+Review of sieve.py (odd-only Sieve of Eratosthenes with bytearray + slice assign):
+
+Checked for:
+  • Off-by-one on upper bound (n included when prime?) — ✓ correct in all cases
+  • n < 2 handling — ✓ returns [] correctly
+  • Even-number bugs — ✓ prime 2 handled via separate unconditional slot
+  • Slice-length calculation `(size - start + step - 1) // step` — ✓ standard ceiling division, verified for multiple boundary cases
+
+The limit_idx = int(n**0.5)//2 + 1 is correct: it computes the largest sieve index whose candidate (2i+1) is ≤ √n, ensuring all primes up to √n are used as crossing-out bases. The range loop correctly iterates over candidate values (3, 5, 7, …), not indices. Slice start = ((i*i)-1)>>1 correctly maps i² to sieve index space for odd-only representation.
+
+No bugs found.

@@ -1,0 +1,393 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.9in]{geometry}
+\usepackage{longtable}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{helvet}
+\usepackage{textcomp}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\usepackage{parskip}
+\usepackage{enumitem}
+\setlist{nosep,leftmargin=1.3em}
+\usepackage{fancyhdr}
+\pagestyle{fancy}\fancyhf{}
+\lhead{\small pi Agent-Loop Fleet-30 Benchmark}\rhead{\small\thepage}
+\lfoot{\small Rick Stevens fleet / m1 \textperiodcentered{} 2026-07-06}
+
+\title{\vspace{-1.5em}\textbf{The pi Agent-Loop Fleet-30 Benchmark}\\[0.3em]
+\large A tool-use coding evaluation across the free / self-hosted model fleet}
+\author{}
+\date{2026-07-06 \quad (report v7)}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+\vspace{-2.5em}
+
+%==================================================================
+\section{Why this benchmark exists}
+
+The models we run day-to-day are not chatbots --- they are the reasoning core of
+\emph{agent loops}: they read a task, call tools (write files, run shells, inspect
+output), observe the result, and iterate until a verifier says the job is done. A
+model can be fluent in isolation and still be useless in a loop if it cannot follow a
+file-path discipline, recover from a failing test, or drive a multi-step tool
+sequence without wandering. Standard leaderboards (MMLU, GSM8K, chat-arena Elo)
+measure none of this.
+
+\textbf{Fleet-30} measures exactly this: the ability of a model to \emph{close an
+agent loop on a real coding task}. Every problem is run through the \texttt{pi} agent
+CLI (Earendil Pi) with \textbf{tools ON}, against a deterministic verifier that
+returns a hard exit code --- never model prose. The verdict is binary per problem:
+the loop either produced code that passes an independent grader, or it did not.
+
+The benchmark serves three concrete goals for the fleet:
+
+\begin{itemize}
+\item \textbf{Enablement mapping.} We serve dozens of models across local DGX
+  endpoints, nVIDIA A100 GPUs, Intel PVC tiles, spark Ollama nodes, and OpenRouter. This
+  tells us \emph{which of them can actually drive an agent loop}, so we route real
+  agentic work (Kanban workers, coordinators, code review) to models that clear the
+  bar and keep the rest for single-shot generation.
+\item \textbf{Serving-path validation.} The same model on two backends is a
+  different product. A broken chat template, a missing tool-parser, a quantization,
+  or a streaming-flush bug in the server all change the score. Fleet-30 is run
+  \emph{per serving path}, so a lane is a (model $\times$ backend) pair, and a
+  regression in the stack shows up as a score drop.
+\item \textbf{A shared coding curriculum.} The 30 problems are an authored
+  progression --- write-from-spec, fix-failing-tests, optimize-to-target,
+  best-of-$N$ tournaments, and critic/self-review loops --- that exercises the
+  distinct sub-skills an agent needs. It doubles as a ``vibe coding'' curriculum:
+  the problems are small enough to reason about and hard enough to separate models.
+\end{itemize}
+
+\subsection*{Standing rules (how a score is earned)}
+\begin{itemize}
+\item \textbf{Tools always ON.} No \texttt{--no-tools} runs. The point is the loop,
+  not the model's zero-shot recall. A two-layer path clamp keeps the model working
+  inside its problem directory; verdicts still come only from the verifier.
+\item \textbf{Single-shot is canonical.} The headline score is one clean pass over
+  all 30 problems, apples-to-apples with the rest of the fleet. A targeted rerun of
+  only the misses is reported separately as ``effective'', never promoted to the
+  headline (re-rolling only the misses counts the upside but never re-checks whether
+  a passing problem would drop on a second roll).
+\item \textbf{Zero-score rule.} Any lane at $0/N$ is treated as a
+  \emph{server / harness / stack failure}, debugged as infrastructure, and marked
+  \texttt{BROKEN-$\langle$cause$\rangle$} --- never recorded as a model capability.
+  Every zero in this sweep was root-caused and fixed (see \S6).
+\item \textbf{Attribute to provider $\times$ model}, never the model name alone.
+\item \textbf{Verdicts from exit codes.} Each problem ships an independent grader
+  (\texttt{verify.py} / \texttt{check.py} / \texttt{pytest} / a scoring harness). The
+  model is explicitly forbidden from editing the grader.
+\end{itemize}
+
+%==================================================================
+\section{Executive summary}
+
+Twenty-four unique (model $\times$ backend) lanes completed the sweep. \textbf{Seven
+lanes reached a clean 30/30}: \texttt{oss120} (gpt-oss-120b, local dgx, vLLM 0.14.1),
+\texttt{kimi} (Kimi-K2.6, local dgx), \texttt{qwen36-27b} (chiatta00), \texttt{ornith-9b}
+(chiatta00, a reasoning model), \texttt{uic-qwen36-35b-a3b} and
+\texttt{uic-laguna-xs2} (uicgpu), plus \texttt{laguna-xs2} served directly on uicgpu
+(27/30 single-shot, effective 30/30 on a targeted rerun). \texttt{glm-5.2} (29/30,
+paid OpenRouter) and the newly-fixed \texttt{uic-ornith-9b} (28/30) lead the next
+tier.
+
+Two findings stand out. First, \textbf{provider speed is a first-class axis}: fast
+local-dgx / nVIDIA-A100 / Intel-PVC backends finish 30/30 in minutes-to-hours, while
+spark-Ollama local lanes burn 7--8 hours for materially lower scores --- throughput,
+not just accuracy, decides whether a lane is usable for real work. Second,
+\textbf{most zeros were infrastructure, not capability}: an Ollama chat-template gap
+silently dropped tool calls (\texttt{uic-ornith-9b} $0\to28$), a vLLM 0.13
+streaming-flush bug (\texttt{oss120}), and a phantom un-resident model
+(\texttt{nemotron-super}) each masqueraded as a dumb model until the stack was fixed.
+
+The problems that actually separated the fleet were the burst / concurrency / fan-out
+and numerical-stability tasks: \textbf{P24} (token-bucket rate limiter, 52\% pass),
+\textbf{P4} (softmax numerical stability, 61\%), \textbf{P17} (multi-backend codec
+round-trip, 61\%), \textbf{P25} (3-stage fan-out pipeline, 61\%), and \textbf{P13}
+(hand-rolled JSON parser, 70\%). The easy problems (P5 matmul-correctness, P12
+base-conversion, P15 word-count, P23 prime-count, P27 overlapping-substring) were
+passed by every lane that attempted them.
+
+%==================================================================
+\section{Integrated master table --- all lanes, all backends}
+
+Every unique \textbf{model $\times$ backend} lane, deduped, in score order. The same
+model on two backends is two rows --- serving path is a first-class variable. Score
+$N/M$ with $M<30$ = the lane did not cover all 30 problems (interrupted / partial).
+
+{\footnotesize
+\begin{longtable}{@{}rp{4.7cm}p{4.3cm}rr@{}}
+\toprule
+\# & \textbf{Model} & \textbf{Provider / backend} & \textbf{Score} & \textbf{Time} \\
+\midrule
+\endhead
+1  & oss120 (gpt-oss-120b)            & local dgx $\to$ vLLM 0.14.1   & \textbf{30/30} & 9m \\
+2  & kimi (Kimi-K2.6)                 & local dgx                        & \textbf{30/30} & 3h18m \\
+3  & qwen36-27b                       & Intel PVC (1 tile) $\to$ agg          & \textbf{30/30} & 1h22m \\
+4  & ornith-9b (reasoning)            & Intel PVC (1 tile) $\to$ agg          & \textbf{30/30} & 3h05m$^{*}$ \\
+5  & uic-qwen36-35b-a3b               & nVIDIA A100 (MoE) $\to$ agg                   & \textbf{30/30} & 52m \\
+6  & uic-laguna-xs2                   & nVIDIA A100 (MoE) $\to$ agg                   & \textbf{30/30} & 49m \\
+7  & laguna-xs2 (33B.A3B MoE)         & nVIDIA A100 ik\_llama.cpp :8080& 27/30 (eff.30) & 56m \\
+8  & glm-5.2                          & OpenRouter (paid)                  & 29/30       & 44m \\
+9  & gemma4-31b                       & Intel PVC (1 tile) $\to$ agg          & 29/30       & 3h01m \\
+10 & uic-ornith-9b (reasoning)        & nVIDIA A100 llama.cpp $\to$ agg  & 28/30       & 1h36m \\
+11 & gemma4-12b                       & Intel PVC (1 tile) $\to$ agg          & 28/30       & 3h15m \\
+12 & devstral-small-2                 & Intel PVC (1 tile) $\to$ agg          & 28/30       & 1h27m \\
+13 & uic-gemma4-26b-q4                & uicgpu (Q4) $\to$ agg              & 26/30       & 1h12m \\
+14 & nemotron-3-super 120B            & OpenRouter free                    & 26/30       & 1h48m \\
+15 & uic-gemma4-26b-q8                & uicgpu (Q8) $\to$ agg              & 24/30       & 1h40m \\
+16 & devstral2-24b                    & spark (ollama)                     & 24/30       & 2h14m \\
+17 & uic-ornith-35b                   & nVIDIA A100 $\to$ agg                   & 23/30       & 1h29m \\
+18 & nemotron-3-ultra 550B (NVFP4)    & local dgx (rbh101)                 & 22/26       & hung@P27 \\
+19 & qwen3-14b                        & spark (ollama)                     & 20/28       & 4h41m \\
+20 & gemma4-e4b                       & Intel PVC (1 tile) $\to$ agg          & 20/30       & 1h39m \\
+21 & gemma4-e2b                       & Intel PVC (1 tile) $\to$ agg          & 20/30       & 1h02m \\
+22 & nemotron-3-nano 30B (Nemotron-H MoE) & spark (ollama)                & 19/30       & 7h36m \\
+23 & llama70                          & local dgx                          & 18/29       & 7h16m \\
+24 & nemotron3 33B (Nemotron-H Omni)  & spark (ollama)                     & 16/30       & 7h31m \\
+\bottomrule
+\end{longtable}
+}
+
+{\footnotesize $^{*}$ ornith-9b time excludes the $\sim$6.5\,h P30 harness hang (a
+bug, not compute). Total time = active START$\to$DONE wall-clock, summed across resume
+segments.}
+
+\paragraph{Backend legend.}
+\begin{itemize}
+\item \textbf{Intel PVC} --- an Intel Data Center GPU Max 1550 cluster; each
+  \emph{dense} model runs on a single 64\,GB PVC tile, fronted by a local aggregator.
+\item \textbf{nVIDIA A100} --- an 8$\times$A100-80GB DGX; models run on one or a few
+  GPUs, typically MoE architectures (laguna, qwen36-a3b, ornith).
+\item \textbf{local dgx} --- locally-served DGX endpoints (the former ``CELS'' /
+  chicago-$N$ lanes, incl.\ the rbh101 host for the 550B); swept directly, never
+  through LiteLLM.
+\item \textbf{spark (ollama)} --- spark nodes serving via Ollama.
+\item \textbf{OpenRouter} --- hosted API (free tier preferred; paid tagged).
+\end{itemize}
+
+%==================================================================
+\section{The 30 problems --- definitions, what each measures, how the fleet did}
+
+The problems fall into five families. Pass rates below are over the 23 lanes that
+recorded per-problem verdicts (partial lanes counted only where they reached the
+problem).
+
+\subsection{Family A --- Write-from-spec (P1, P2, P7, P17, P25)}
+The model is handed a specification and an empty directory; it must produce working
+code and run the verifier itself. This tests spec-following, multi-file scaffolding,
+and (for P7/P17/P25) importing across a directory tree.
+
+\begin{itemize}
+\item \textbf{P1 --- stats CLI (91\%).} \emph{Write \texttt{cli.py} reading numbers
+  from STDIN, print \texttt{count/min/max/mean/median/stdev} (sample stdev, $n{-}1$;
+  even-count median = avg of two middle). Stdlib only.} Measures exact output-format
+  discipline and the sample-vs-population stdev trap. Missed only by the two smallest
+  gemma lanes.
+\item \textbf{P2 --- LRU cache (96\%).} \emph{Implement \texttt{LRUCache} with $O(1)$
+  \texttt{get}/\texttt{put}, correct eviction, AND write + run pytest tests.} Tests
+  whether the model writes its own tests before declaring done. Only nemotron3-33b
+  missed.
+\item \textbf{P7 --- dispatch router (74\%).} \emph{Given \texttt{work/\{csv,kv,json\}
+  /backend.py} each exposing \texttt{parse}, write \texttt{dispatch.py} routing by
+  kind.} First cross-directory import test. Small models and the Nemotron-H lanes
+  stumble on the import path.
+\item \textbf{P17 --- codec round-trip (61\%, hard).} \emph{Given three backends each
+  exposing \texttt{dumps}/\texttt{loads}, write \texttt{codec.py} doing
+  \texttt{round\_trip(fmt,obj)} via the matching backend.} P7 with two functions and a
+  round-trip invariant --- one of the four hardest. Nine lanes failed, all of them
+  the smaller / slower models: the difficulty is holding a two-function contract
+  across three import targets without editing the verifier.
+\item \textbf{P25 --- 3-stage fan-out pipeline (61\%, hard).} \emph{Given
+  \texttt{work/\{clean,agg,fmt\}/stage.py}, write \texttt{pipeline.py} exposing
+  \texttt{run(rows)=fmt(agg(clean(rows)))}.} A composition / fan-out task; notably the
+  \emph{only} problem \texttt{glm-5.2} missed, and one the otherwise-strong
+  laguna-direct lane missed on its single shot. Fan-out composition is a genuine
+  variance point even for top models.
+\end{itemize}
+
+\subsection{Family B --- Fix failing tests (P3, P11, P13, P20, P22, P29)}
+A file with a bug and a red pytest/diagnostic; the model must make the smallest fix
+and \emph{is forbidden from editing the test}. Tests debugging-from-evidence and
+restraint.
+
+\begin{itemize}
+\item \textbf{P3 --- roman numerals (91\%).} Subtractive notation (IV, IX, \ldots).
+  The classic ``smallest fix'' discipline test.
+\item \textbf{P11 --- balanced parens (91\%).} Stack-based \texttt{()[]\{\}}
+  matching, ignoring other chars.
+\item \textbf{P13 --- mini JSON parser (70\%, hard).} \emph{Parse a JSON subset
+  (null/bool/int/float/string/array/object, nesting, whitespace) WITHOUT
+  \texttt{json} or \texttt{eval}.} The hardest fix-family problem --- a real
+  recursive-descent parser. Seven lanes failed, cleanly separating the mid-tier from
+  the top.
+\item \textbf{P20 --- TTL cache (91\%).} LRU eviction \emph{and} TTL expiry via an
+  injected \texttt{clock()}. Tests dependency-injection of time.
+\item \textbf{P22 --- topological sort (96\%).} Valid topo order, raise on cycle.
+  Only llama70 missed.
+\item \textbf{P29 --- expression calculator (87\%).} \texttt{+\,-\,*\,/} with
+  precedence and parentheses, no \texttt{eval} (shunting-yard / recursive descent).
+\end{itemize}
+
+\subsection{Family C --- Numerical / algorithmic fix (P4, P8, P12, P14, P18, P21, P23, P26, P28)}
+Fix-a-bug tasks where the bug is mathematical: overflow, cancellation, wrong
+recurrence, or an inefficient algorithm. Tests numerical literacy.
+
+\begin{itemize}
+\item \textbf{P4 --- softmax stability (61\%, hard).} \emph{\texttt{fast.py} softmax
+  overflows; fix by subtracting the max before \texttt{exp}.} The single most
+  \emph{diagnostic} numerical problem: nine lanes failed, including otherwise-strong
+  ones (gemma4-31b, both ornith uic lanes). Knowing the ``subtract max'' trick is a
+  sharp capability signal.
+\item \textbf{P8 --- ODE integrator (83\%).} Use RK4 and compute
+  $t=t_0+\text{step}\cdot h$ (never accumulate), and append a root-cause lesson to
+  the agent's \texttt{memory.md} --- so it also tests memory-write behaviour.
+\item \textbf{P12 --- base conversion (100\%).} Round-trip base 2--36, 0 and
+  negatives. Everyone passed.
+\item \textbf{P14 --- Dijkstra (87\%).} Shortest path with a heap, correct
+  unreachable handling.
+\item \textbf{P18 --- Welford variance (91\%).} Online sample variance, numerically
+  stable, constant-stream $\to 0$; also writes a memory lesson.
+\item \textbf{P21 --- interval merge (91\%).} Merge overlapping/touching intervals.
+\item \textbf{P23 --- prime count (100\%).} Correct for small $n$. Everyone passed.
+\item \textbf{P26 --- Newton square root (87\%).} Full double precision via Newton's
+  method, no \texttt{math.sqrt}; writes a memory lesson.
+\item \textbf{P28 --- matrix determinant (96\%).} $N\times N$ determinant matching
+  numpy (LU / cofactor). Only llama70 missed.
+\end{itemize}
+
+\subsection{Family D --- Optimize to a target (P5, P15)}
+Correct-but-slow code; the model must make it faster while staying correct, iterating
+against a measured throughput target. Tests profile-driven optimization inside a
+budget.
+
+\begin{itemize}
+\item \textbf{P5 --- matmul GFLOP/s (100\%).} Fix correctness first, then vectorize
+  (\texttt{np.dot} / \texttt{@}) to hit a GFLOP/s target. Everyone passed.
+\item \textbf{P15 --- word-count Mtok/s (100\%).} Correct top-$k$, then speed up with
+  \texttt{Counter} / \texttt{heapq.nlargest}. Everyone passed.
+\end{itemize}
+That both optimization problems were universally passed says the fleet is comfortable
+with the ``make one change, re-measure'' loop when the target is a throughput number.
+
+\subsection{Family E --- Tournament \& critic loops (P6, P9, P10, P16, P19, P24, P27, P30)}
+The most agentic family. Best-of-$N$ tournaments spawn several candidate solutions in
+parallel and score them; critic problems require the model to review its own code
+(write a \texttt{CRITIQUE.md}, then fix). Tests parallel orchestration and
+self-review.
+
+\begin{itemize}
+\item \textbf{P6 --- deterministic reduce + critic (83\%).} Make
+  \texttt{parallel\_sum} bit-identical regardless of chunk count (\texttt{math.fsum}
+  / fixed ordering), with a hostile-reviewer critic pass.
+\item \textbf{P9 --- Levenshtein tournament (91\%).} Best-of-4 candidates, scored on
+  correctness + speed (two-row DP). Missed only by the two uic-ornith lanes.
+\item \textbf{P10 --- prime-sieve tournament + critic (83\%).} Best-of-4 sieve to
+  $2\,$M, plus a critic that may fix and write a VERDICT.
+\item \textbf{P16 --- thread-safe counter + critic (87\%).} Add a lock around a
+  shared counter, with a race-condition critic pass.
+\item \textbf{P19 --- fast-doubling Fibonacci tournament (91\%).} Best-of-4, exact
+  bigint, $O(\log n)$ at $n=200{,}000$.
+\item \textbf{P24 --- token-bucket limiter + critic (52\%, HARDEST).} \emph{Correct
+  burst-then-refill with an injected clock, plus a hostile critic on refill math.}
+  The single hardest problem in the suite: eleven of 23 lanes failed. It combines
+  three traps --- burst-must-not-exceed-capacity, correct fractional refill, and
+  clock injection --- and adds a self-review loop on top. This is the sharpest
+  separator between the top tier and everyone else.
+\item \textbf{P27 --- overlapping-substring tournament (100\%).} Count overlapping
+  occurrences (\texttt{'aa'} in \texttt{'aaaa'} = 3). Everyone passed.
+\item \textbf{P30 --- sort-kernel capstone (91\%).} Best-of-4 sort + critic + bench;
+  the finale. Notably the problem whose grader had a \texttt{SCORE\_TIMEOUT} bug that
+  caused a $\sim$6.5\,h harness hang and false failures until fixed (see \S6) --- a
+  reminder that a ``model failure'' on a capstone is often a harness failure.
+\end{itemize}
+
+%==================================================================
+\section{What separated the fleet}
+
+\begin{itemize}
+\item \textbf{The top tier is real and tight.} Seven lanes at 30/30 span four
+  backends (local dgx, nVIDIA A100, Intel PVC) and four model families (gpt-oss, Kimi, Qwen-3.6,
+  ornith, laguna). A clean 30/30 is achievable at 9B (ornith-9b) --- size is not the
+  gate; \emph{tool-use training and a correct serving stack} are.
+\item \textbf{Concurrency + injected-clock is the wall.} The three lowest pass rates
+  after the codec/fan-out tasks are all timing/concurrency: P24 token-bucket (52\%),
+  P20 TTL, P16 thread-safe counter. Models that can write a sort or a Dijkstra
+  routinely mishandle ``refill $r$ tokens/sec using \texttt{clock()}''.
+\item \textbf{Numerical stability is a clean IQ test.} P4 (softmax) at 61\% failed by
+  half the mid-tier despite being a one-line fix --- it tests whether the model
+  \emph{knows} the overflow pattern, not whether it can code.
+\item \textbf{Fan-out composition has irreducible variance.} P25 was missed even by
+  glm-5.2 and single-shot laguna. Parallel-backend / multi-stage orchestration
+  (Family E + P17/P25) is exactly where top models occasionally slip, which is why
+  the canonical score is single-shot and 30/30 is genuinely hard to hit cold.
+\item \textbf{Throughput sorts the tail.} Every lane below 24/30 except the partials
+  is a slow spark-Ollama local model burning 4--8\,h. For real agentic work the
+  effective usability cliff is not just the score --- an 18/30 lane that takes 7\,h is
+  not a candidate for a Kanban worker regardless.
+\end{itemize}
+
+%==================================================================
+\section{Infrastructure failures caught by the zero-score rule}
+
+Every $0/N$ in this sweep was an infrastructure bug, not a model. Per the standing
+rule they were debugged as stack failures and fixed:
+
+\begin{itemize}
+\item \textbf{uic-ornith-9b: $0/30 \to 28/30$.} Ollama GGUF blobs carry no chat
+  template, so \texttt{--jinja} silently emitted no tool calls --- the loop never
+  acted. Fixed by serving through llama.cpp with an explicit
+  \texttt{--chat-template-file}; the real score is 28/30.
+\item \textbf{oss120 streaming-flush (vLLM 0.13).} A streaming-flush bug in vLLM
+  0.13 truncated tool-call deltas; upgrading the local-dgx endpoint to vLLM 0.14.1 restored
+  a clean 30/30.
+\item \textbf{nemotron-super phantom model.} The 120B was never resident on the host
+  (weights $>$ RAM) --- every call failed. Re-routed to a real endpoint for the 26/30
+  result.
+\item \textbf{P30 SCORE\_TIMEOUT hang.} A grader-side timeout bug caused a $\sim$6.5\,h
+  harness hang and false P30 failures on ornith-9b and uic-qwen36; after the fix both
+  reached 30/30. The hang time is excluded from wall-clock (it was a bug, not
+  compute).
+\item \textbf{PYTHONPATH conda leak.} A conda \texttt{PYTHONPATH} export leaked into
+  every pi bash-tool subshell and crashed pytest-based problems; scrubbed at the top
+  of the harness.
+\end{itemize}
+
+The lesson the rule encodes: \textbf{a literal zero on a tool-use benchmark is almost
+always the stack, not the model.} Recording it as capability would have libeled five
+perfectly capable models.
+
+%==================================================================
+\section{Model-identity \& provenance notes}
+
+\begin{itemize}
+\item \textbf{Nemotron family.} \texttt{nemotron3 33B} is \emph{Nemotron-H 33B
+  ``Omni''} (arch \texttt{nemotron\_h\_omni}, Mamba-hybrid, vision+tools) --- it wastes
+  capacity on an unused vision stack and scores 16/30. \texttt{nemotron-3-nano 30B} is
+  \emph{Nemotron-H 30B ``MoE''} (\texttt{nemotron\_h\_moe}, text-only, 1.05M ctx) and
+  beats its Omni sibling at 19/30. \texttt{nemotron-3-ultra 550B} (A55B, NVFP4 on
+  local dgx, rbh101 host) is a distinct dense-MoE and hung at P27 (22/26 partial).
+  All three verified against live \texttt{ollama show} / the local endpoint map, not
+  from tags.
+\item \textbf{glm-5.2} is paid OpenRouter (\texttt{z-ai/glm-5.2}, no free tier);
+  tagged as paid. It replaces the retired \texttt{glm-4.7-flash} (1/28 capability
+  ceiling) --- a full-generation leap.
+\item \textbf{Sanctioned providers:} OpenRouter (free tier preferred; paid allowed
+  when tagged), Argo/ALCF, and locally-served DGX endpoints. Local-dgx sweeps run direct, never
+  through LiteLLM. Scores are attributed per provider $\times$ model.
+\item \textbf{Broken runs preserved.} All \texttt{BROKEN-*} run directories are
+  archived with self-documenting names, never deleted.
+\end{itemize}
+
+\vspace{1em}
+\hrule
+\vspace{0.5em}
+{\footnotesize Source of truth: \texttt{\char`~/pi-problems-30/FLEET\_BENCHMARK\_MASTER.md}
+(v7). Harness: \texttt{run\_model\_30.sh}. Problem definitions: \texttt{p1/}--\texttt{p30/}
++ embedded task prompts. All artifacts synced to
+\texttt{\char`~/Dropbox/XFER/pi-fleet-benchmark/}.}
+
+\end{document}

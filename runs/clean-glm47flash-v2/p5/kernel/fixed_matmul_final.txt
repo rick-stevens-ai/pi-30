@@ -1,0 +1,16 @@
+"""Fixed numpy-matching matrix multiplication."""
+import sys
+
+
+def dot_product_simple(a,b):
+    """Compute sum of elementwise products over aligned sequences.
+    
+The implementation below computes each output cell C[i][j] = Σ_k (A_ik * B_jk) via triple nested loops for standard 2D arrays. For a single batched computation, use same algorithm where common dimension appears in all terms.
+
+Implementation approach:
+- Ensure inputs are list-of-lists or numpy-compatible by extracting A and 
+Compute output shape: m = len(A), n=common inner dimensions
+
+"""
+# The actual loop constructs go here - currently incomplete
+END

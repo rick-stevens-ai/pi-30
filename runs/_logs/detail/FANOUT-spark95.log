@@ -1,0 +1,40 @@
+==== clean-glm47flash-v2 (glm-4.7-flash:latest via spark-95fe) FANOUT-RERUN START Sun Jul  5 10:13:16 CDT 2026 ====
+[P7] parallel backends fan-out
+P7: FAIL
+[P17] serializer fan-out (csv/kv/pylit + codec)
+P17: FAIL
+[P25] 3-stage stats pipeline fan-out
+P25: FAIL
+==== clean-glm47flash-v2 FANOUT-RERUN DONE Sun Jul  5 10:31:42 CDT 2026 ====
+==== clean-nemotron3super-v2 (nemotron-3-super:120b via spark-95fe) FANOUT-RERUN START Sun Jul  5 10:31:42 CDT 2026 ====
+[P7] parallel backends fan-out
+P7: FAIL
+[P17] serializer fan-out (csv/kv/pylit + codec)
+P17: FAIL
+[P25] 3-stage stats pipeline fan-out
+P25: FAIL
+==== clean-nemotron3super-v2 FANOUT-RERUN DONE Sun Jul  5 10:31:46 CDT 2026 ====
+==== spark95-nemotron3super120b (nemotron-3-super:120b via spark-95fe) FANOUT-RERUN START Sun Jul  5 10:31:46 CDT 2026 ====
+[P7] parallel backends fan-out
+P7: FAIL
+[P17] serializer fan-out (csv/kv/pylit + codec)
+P17: FAIL
+[P25] 3-stage stats pipeline fan-out
+P25: FAIL
+==== spark95-nemotron3super120b FANOUT-RERUN DONE Sun Jul  5 10:31:49 CDT 2026 ====
+==== local-nemotron3-33b (nemotron3:33b via spark-95fe) FANOUT-RERUN START Sun Jul  5 10:31:50 CDT 2026 ====
+[P7] parallel backends fan-out
+P7: FAIL
+[P17] serializer fan-out (csv/kv/pylit + codec)
+P17: FAIL
+[P25] 3-stage stats pipeline fan-out
+P25: PASS
+==== local-nemotron3-33b FANOUT-RERUN DONE Sun Jul  5 10:57:59 CDT 2026 ====
+==== local-nemotron3-nano-30b (nemotron-3-nano:30b via spark-95fe) FANOUT-RERUN START Sun Jul  5 10:57:59 CDT 2026 ====
+[P7] parallel backends fan-out
+P7: PASS
+[P17] serializer fan-out (csv/kv/pylit + codec)
+P17: FAIL
+[P25] 3-stage stats pipeline fan-out
+P25: PASS
+==== local-nemotron3-nano-30b FANOUT-RERUN DONE Sun Jul  5 11:23:09 CDT 2026 ====

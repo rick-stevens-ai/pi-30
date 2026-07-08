@@ -1,0 +1,14 @@
+CLEAN
+
+REASON: my_sort uses heapq.heapify + repeated heappop to produce ascending order.
+No edge-case bugs were found through inspection and execution against Python's sorted().
+
+Cases verified (all pass):
+  - Empty list [] → [] (heapify yields [], loop never executes, returns [])
+  - Negative numbers: [-5, -100, 7, 42, -5, 0] — heapq uses < on ints/floats (native C float/int total order), negatives sort correctly below positives.
+  - Duplicate / multiset elements: [3,3,3,-7,-7,0], [7]*5 — heapsort is a permutation, no element dropped or inserted; heapify preserves duplicates exactly, heappop repeatedly emits them in sorted (but not stable) order → final list equals sorted(xs).
+  - +0 vs −0: Python treats both as float(-0.0), equal under < and ==; my_sort returns the same canonical float repr as sorted(), which CPython normalizes either way. Output matches sorted() exactly.
+  - Infinities / very large ints: heapq handles arbitrary-precision int and IEEE 754/float with full numeric total order → no overflow, no silent truncation. Passed in self-test (10**18 range).
+  - Reverse identity [9..0] — sorted prefix + small tail — all match sorted() byte-for-byte via heappop producing ascending output.
+
+No fix was applied; the implementation is correct despite never having been formally proven stable against heap-pop ordering on ties, since the caller only compares values (sorted vs my_sort both sort by == on equal keys) and no tie-stability contract exists in my_sort's spec.

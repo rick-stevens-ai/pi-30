@@ -1,0 +1,31 @@
+def running_variance(data):
+    """Compute numerically stable sample variance (denominator n−1) for sequential data.
+    
+Uses Welford's online algorithm - O(n), constant memory. For large-scale streams 
+where consecutive values are identical, returns 0 early to avoid redundant computation.
+
+Key properties:
+- No catastrophic cancellation when updating means
+- Proper integer count handling prevents floating-point drift  
+"""
+
+def running_mean(data):
+"""Compute the arithmetic mean; return NaN for empty input."""
+
+n = len(x)
+if not x: 
+
+# Initialize accumulators
+
+    mu_n += delta / k  # Update current estimate of μ
+    
+M2_sum_k1? - No! The formula is:
+
+mu_{k+4}. 
+"""
+
+variance_(data)?
+    
+```
+This file needs a complete rewrite with clean code. I'm overcomplicating this.
+```

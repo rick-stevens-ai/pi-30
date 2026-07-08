@@ -1,0 +1,30 @@
+===== SUMMARY (spark9611-qwen3-14b / qwen3:14b) =====
+P1: PASS
+P2: PASS
+P3: PASS green in 2
+P4: FAIL after 6
+P6: PASS critic+verifier in 4
+P7: PASS
+P8: FAIL after 6
+P9: PASS champion=cand_1 @ 13.647
+P10: PASS champion=cand_2 @ 24.2704
+P11: PASS green in 3
+P12: PASS in 2
+P13: FAIL after 6
+P14: FAIL after 5
+P16: PASS critic+verifier in 1
+P17: PASS
+P18: PASS in 2
+P19: PASS champion=cand_4 @ 207.2611
+P20: FAIL after 5
+P21: FAIL after 5
+P22: PASS green in 3
+P23: PASS 114.0213 Mn/s
+P24: FAIL
+P25: FAIL
+P26: PASS in 4
+P27: PASS champion=cand_2 @ 0.2914
+P28: PASS in 4
+P29: PASS green in 5
+P30: PASS champion=cand_3 @ 7.0376
+SCORE: 20/30 passed

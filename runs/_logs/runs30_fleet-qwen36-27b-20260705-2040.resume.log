@@ -1,0 +1,111 @@
+[resume] carrying 21 prior PASS problems: P14 P15 P16 P17 P11 P12 P13 P18 P19 P8 P5 P4 P7 P6 P1 P3 P2 P21 P20 P23 P22
+==== fleet-qwen36-27b-20260705-2040 (qwen36-27b) START Sun Jul  5 22:33:54 CDT 2026 ====
+P1: PASS  [resumed-skip]
+P2: PASS  [resumed-skip]
+P3: PASS green in 2  [resumed-skip]
+P4: PASS in 4  [resumed-skip]
+P5: PASS 8.7820 GFLOP/s  [resumed-skip]
+P6: PASS critic+verifier in 1  [resumed-skip]
+P7: PASS  [resumed-skip]
+P8: PASS in 2  [resumed-skip]
+[P9] levenshtein tournament best-of-4
+P9: cand_1 score=17.071
+P9: cand_2 score=0
+P9: cand_3 score=0
+P9: cand_4 score=0
+P9: PASS champion=cand_1 @ 17.071
+[P10] prime sieve capstone
+P10: cand_1 verdict=FIXED score=36.4248
+P10: cand_2 verdict=CLEAN score=31.9492
+P10: cand_3 verdict=CLEAN score=33.0624
+P10: PASS champion=cand_1 @ 36.4248
+P11: PASS green in 2  [resumed-skip]
+P12: PASS in 2  [resumed-skip]
+P13: PASS green in 2  [resumed-skip]
+P14: PASS in 2  [resumed-skip]
+P15: PASS 27.9738 Mtok/s  [resumed-skip]
+P16: PASS critic+verifier in 1  [resumed-skip]
+P17: PASS  [resumed-skip]
+P18: PASS in 2  [resumed-skip]
+P19: PASS champion=cand_3 @ 193.1807  [resumed-skip]
+P20: PASS green in 2  [resumed-skip]
+P21: PASS in 2  [resumed-skip]
+P22: PASS green in 2  [resumed-skip]
+P23: PASS 192.1445 Mn/s  [resumed-skip]
+[P24] token-bucket rate limiter generator+critic
+P24: PASS critic+verifier in 3
+[P25] 3-stage stats pipeline fan-out
+P25: PASS
+[P26] Newton sqrt to full precision reflection
+P26: PASS in 2
+[P27] overlapping substring count tournament
+P27: cand_1 score=0.0898
+P27: cand_2 score=0.0706
+P27: cand_3 score=0
+P27: cand_4 score=0.0569
+P27: PASS champion=cand_1 @ 0.0898
+[P28] matrix determinant vs numpy oracle
+P28: PASS in 2
+[P29] precedence calculator (no eval) iterate-until-green
+P29: PASS green in 2
+[P30] sort-kernel capstone tournament + critic + bench
+P30: cand_1 verdict=CLEAN score=0.2647
+P30: cand_2 verdict=CLEAN score=0.2657
+P30: cand_3 verdict=CLEAN score=0.2621
+P30: PASS champion=cand_2 @ 0.2657
+==== fleet-qwen36-27b-20260705-2040 DONE Sun Jul  5 23:56:11 CDT 2026 ====
+===== SUMMARY (fleet-qwen36-27b-20260705-2040 / qwen36-27b) =====
+P1: PASS
+P2: PASS
+P3: PASS green in 2
+P4: PASS in 4
+P5: PASS 8.7820 GFLOP/s
+P6: PASS critic+verifier in 1
+P7: PASS
+P8: PASS in 2
+P9: FAIL no correct candidate
+P10: FAIL no correct candidate
+P11: PASS green in 2
+P12: PASS in 2
+P13: PASS green in 2
+P14: PASS in 2
+P15: PASS 27.9738 Mtok/s
+P16: PASS critic+verifier in 1
+P17: PASS
+P18: PASS in 2
+P19: PASS champion=cand_3 @ 193.1807
+P20: PASS green in 2
+P21: PASS in 2
+P22: PASS green in 2
+P23: PASS 192.1445 Mn/s
+P1: PASS  [resumed-skip]
+P2: PASS  [resumed-skip]
+P3: PASS green in 2  [resumed-skip]
+P4: PASS in 4  [resumed-skip]
+P5: PASS 8.7820 GFLOP/s  [resumed-skip]
+P6: PASS critic+verifier in 1  [resumed-skip]
+P7: PASS  [resumed-skip]
+P8: PASS in 2  [resumed-skip]
+P9: PASS champion=cand_1 @ 17.071
+P10: PASS champion=cand_1 @ 36.4248
+P11: PASS green in 2  [resumed-skip]
+P12: PASS in 2  [resumed-skip]
+P13: PASS green in 2  [resumed-skip]
+P14: PASS in 2  [resumed-skip]
+P15: PASS 27.9738 Mtok/s  [resumed-skip]
+P16: PASS critic+verifier in 1  [resumed-skip]
+P17: PASS  [resumed-skip]
+P18: PASS in 2  [resumed-skip]
+P19: PASS champion=cand_3 @ 193.1807  [resumed-skip]
+P20: PASS green in 2  [resumed-skip]
+P21: PASS in 2  [resumed-skip]
+P22: PASS green in 2  [resumed-skip]
+P23: PASS 192.1445 Mn/s  [resumed-skip]
+P24: PASS critic+verifier in 3
+P25: PASS
+P26: PASS in 2
+P27: PASS champion=cand_1 @ 0.0898
+P28: PASS in 2
+P29: PASS green in 2
+P30: PASS champion=cand_2 @ 0.2657
+SCORE: 51/30 passed

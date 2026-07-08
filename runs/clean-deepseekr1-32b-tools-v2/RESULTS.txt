@@ -1,0 +1,75 @@
+==== clean-deepseekr1-32b-tools-v2 (deepseek-r1:32b-tools) START Sat Jul  4 19:16:13 CDT 2026 ====
+[P1] stats CLI
+P1: FAIL
+[P2] LRU cache + bundled tests
+P2: FAIL
+[P3] Roman numerals iterate-until-green
+P3: FAIL after 8
+[P4] stable softmax vs oracle
+P4: FAIL after 6
+[P5] matmul GFLOP/s
+[P6] reproducible FP reduction
+P6: FAIL
+[P7] parallel backends fan-out
+P7: FAIL
+[P8] ODE convergence + reflection
+P8: FAIL after 6
+P8: memory.md      113->     237 bytes
+[P9] levenshtein tournament best-of-4
+P9: cand_1 score=0
+P9: cand_2 score=0
+P9: cand_3 score=18.198
+P9: PASS champion=cand_3 @ 18.198
+[P10] prime sieve capstone
+P10: cand_1 verdict=CLEAN score=0
+P10: cand_2 verdict= score=34.1907
+P10: PASS champion=cand_2 @ 34.1907
+[P11] balanced parens iterate-until-green
+P11: FAIL after 5
+[P12] base-N conversion oracle
+P12: FAIL after 5
+[P13] mini-JSON parser iterate-until-green
+P13: FAIL after 6
+[P14] weighted Dijkstra vs BFS-ref oracle
+P14: FAIL after 5
+[P15] word-frequency top-k measurement (Mtok/s)
+P15: round 1 -> 0.1198 Mtok/s
+P15: round 2 -> 0.1180 Mtok/s
+[P16] thread-safe counter generator+critic
+P16: FAIL
+[P17] serializer fan-out (csv/kv/pylit + codec)
+P17: FAIL
+[P18] Welford online variance reflection
+P18: FAIL after 5
+[P19] fast-doubling Fibonacci tournament
+P19: cand_2 score=150.3939
+P19: PASS champion=cand_2 @ 150.3939
+[P20] TTL-LRU with injected clock iterate-until-green
+P20: FAIL after 5
+[P21] interval merge oracle
+P21: FAIL after 5
+[P22] toposort + cycle detect iterate-until-green
+P22: PASS green in 4
+[P23] prime-count sieve measurement (Mn/s)
+P23: round 1 -> 0.1525 Mn/s
+P23: round 2 -> 0.1492 Mn/s
+P23: round 3 -> 0.1530 Mn/s
+P23: round 4 -> 0.1437 Mn/s
+P23: round 5 -> 0.1486 Mn/s
+P23: STOP plateau best=0.1530
+[P24] token-bucket rate limiter generator+critic
+P24: FAIL
+[P25] 3-stage stats pipeline fan-out
+P25: FAIL
+[P26] Newton sqrt to full precision reflection
+P26: FAIL after 5
+[P27] overlapping substring count tournament
+P27: FAIL no correct candidate
+[P28] matrix determinant vs numpy oracle
+P28: FAIL after 5
+[P29] precedence calculator (no eval) iterate-until-green
+P29: FAIL after 6
+[P30] sort-kernel capstone tournament + critic + bench
+P30: cand_1 verdict=The implementation is stable and handles all edge cases including empty lists, negative numbers, duplicates, and zero values. The use of Python's built-in sorted() provides a stable, efficient sort. However, to better handle type validation and consistently return the same input type when empty, minor improvements were made. score=6.7917
+P30: PASS champion=cand_1 @ 6.7917
+==== clean-deepseekr1-32b-tools-v2 DONE Sun Jul  5 06:57:16 CDT 2026 ====

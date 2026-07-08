@@ -1,0 +1,149 @@
+==== fleet-ornith-9b-20260705-2040 (ornith-9b) START Sun Jul  5 20:40:19 CDT 2026 ====
+[P1] stats CLI
+P1: PASS
+[P2] LRU cache + bundled tests
+P2: FAIL
+[P3] Roman numerals iterate-until-green
+P3: PASS green in 2
+[P4] stable softmax vs oracle
+P4: FAIL after 6
+[P5] matmul GFLOP/s
+P5: round 2 -> 58.4360 GFLOP/s
+P5: PASS 58.4360 GFLOP/s
+[P6] reproducible FP reduction
+P6: PASS critic+verifier in 1
+[P7] parallel backends fan-out
+P7: PASS
+[P8] ODE convergence + reflection
+P8: PASS in 2
+P8: memory.md      279->     457 bytes
+[P9] levenshtein tournament best-of-4
+P9: cand_1 score=0
+P9: cand_2 score=0
+P9: cand_3 score=0
+P9: FAIL no correct candidate
+[P10] prime sieve capstone
+P10: cand_1 verdict=FIXED score=0
+P10: cand_2 verdict=FIXED score=33.0606
+P10: cand_3 verdict=CLEAN score=26.1569
+P10: PASS champion=cand_2 @ 33.0606
+[P11] balanced parens iterate-until-green
+P11: PASS green in 2
+[P12] base-N conversion oracle
+P12: PASS in 2
+[P13] mini-JSON parser iterate-until-green
+P13: PASS green in 4
+[P14] weighted Dijkstra vs BFS-ref oracle
+P14: PASS in 2
+[P15] word-frequency top-k measurement (Mtok/s)
+P15: round 1 -> 0.1117 Mtok/s
+P15: round 2 -> 28.2621 Mtok/s
+P15: PASS 28.2621 Mtok/s
+[P16] thread-safe counter generator+critic
+P16: PASS critic+verifier in 1
+[P17] serializer fan-out (csv/kv/pylit + codec)
+P17: PASS
+[P18] Welford online variance reflection
+P18: PASS in 2
+[P19] fast-doubling Fibonacci tournament
+P19: cand_1 score=0
+P19: cand_2 score=191.1163
+P19: cand_3 score=0
+P19: cand_4 score=0
+P19: PASS champion=cand_2 @ 191.1163
+[P20] TTL-LRU with injected clock iterate-until-green
+P20: PASS green in 2
+[P21] interval merge oracle
+P21: PASS in 2
+[P22] toposort + cycle detect iterate-until-green
+P22: PASS green in 2
+[P23] prime-count sieve measurement (Mn/s)
+P23: round 1 -> 0.1306 Mn/s
+P23: round 2 -> 120.3882 Mn/s
+P23: PASS 120.3882 Mn/s
+[P24] token-bucket rate limiter generator+critic
+==== fleet-ornith-9b-20260705-2040 (ornith-9b) START Sun Jul  5 22:33:53 CDT 2026 ====
+P1: PASS  [resumed-skip]
+[P2] LRU cache + bundled tests
+P2: PASS
+P3: PASS green in 2  [resumed-skip]
+[P4] stable softmax vs oracle
+P4: PASS in 6
+P5: PASS 58.4360 GFLOP/s  [resumed-skip]
+P6: PASS critic+verifier in 1  [resumed-skip]
+P7: PASS  [resumed-skip]
+P8: PASS in 2  [resumed-skip]
+[P9] levenshtein tournament best-of-4
+P9: cand_1 score=0
+P9: cand_2 score=23.906
+P9: cand_3 score=0
+P9: cand_4 score=0
+P9: PASS champion=cand_2 @ 23.906
+P10: PASS champion=cand_2 @ 33.0606  [resumed-skip]
+P11: PASS green in 2  [resumed-skip]
+P12: PASS in 2  [resumed-skip]
+P13: PASS green in 4  [resumed-skip]
+P14: PASS in 2  [resumed-skip]
+P15: PASS 28.2621 Mtok/s  [resumed-skip]
+P16: PASS critic+verifier in 1  [resumed-skip]
+P17: PASS  [resumed-skip]
+P18: PASS in 2  [resumed-skip]
+P19: PASS champion=cand_2 @ 191.1163  [resumed-skip]
+P20: PASS green in 2  [resumed-skip]
+P21: PASS in 2  [resumed-skip]
+P22: PASS green in 2  [resumed-skip]
+P23: PASS 120.3882 Mn/s  [resumed-skip]
+[P24] token-bucket rate limiter generator+critic
+P24: PASS critic+verifier in 2
+[P25] 3-stage stats pipeline fan-out
+P25: PASS
+[P26] Newton sqrt to full precision reflection
+P26: PASS in 2
+[P27] overlapping substring count tournament
+P27: cand_1 score=0.1116
+P27: cand_2 score=0.0814
+P27: cand_3 score=0.0975
+P27: cand_4 score=0.0946
+P27: PASS champion=cand_1 @ 0.1116
+[P28] matrix determinant vs numpy oracle
+P28: PASS in 2
+[P29] precedence calculator (no eval) iterate-until-green
+P29: PASS green in 2
+[P30] sort-kernel capstone tournament + critic + bench
+P30: cand_1 verdict=VERDICT: CLEAN score=1.5374
+==== fleet-ornith-9b-20260705-2040 (ornith-9b) START Mon Jul  6 13:40:53 CDT 2026 ====
+P1: PASS  [resumed-skip]  [resumed-skip]
+P2: PASS  [resumed-skip]
+P3: PASS green in 2  [resumed-skip]  [resumed-skip]
+P4: PASS in 6  [resumed-skip]
+P5: PASS 58.4360 GFLOP/s  [resumed-skip]  [resumed-skip]
+P6: PASS critic+verifier in 1  [resumed-skip]  [resumed-skip]
+P7: PASS  [resumed-skip]  [resumed-skip]
+P8: PASS in 2  [resumed-skip]  [resumed-skip]
+P9: PASS champion=cand_2 @ 23.906  [resumed-skip]
+P10: PASS champion=cand_2 @ 33.0606  [resumed-skip]  [resumed-skip]
+P11: PASS green in 2  [resumed-skip]  [resumed-skip]
+P12: PASS in 2  [resumed-skip]  [resumed-skip]
+P13: PASS green in 4  [resumed-skip]  [resumed-skip]
+P14: PASS in 2  [resumed-skip]  [resumed-skip]
+P15: PASS 28.2621 Mtok/s  [resumed-skip]  [resumed-skip]
+P16: PASS critic+verifier in 1  [resumed-skip]  [resumed-skip]
+P17: PASS  [resumed-skip]  [resumed-skip]
+P18: PASS in 2  [resumed-skip]  [resumed-skip]
+P19: PASS champion=cand_2 @ 191.1163  [resumed-skip]  [resumed-skip]
+P20: PASS green in 2  [resumed-skip]  [resumed-skip]
+P21: PASS in 2  [resumed-skip]  [resumed-skip]
+P22: PASS green in 2  [resumed-skip]  [resumed-skip]
+P23: PASS 120.3882 Mn/s  [resumed-skip]  [resumed-skip]
+P24: PASS critic+verifier in 2  [resumed-skip]
+P25: PASS  [resumed-skip]
+P26: PASS in 2  [resumed-skip]
+P27: PASS champion=cand_1 @ 0.1116  [resumed-skip]
+P28: PASS in 2  [resumed-skip]
+P29: PASS green in 2  [resumed-skip]
+[P30] sort-kernel capstone tournament + critic + bench
+P30: cand_1 verdict=FIXED score=1.1677
+P30: cand_2 verdict=FIXED score=0.2467
+P30: cand_3 verdict= score=0
+P30: PASS champion=cand_1 @ 1.1677
+==== fleet-ornith-9b-20260705-2040 DONE Mon Jul  6 13:59:15 CDT 2026 ====

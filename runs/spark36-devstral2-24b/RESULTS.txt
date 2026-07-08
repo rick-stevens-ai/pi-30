@@ -1,0 +1,85 @@
+==== spark36-devstral2-24b (devstral-small-2:24b) START Sat Jul  4 08:38:30 CDT 2026 ====
+[P1] stats CLI
+P1: FAIL
+[P2] LRU cache + bundled tests
+P2: PASS
+[P3] Roman numerals iterate-until-green
+P3: PASS green in 2
+[P4] stable softmax vs oracle
+P4: PASS in 2
+[P5] matmul GFLOP/s
+P5: round 3 -> 0.0059 GFLOP/s
+P5: round 4 -> 39.2373 GFLOP/s
+P5: PASS 39.2373 GFLOP/s
+[P6] reproducible FP reduction
+P6: PASS critic+verifier in 1
+[P7] parallel backends fan-out
+P7: PASS
+[P8] ODE convergence + reflection
+P8: PASS in 2
+P8: memory.md     2590->     279 bytes
+[P9] levenshtein tournament best-of-4
+P9: cand_1 score=0
+P9: cand_2 score=13.440
+P9: cand_3 score=13.475
+P9: cand_4 score=11.920
+P9: PASS champion=cand_3 @ 13.475
+[P10] prime sieve capstone
+P10: cand_1 verdict=FIXED score=0
+P10: cand_2 verdict=FIXED score=0
+P10: cand_3 verdict=CLEAN score=0
+P10: FAIL no correct candidate
+[P11] balanced parens iterate-until-green
+P11: PASS green in 2
+[P12] base-N conversion oracle
+P12: PASS in 2
+[P13] mini-JSON parser iterate-until-green
+P13: FAIL after 6
+[P14] weighted Dijkstra vs BFS-ref oracle
+P14: PASS in 2
+[P15] word-frequency top-k measurement (Mtok/s)
+P15: round 1 -> 0.1176 Mtok/s
+P15: round 2 -> 29.3454 Mtok/s
+P15: PASS 29.3454 Mtok/s
+[P16] thread-safe counter generator+critic
+P16: PASS critic+verifier in 2
+[P17] serializer fan-out (csv/kv/pylit + codec)
+P17: PASS
+[P18] Welford online variance reflection
+P18: PASS in 2
+[P19] fast-doubling Fibonacci tournament
+P19: cand_1 score=0
+P19: cand_3 score=0
+P19: cand_4 score=0
+P19: FAIL no correct candidate
+[P20] TTL-LRU with injected clock iterate-until-green
+P20: PASS green in 2
+[P21] interval merge oracle
+P21: PASS in 2
+[P22] toposort + cycle detect iterate-until-green
+P22: PASS green in 2
+[P23] prime-count sieve measurement (Mn/s)
+P23: round 1 -> 0.1467 Mn/s
+P23: round 2 -> 112.2056 Mn/s
+P23: PASS 112.2056 Mn/s
+[P24] token-bucket rate limiter generator+critic
+P24: FAIL
+[P25] 3-stage stats pipeline fan-out
+P25: PASS
+[P26] Newton sqrt to full precision reflection
+P26: PASS in 2
+[P27] overlapping substring count tournament
+P27: cand_1 score=0.1050
+P27: cand_2 score=0.1053
+P27: cand_3 score=0
+P27: cand_4 score=0
+P27: PASS champion=cand_2 @ 0.1053
+[P28] matrix determinant vs numpy oracle
+P28: PASS in 2
+[P29] precedence calculator (no eval) iterate-until-green
+P29: PASS green in 2
+[P30] sort-kernel capstone tournament + critic + bench
+P30: cand_2 verdict= score=0
+P30: cand_3 verdict= score=0
+P30: FAIL no correct candidate
+==== spark36-devstral2-24b DONE Sat Jul  4 10:52:52 CDT 2026 ====

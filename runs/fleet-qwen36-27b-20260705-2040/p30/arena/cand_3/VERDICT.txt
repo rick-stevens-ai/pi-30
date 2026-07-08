@@ -1,0 +1,12 @@
+CLEAN
+
+Bottom-up merge sort is correct and stable.
+
+Findings:
+- Empty list, single element, two elements: handled by n<=1 guard and merge logic.
+- Negatives: no issue; comparison operators work correctly.
+- Duplicates: <= in _merge preserves stability (left element wins ties).
+- Multiset: output always a permutation of input (verified 1000 random tests).
+- Input immutability: works on a copy, original untouched.
+- Buffer ping-pong: swap at end of each pass guarantees sorted data is always in `left` when the loop exits.
+- Stress-tested 5000 random cases against Python's sorted() — all match.

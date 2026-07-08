@@ -1,0 +1,40 @@
+===== SUMMARY (fleet-gemma4-12b-20260705-2040 / gemma4-12b) =====
+P1: PASS
+P2: PASS
+P3: PASS green in 2
+P4: FAIL after 6
+P5: PASS 42.0306 GFLOP/s
+P6: PASS critic+verifier in 4
+P7: PASS
+P8: PASS in 2
+P1: PASS  [resumed-skip]
+P2: PASS  [resumed-skip]
+P3: PASS green in 2  [resumed-skip]
+P4: PASS in 3
+P5: PASS 42.0306 GFLOP/s  [resumed-skip]
+P6: PASS critic+verifier in 4  [resumed-skip]
+P7: PASS  [resumed-skip]
+P8: PASS in 2  [resumed-skip]
+P9: PASS champion=cand_2 @ 23.416
+P10: PASS champion=cand_3 @ 34.1774
+P11: PASS green in 2
+P12: PASS in 2
+P13: PASS green in 2
+P14: PASS in 2
+P15: PASS 27.8498 Mtok/s
+P16: PASS critic+verifier in 1
+P17: FAIL
+P18: PASS in 2
+P19: PASS champion=cand_4 @ 199.9217
+P20: PASS green in 2
+P21: PASS in 2
+P22: PASS green in 2
+P23: PASS 216.1247 Mn/s
+P24: FAIL
+P25: PASS
+P26: PASS in 2
+P27: PASS champion=cand_3 @ 0.2733
+P28: PASS in 2
+P29: PASS green in 2
+P30: PASS champion=cand_3 @ 0.1611
+SCORE: 35/30 passed

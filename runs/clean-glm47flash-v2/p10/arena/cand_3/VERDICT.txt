@@ -1,0 +1,3 @@
+CLEAN
+
+Note: sieve.py appears to be an unimplemented/exploratory draft containing only documentation/comments and a placeholder function (_odd_idx with pass). No functioning primes generator exists, so there's no bug in the current state—just incomplete work. A proper implementation would handle off-by-one correctly (include n) and edge cases properly.

@@ -1,0 +1,32 @@
+===== SUMMARY (fleet-gemma4-e4b-20260705-2040 / gemma4-e4b) =====
+P1: FAIL
+P2: PASS
+P3: PASS green in 3
+P4: FAIL after 6
+P5: PASS 24.8590 GFLOP/s
+P6: PASS critic+verifier in 3
+P7: FAIL
+P8: FAIL after 6
+P9: PASS champion=cand_4 @ 12.697
+P10: FAIL no correct candidate
+P11: PASS green in 2
+P12: PASS in 2
+P13: PASS green in 5
+P14: PASS in 4
+P15: PASS 27.7906 Mtok/s
+P16: FAIL
+P17: PASS
+P18: PASS in 4
+P19: PASS champion=cand_2 @ 152.6067
+P20: PASS green in 4
+P21: PASS in 2
+P22: PASS green in 2
+P23: STOP plateau best=7.3964
+P24: FAIL
+P25: FAIL
+P26: PASS in 2
+P27: PASS champion=cand_2 @ 0.0944
+P28: PASS in 2
+P29: FAIL after 6
+P30: PASS champion=cand_2 @ 0.2426
+SCORE: 20/30 passed

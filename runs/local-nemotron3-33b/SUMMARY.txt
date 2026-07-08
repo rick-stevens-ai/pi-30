@@ -1,0 +1,32 @@
+===== SUMMARY (local-nemotron3-33b / nemotron3:33b) =====
+P1: PASS
+P2: FAIL
+P3: PASS green in 8
+P4: FAIL after 6
+P5: PASS 44.9591 GFLOP/s
+P6: FAIL
+P7: FAIL
+P8: FAIL after 6
+P9: PASS champion=cand_3 @ 13.880
+P10: PASS champion=cand_1 @ 39.7405
+P11: FAIL after 5
+P12: PASS in 3
+P13: FAIL after 6
+P14: PASS in 3
+P15: STOP plateau best=0.1220
+P16: FAIL
+P17: FAIL
+P18: FAIL after 5
+P19: PASS champion=cand_4 @ 209.2524
+P20: PASS green in 2
+P21: PASS in 2
+P22: PASS green in 2
+P23: STOP plateau best=0.1542
+P24: FAIL
+P25: FAIL
+P26: PASS in 3
+P27: PASS champion=cand_3 @ 0.2821
+P28: PASS in 3
+P29: PASS green in 2
+P30: PASS champion=cand_3 @ 7.0050
+SCORE: 16/30 passed

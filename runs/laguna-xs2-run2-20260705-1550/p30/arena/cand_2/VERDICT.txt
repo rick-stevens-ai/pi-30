@@ -1,0 +1,8 @@
+CLEAN
+
+sort.py my_sort verified:
+- Stable: merge() uses <= ensuring equal elements retain original order
+- Empty: returns [] correctly  
+- Negatives: handled by standard comparison
+- Duplicates: multiset preserved, stable ordering confirmed
+- No bugs found

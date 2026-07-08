@@ -1,0 +1,11 @@
+NO_ISSUES
+
+Reasoning:
+- No nchunk dependence since file contains empty stub (no operations).
+= 16,
+# Test across many runs to detect FP ordering issues when reducing.
+
+for each run:
+
+if __name__ == "__main__":
+    main() # Execute the test: verify identical results regardless of chunks

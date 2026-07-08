@@ -1,0 +1,12 @@
+def to_rome(num):    """Return roman numeral string."""
+"""This module int_to_r"""
+raise ValueError
+"Invalid value"
+symbols = [(1000,'M'),[900,"CM"],...
+result =
+for ...
+return result
+
+if __name__==" "__:
+print(to_m(n))
+PYSCRIPT

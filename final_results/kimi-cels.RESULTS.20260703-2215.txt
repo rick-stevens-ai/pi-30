@@ -1,0 +1,84 @@
+==== kimi-cels (kimi-k2.6) START Fri Jul  3 18:12:21 CDT 2026 ====
+[P1] stats CLI
+P1: PASS
+[P2] LRU cache + bundled tests
+P2: PASS
+[P3] Roman numerals iterate-until-green
+P3: PASS green in 2
+[P4] stable softmax vs oracle
+P4: PASS in 3
+[P5] matmul GFLOP/s
+P5: round 2 -> 17.4672 GFLOP/s
+P5: PASS 17.4672 GFLOP/s
+[P6] reproducible FP reduction
+P6: PASS critic+verifier in 1
+[P7] parallel backends fan-out
+P7: PASS
+[P8] ODE convergence + reflection
+P8: PASS in 2
+P8: memory.md      592->     831 bytes
+[P9] levenshtein tournament best-of-4
+P9: cand_1 score=17.443
+P9: cand_2 score=20.408
+P9: cand_3 score=15.052
+P9: cand_4 score=18.935
+P9: PASS champion=cand_2 @ 20.408
+[P10] prime sieve capstone
+P10: cand_1 verdict=FIXED score=0
+P10: cand_2 verdict=CLEAN score=36.7279
+P10: cand_3 verdict=CLEAN score=0
+P10: PASS champion=cand_2 @ 36.7279
+[P11] balanced parens iterate-until-green
+P11: PASS green in 2
+[P12] base-N conversion oracle
+P12: PASS in 2
+[P13] mini-JSON parser iterate-until-green
+P13: PASS green in 2
+[P14] weighted Dijkstra vs BFS-ref oracle
+P14: PASS in 2
+[P15] word-frequency top-k measurement (Mtok/s)
+P15: round 1 -> 0.1055 Mtok/s
+P15: round 2 -> 28.3613 Mtok/s
+P15: PASS 28.3613 Mtok/s
+[P16] thread-safe counter generator+critic
+P16: PASS critic+verifier in 1
+[P17] serializer fan-out (csv/kv/pylit + codec)
+P17: PASS
+[P18] Welford online variance reflection
+P18: PASS in 2
+[P19] fast-doubling Fibonacci tournament
+P19: cand_1 score=190.4868
+P19: cand_2 score=190.6290
+P19: cand_3 score=186.8693
+P19: cand_4 score=175.2272
+P19: PASS champion=cand_2 @ 190.6290
+[P20] TTL-LRU with injected clock iterate-until-green
+P20: PASS green in 2
+[P21] interval merge oracle
+P21: PASS in 2
+[P22] toposort + cycle detect iterate-until-green
+P22: PASS green in 2
+[P23] prime-count sieve measurement (Mn/s)
+P23: round 1 -> 0.1315 Mn/s
+P23: round 2 -> 205.9008 Mn/s
+P23: PASS 205.9008 Mn/s
+[P24] token-bucket rate limiter generator+critic
+P24: PASS critic+verifier in 2
+[P25] 3-stage stats pipeline fan-out
+P25: PASS
+[P26] Newton sqrt to full precision reflection
+P26: PASS in 2
+[P27] overlapping substring count tournament
+P27: cand_1 score=0.0586
+P27: cand_2 score=0.0726
+P27: PASS champion=cand_2 @ 0.0726
+[P28] matrix determinant vs numpy oracle
+P28: PASS in 2
+[P29] precedence calculator (no eval) iterate-until-green
+P29: PASS green in 2
+[P30] sort-kernel capstone tournament + critic + bench
+P30: cand_1 verdict=CLEAN score=0.2320
+P30: cand_2 verdict=CLEAN score=0.2264
+P30: cand_3 verdict=CLEAN score=0.2454
+P30: PASS champion=cand_3 @ 0.2454
+==== kimi-cels DONE Fri Jul  3 21:30:28 CDT 2026 ====

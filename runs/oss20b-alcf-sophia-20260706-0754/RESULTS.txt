@@ -1,0 +1,85 @@
+==== oss20b-alcf-sophia-20260706-0754 (openai/gpt-oss-20b) START Mon Jul  6 07:54:12 CDT 2026 ====
+[P1] stats CLI
+P1: PASS
+[P2] LRU cache + bundled tests
+P2: PASS
+[P3] Roman numerals iterate-until-green
+P3: PASS green in 2
+[P4] stable softmax vs oracle
+P4: FAIL after 6
+[P5] matmul GFLOP/s
+P5: round 2 -> 56.4454 GFLOP/s
+P5: PASS 56.4454 GFLOP/s
+[P6] reproducible FP reduction
+P6: PASS critic+verifier in 1
+[P7] parallel backends fan-out
+P7: PASS
+[P8] ODE convergence + reflection
+P8: PASS in 2
+P8: memory.md     3394->    3559 bytes
+[P9] levenshtein tournament best-of-4
+P9: cand_1 score=14.400
+P9: cand_2 score=14.186
+P9: cand_3 score=0
+P9: cand_4 score=18.522
+P9: PASS champion=cand_4 @ 18.522
+[P10] prime sieve capstone
+P10: cand_1 verdict=CLEAN score=37.5776
+P10: cand_2 verdict=FIXED score=34.6015
+P10: cand_3 verdict=CLEAN score=36.3144
+P10: PASS champion=cand_1 @ 37.5776
+[P11] balanced parens iterate-until-green
+P11: PASS green in 2
+[P12] base-N conversion oracle
+P12: PASS in 4
+[P13] mini-JSON parser iterate-until-green
+P13: PASS green in 2
+[P14] weighted Dijkstra vs BFS-ref oracle
+P14: PASS in 2
+[P15] word-frequency top-k measurement (Mtok/s)
+P15: round 1 -> 0.1203 Mtok/s
+P15: round 2 -> 0.1220 Mtok/s
+P15: round 3 -> 27.5020 Mtok/s
+P15: PASS 27.5020 Mtok/s
+[P16] thread-safe counter generator+critic
+P16: PASS critic+verifier in 2
+[P17] serializer fan-out (csv/kv/pylit + codec)
+P17: FAIL
+[P18] Welford online variance reflection
+P18: FAIL after 5
+[P19] fast-doubling Fibonacci tournament
+P19: FAIL no correct candidate
+[P20] TTL-LRU with injected clock iterate-until-green
+P20: FAIL after 5
+[P21] interval merge oracle
+P21: FAIL after 5
+[P22] toposort + cycle detect iterate-until-green
+P22: FAIL after 5
+[P23] prime-count sieve measurement (Mn/s)
+P23: round 1 -> 0.0619 Mn/s
+P23: round 2 -> 0.1207 Mn/s
+P23: round 3 -> 0.1434 Mn/s
+P23: round 4 -> 0.1398 Mn/s
+P23: round 5 -> 0.1427 Mn/s
+P23: STOP plateau best=0.1434
+[P24] token-bucket rate limiter generator+critic
+P24: FAIL
+[P25] 3-stage stats pipeline fan-out
+P25: FAIL
+[P26] Newton sqrt to full precision reflection
+P26: PASS in 2
+[P27] overlapping substring count tournament
+P27: cand_1 score=0.2634
+P27: cand_2 score=0
+P27: cand_3 score=0.2939
+P27: PASS champion=cand_3 @ 0.2939
+[P28] matrix determinant vs numpy oracle
+P28: PASS in 2
+[P29] precedence calculator (no eval) iterate-until-green
+P29: PASS green in 4
+[P30] sort-kernel capstone tournament + critic + bench
+P30: cand_1 verdict= score=0
+P30: cand_2 verdict= score=0
+P30: cand_3 verdict= score=7.0414
+P30: PASS champion=cand_3 @ 7.0414
+==== oss20b-alcf-sophia-20260706-0754 DONE Mon Jul  6 08:32:46 CDT 2026 ====

@@ -1,0 +1,8 @@
+CLEAN
+
+No bugs found. The odd-only sieve with slice assignment is correct:
+- n is properly included (limit = (n-1)//2, sieve size limit+1)
+- n < 2 returns [] immediately
+- Even boundaries handled correctly (n=2 → [2], even n → largest odd ≤ n)
+- Slice assignment RHS length matches LHS dynamically
+- Verified against brute-force for all n in [0, 200] and stress-tested at n=2,000,000 (148,933 primes in 0.047s).

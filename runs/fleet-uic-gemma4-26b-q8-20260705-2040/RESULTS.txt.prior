@@ -1,0 +1,36 @@
+==== fleet-uic-gemma4-26b-q8-20260705-2040 (uic-gemma4-26b-q8) START Sun Jul  5 20:40:19 CDT 2026 ====
+[P1] stats CLI
+P1: PASS
+[P2] LRU cache + bundled tests
+P2: PASS
+[P3] Roman numerals iterate-until-green
+P3: FAIL after 8
+[P4] stable softmax vs oracle
+P4: FAIL after 6
+[P5] matmul GFLOP/s
+P5: round 6 -> 36.8090 GFLOP/s
+P5: PASS 36.8090 GFLOP/s
+[P6] reproducible FP reduction
+P6: FAIL
+[P7] parallel backends fan-out
+P7: PASS
+[P8] ODE convergence + reflection
+P8: PASS in 3
+P8: memory.md      725->    1293 bytes
+[P9] levenshtein tournament best-of-4
+P9: FAIL no correct candidate
+[P10] prime sieve capstone
+P10: cand_1 verdict= score=0
+P10: cand_2 verdict= score=34.8101
+P10: cand_3 verdict= score=34.0532
+P10: PASS champion=cand_2 @ 34.8101
+[P11] balanced parens iterate-until-green
+P11: PASS green in 2
+[P12] base-N conversion oracle
+P12: PASS in 2
+[P13] mini-JSON parser iterate-until-green
+P13: PASS green in 2
+[P14] weighted Dijkstra vs BFS-ref oracle
+P14: PASS in 2
+[P15] word-frequency top-k measurement (Mtok/s)
+P15: round 1 -> 0.1113 Mtok/s

@@ -1,0 +1,32 @@
+===== SUMMARY (fleet-devstral-small-2-20260705-2040 / devstral-small-2) =====
+P1: PASS
+P2: PASS
+P3: PASS green in 2
+P4: PASS in 6
+P5: PASS 54.5379 GFLOP/s
+P6: PASS critic+verifier in 1
+P7: PASS
+P8: PASS in 2
+P9: PASS champion=cand_4 @ 15.214
+P10: PASS champion=cand_3 @ 33.7350
+P11: PASS green in 2
+P12: PASS in 2
+P13: PASS green in 2
+P14: PASS in 2
+P15: PASS 27.5724 Mtok/s
+P16: PASS critic+verifier in 1
+P17: PASS
+P18: PASS in 2
+P19: FAIL no correct candidate
+P20: PASS green in 2
+P21: PASS in 2
+P22: PASS green in 2
+P23: PASS 213.2632 Mn/s
+P24: PASS critic+verifier in 1
+P25: PASS
+P26: FAIL after 5
+P27: PASS champion=cand_2 @ 0.0919
+P28: PASS in 2
+P29: PASS green in 2
+P30: PASS champion=cand_3 @ 6.0350
+SCORE: 28/30 passed

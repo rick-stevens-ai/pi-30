@@ -1,0 +1,1 @@
+LESSON: Fixed variance calculation - always use Welford's online algorithm instead of (E[x²]-E[x]²) to avoid catastrophic cancellation and ensure numerical stability, especially when mean is large but variance is small.

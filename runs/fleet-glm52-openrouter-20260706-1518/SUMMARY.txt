@@ -1,0 +1,32 @@
+===== SUMMARY (fleet-glm52-openrouter-20260706-1518 / z-ai/glm-5.2) =====
+P1: PASS
+P2: PASS
+P3: PASS green in 2
+P4: PASS in 3
+P5: PASS 39.2182 GFLOP/s
+P6: PASS critic+verifier in 5
+P7: PASS
+P8: PASS in 2
+P9: PASS champion=cand_2 @ 20.736
+P10: PASS champion=cand_3 @ 36.5134
+P11: PASS green in 2
+P12: PASS in 2
+P13: PASS green in 2
+P14: PASS in 2
+P15: PASS 30.5777 Mtok/s
+P16: PASS critic+verifier in 1
+P17: PASS
+P18: PASS in 2
+P19: PASS champion=cand_2 @ 207.9272
+P20: PASS green in 2
+P21: PASS in 2
+P22: PASS green in 2
+P23: PASS 221.8812 Mn/s
+P24: PASS critic+verifier in 1
+P25: FAIL
+P26: PASS in 2
+P27: PASS champion=cand_3 @ 0.3199
+P28: PASS in 2
+P29: PASS green in 2
+P30: PASS champion=cand_2 @ 7.0291
+SCORE: 29/30 passed

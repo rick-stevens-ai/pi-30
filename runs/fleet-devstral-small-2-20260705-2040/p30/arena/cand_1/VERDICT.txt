@@ -1,0 +1,13 @@
+CLEAN
+
+The `my_sort` function in `sort.py` is correct and handles all edge cases properly:
+
+1. **Empty lists**: Returns an empty list
+2. **Singletons**: Returns a copy of the single-element list
+3. **Duplicates**: Preserves all duplicates correctly
+4. **Negative numbers**: Handles negative integers properly
+5. **Large integers**: Works with very large integers (tested with 10^18)
+6. **Stability**: Uses Python's built-in `sorted()` which is stable
+7. **Performance**: Uses Timsort (O(n log n) complexity) which is optimal
+
+All test cases pass and the multiset is preserved in every case.

@@ -1,0 +1,31 @@
+===== SUMMARY (oss120-openrouter-20260706-0751 / openai/gpt-oss-120b:free) =====
+P1: PASS
+P2: PASS
+P3: PASS green in 2
+P4: FAIL after 6
+P6: FAIL
+P7: FAIL
+P8: FAIL after 6
+P9: PASS champion=cand_4 @ 12.354
+P10: PASS champion=cand_1 @ 27.8825
+P11: FAIL after 5
+P12: FAIL after 5
+P13: FAIL after 6
+P14: PASS in 2
+P15: PASS 26.8404 Mtok/s
+P16: FAIL
+P17: FAIL
+P18: PASS in 2
+P19: PASS champion=cand_4 @ 202.2364
+P20: FAIL after 5
+P21: PASS in 5
+P22: FAIL after 5
+P23: STOP plateau best=0.1525
+P24: FAIL
+P25: FAIL
+P26: FAIL after 5
+P27: PASS champion=cand_3 @ 0.2201
+P28: PASS in 5
+P29: PASS green in 6
+P30: PASS champion=cand_2 @ 5.5152
+SCORE: 14/30 passed

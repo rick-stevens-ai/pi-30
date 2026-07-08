@@ -1,0 +1,8 @@
+==== laguna-xs2-rerun (laguna-xs2) RERUN START Sun Jul  5 07:07:05 CDT 2026 ====
+[P7] parallel backends fan-out
+P7: PASS
+[P17] serializer fan-out (csv/kv/pylit + codec)
+P17: PASS
+[P25] 3-stage stats pipeline fan-out
+P25: PASS
+==== laguna-xs2-rerun RERUN DONE Sun Jul  5 07:13:51 CDT 2026 ====

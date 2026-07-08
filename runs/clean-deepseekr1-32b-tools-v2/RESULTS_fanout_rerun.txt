@@ -1,0 +1,8 @@
+==== clean-deepseekr1-32b-tools-v2 (deepseek-r1:32b-tools via spark-9611) FANOUT-RERUN START Sun Jul  5 10:13:16 CDT 2026 ====
+[P7] parallel backends fan-out
+P7: FAIL
+[P17] serializer fan-out (csv/kv/pylit + codec)
+P17: FAIL
+[P25] 3-stage stats pipeline fan-out
+P25: FAIL
+==== clean-deepseekr1-32b-tools-v2 FANOUT-RERUN DONE Sun Jul  5 10:40:19 CDT 2026 ====

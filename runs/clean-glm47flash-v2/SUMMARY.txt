@@ -1,0 +1,31 @@
+===== SUMMARY (clean-glm47flash-v2 / glm-4.7-flash:latest) =====
+P1: FAIL
+P2: FAIL
+P3: FAIL after 8
+P4: FAIL after 6
+P6: FAIL
+P7: FAIL
+P8: FAIL after 6
+P9: FAIL no correct candidate
+P10: FAIL no correct candidate
+P11: FAIL after 5
+P12: FAIL after 5
+P13: FAIL after 6
+P14: FAIL after 5
+P15: PASS 29.2938 Mtok/s
+P16: FAIL
+P17: FAIL
+P18: FAIL after 5
+P19: FAIL no correct candidate
+P20: FAIL after 5
+P21: FAIL after 5
+P22: FAIL after 5
+P23: STOP plateau best=0.1466
+P24: FAIL
+P25: FAIL
+P26: FAIL after 5
+P27: FAIL no correct candidate
+P28: FAIL after 5
+P29: FAIL after 6
+P30: FAIL no correct candidate
+SCORE: 1/30 passed

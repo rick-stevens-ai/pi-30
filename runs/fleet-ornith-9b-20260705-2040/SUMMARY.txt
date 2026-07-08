@@ -1,0 +1,84 @@
+===== SUMMARY (fleet-ornith-9b-20260705-2040 / ornith-9b) =====
+P1: PASS
+P2: FAIL
+P3: PASS green in 2
+P4: FAIL after 6
+P5: PASS 58.4360 GFLOP/s
+P6: PASS critic+verifier in 1
+P7: PASS
+P8: PASS in 2
+P9: FAIL no correct candidate
+P10: PASS champion=cand_2 @ 33.0606
+P11: PASS green in 2
+P12: PASS in 2
+P13: PASS green in 4
+P14: PASS in 2
+P15: PASS 28.2621 Mtok/s
+P16: PASS critic+verifier in 1
+P17: PASS
+P18: PASS in 2
+P19: PASS champion=cand_2 @ 191.1163
+P20: PASS green in 2
+P21: PASS in 2
+P22: PASS green in 2
+P23: PASS 120.3882 Mn/s
+P1: PASS  [resumed-skip]
+P2: PASS
+P3: PASS green in 2  [resumed-skip]
+P4: PASS in 6
+P5: PASS 58.4360 GFLOP/s  [resumed-skip]
+P6: PASS critic+verifier in 1  [resumed-skip]
+P7: PASS  [resumed-skip]
+P8: PASS in 2  [resumed-skip]
+P9: PASS champion=cand_2 @ 23.906
+P10: PASS champion=cand_2 @ 33.0606  [resumed-skip]
+P11: PASS green in 2  [resumed-skip]
+P12: PASS in 2  [resumed-skip]
+P13: PASS green in 4  [resumed-skip]
+P14: PASS in 2  [resumed-skip]
+P15: PASS 28.2621 Mtok/s  [resumed-skip]
+P16: PASS critic+verifier in 1  [resumed-skip]
+P17: PASS  [resumed-skip]
+P18: PASS in 2  [resumed-skip]
+P19: PASS champion=cand_2 @ 191.1163  [resumed-skip]
+P20: PASS green in 2  [resumed-skip]
+P21: PASS in 2  [resumed-skip]
+P22: PASS green in 2  [resumed-skip]
+P23: PASS 120.3882 Mn/s  [resumed-skip]
+P24: PASS critic+verifier in 2
+P25: PASS
+P26: PASS in 2
+P27: PASS champion=cand_1 @ 0.1116
+P28: PASS in 2
+P29: PASS green in 2
+P1: PASS  [resumed-skip]  [resumed-skip]
+P2: PASS  [resumed-skip]
+P3: PASS green in 2  [resumed-skip]  [resumed-skip]
+P4: PASS in 6  [resumed-skip]
+P5: PASS 58.4360 GFLOP/s  [resumed-skip]  [resumed-skip]
+P6: PASS critic+verifier in 1  [resumed-skip]  [resumed-skip]
+P7: PASS  [resumed-skip]  [resumed-skip]
+P8: PASS in 2  [resumed-skip]  [resumed-skip]
+P9: PASS champion=cand_2 @ 23.906  [resumed-skip]
+P10: PASS champion=cand_2 @ 33.0606  [resumed-skip]  [resumed-skip]
+P11: PASS green in 2  [resumed-skip]  [resumed-skip]
+P12: PASS in 2  [resumed-skip]  [resumed-skip]
+P13: PASS green in 4  [resumed-skip]  [resumed-skip]
+P14: PASS in 2  [resumed-skip]  [resumed-skip]
+P15: PASS 28.2621 Mtok/s  [resumed-skip]  [resumed-skip]
+P16: PASS critic+verifier in 1  [resumed-skip]  [resumed-skip]
+P17: PASS  [resumed-skip]  [resumed-skip]
+P18: PASS in 2  [resumed-skip]  [resumed-skip]
+P19: PASS champion=cand_2 @ 191.1163  [resumed-skip]  [resumed-skip]
+P20: PASS green in 2  [resumed-skip]  [resumed-skip]
+P21: PASS in 2  [resumed-skip]  [resumed-skip]
+P22: PASS green in 2  [resumed-skip]  [resumed-skip]
+P23: PASS 120.3882 Mn/s  [resumed-skip]  [resumed-skip]
+P24: PASS critic+verifier in 2  [resumed-skip]
+P25: PASS  [resumed-skip]
+P26: PASS in 2  [resumed-skip]
+P27: PASS champion=cand_1 @ 0.1116  [resumed-skip]
+P28: PASS in 2  [resumed-skip]
+P29: PASS green in 2  [resumed-skip]
+P30: PASS champion=cand_1 @ 1.1677
+SCORE: 79/30 passed

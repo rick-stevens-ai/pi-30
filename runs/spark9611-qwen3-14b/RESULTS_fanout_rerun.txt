@@ -1,0 +1,8 @@
+==== spark9611-qwen3-14b (qwen3:14b via spark-9611) FANOUT-RERUN START Sun Jul  5 10:05:21 CDT 2026 ====
+[P7] parallel backends fan-out
+P7: FAIL
+[P17] serializer fan-out (csv/kv/pylit + codec)
+P17: PASS
+[P25] 3-stage stats pipeline fan-out
+P25: FAIL
+==== spark9611-qwen3-14b FANOUT-RERUN DONE Sun Jul  5 10:27:26 CDT 2026 ====
