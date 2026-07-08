@@ -5,7 +5,7 @@
 # No DB required (general_settings store_model_in_db not set => in-memory).
 #
 # Spark36 (Ollama, OpenAI-compat): http://<tailnet-host>:11434/v1
-# LM Studio (m3acbook):            http://<tailnet-m3acbook>:1234/v1
+# LM Studio (m3acbook):            http://<tailnet-host>:1234/v1
 # Ollama/LM Studio need no real key; use a placeholder.
 
 model_list:
@@ -65,52 +65,52 @@ model_list:
   - model_name: "lmstudio/gpt-oss-120b"
     litellm_params:
       model: "openai/openai/gpt-oss-120b"
-      api_base: "http://<tailnet-m3acbook>:1234/v1"
+      api_base: "http://<tailnet-host>:1234/v1"
       api_key: "lmstudio"
   - model_name: "lmstudio/gpt-oss-20b"
     litellm_params:
       model: "openai/openai/gpt-oss-20b"
-      api_base: "http://<tailnet-m3acbook>:1234/v1"
+      api_base: "http://<tailnet-host>:1234/v1"
       api_key: "lmstudio"
   - model_name: "lmstudio/qwen3-coder-30b"
     litellm_params:
       model: "openai/qwen/qwen3-coder-30b"
-      api_base: "http://<tailnet-m3acbook>:1234/v1"
+      api_base: "http://<tailnet-host>:1234/v1"
       api_key: "lmstudio"
   - model_name: "lmstudio/qwen3-next-80b"
     litellm_params:
       model: "openai/qwen/qwen3-next-80b"
-      api_base: "http://<tailnet-m3acbook>:1234/v1"
+      api_base: "http://<tailnet-host>:1234/v1"
       api_key: "lmstudio"
   - model_name: "lmstudio/seed-oss-36b"
     litellm_params:
       model: "openai/bytedance/seed-oss-36b"
-      api_base: "http://<tailnet-m3acbook>:1234/v1"
+      api_base: "http://<tailnet-host>:1234/v1"
       api_key: "lmstudio"
   - model_name: "lmstudio/glm-4.7-flash"
     litellm_params:
       model: "openai/zai-org/glm-4.7-flash"
-      api_base: "http://<tailnet-m3acbook>:1234/v1"
+      api_base: "http://<tailnet-host>:1234/v1"
       api_key: "lmstudio"
   - model_name: "lmstudio/gemma-3-27b"
     litellm_params:
       model: "openai/gemma-3-27b-it"
-      api_base: "http://<tailnet-m3acbook>:1234/v1"
+      api_base: "http://<tailnet-host>:1234/v1"
       api_key: "lmstudio"
   - model_name: "lmstudio/deepseek-r1-distill-llama-70b"
     litellm_params:
       model: "openai/lmstudio-community/deepseek-r1-distill-llama-70b"
-      api_base: "http://<tailnet-m3acbook>:1234/v1"
+      api_base: "http://<tailnet-host>:1234/v1"
       api_key: "lmstudio"
   - model_name: "lmstudio/llama-3.3-70b"
     litellm_params:
       model: "openai/llama-3.3-70b-instruct"
-      api_base: "http://<tailnet-m3acbook>:1234/v1"
+      api_base: "http://<tailnet-host>:1234/v1"
       api_key: "lmstudio"
   - model_name: "lmstudio/qwq-32b"
     litellm_params:
       model: "openai/qwq-32b-preview"
-      api_base: "http://<tailnet-m3acbook>:1234/v1"
+      api_base: "http://<tailnet-host>:1234/v1"
       api_key: "lmstudio"
 
 litellm_settings:

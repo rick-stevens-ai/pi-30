@@ -16,7 +16,7 @@ doesn't, pi sees raw text and writes no artifact.
   SIMPLE tool, BUT with pi's write/edit schema qwen3-coder emits raw XML text
   Ollama does NOT parse → no file. codestral:22b, phi4:14b = "does not support
   tools". VERDICT: Ollama UNRELIABLE for pi tool-use.
-- **LM Studio (m3acbook <tailnet-m3acbook>:1234, macOS 26.3.1, 55 models)**: returns
+- **LM Studio (m3acbook <tailnet-host>:1234, macOS 26.3.1, 55 models)**: returns
   CORRECT structured tool_calls for qwen3-coder, JIT-loads on demand. WORKS for
   pi tool-use. lms CLI at "/Applications/LM Studio.app/Contents/Resources/app/.webpack/lms".
   Models incl AuroraGPT variants, qwen3-coder-30b, gpt-oss-120b/20b, glm-4.7-flash,
@@ -44,7 +44,7 @@ write the artifact ourselves, verdict from verifier exit code.
 - spark36       → http://<tailnet-host>:11434/v1 (Ollama, no auth)
 - ollama-cloud  → https://ollama.com/v1 (key from ~/Dropbox/AIEN/keys-misc.md rotated line)
 - openrouter-free → https://openrouter.ai/api/v1 (key from AIEN env.sh; free tier 429-throttled)
-- lmstudio-m3   → http://<tailnet-m3acbook>:1234/v1 (LM Studio, no auth, JIT load)
+- lmstudio-m3   → http://<tailnet-host>:1234/v1 (LM Studio, no auth, JIT load)
 
 ## Model universe (~80 free, heavy overlap)
 - Sparks spark-36ac Ollama: 24 (Rick priority). spark-95fe/9611 = Qwen3-235B TP=2, DO NOT TOUCH.
@@ -61,7 +61,7 @@ measurement, generator+critic, fan-out, reflection, tournament, capstone) x3.
 Verdicts come from verifier EXIT CODES, never the model's prose. Seeds must fail
 before looping (loop must earn the fix).
 
-## LM Studio (m3acbook <tailnet-m3acbook>:1234) — bind fix
+## LM Studio (m3acbook <tailnet-host>:1234) — bind fix
 ROOT CAUSE of all earlier "Connection error" / HTTP=000-in-13ms from pi:
 LM Studio server was bound to 127.0.0.1 only (localhost). `lms ps`/`lms load`
 work because they run locally on m3acbook, but ANY request from m1 over

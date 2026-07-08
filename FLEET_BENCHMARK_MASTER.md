@@ -166,7 +166,7 @@ Clear scale monotonicity — the frontier 120B leads its local siblings by ~7 po
 
 ### 1.5 laguna-xs2 — 27/30 (effectively 30/30 across a targeted rerun)
 
-Laguna XS.2 = **laguna arch, 33B.A3B MoE** (33.4B params, 8 of 256 experts active, Q8_0 = 35.6 GB, 40 layers, native 262K ctx via YaRN). Served on **uicgpu** via `ik_llama.cpp` llama-server on port 8080 (TS <tailnet-uicgpu>), single A100 at 128K context (~55 GB VRAM).
+Laguna XS.2 = **laguna arch, 33B.A3B MoE** (33.4B params, 8 of 256 experts active, Q8_0 = 35.6 GB, 40 layers, native 262K ctx via YaRN). Served on **uicgpu** via `ik_llama.cpp` llama-server on port 8080 (TS <tailnet-host>), single A100 at 128K context (~55 GB VRAM).
 
 - **Base run: 27/30** (`runs30/laguna-xs2/RESULTS.txt`) — missed **P7, P17, P25**, all of which are fan-out / parallel-backend orchestration problems.
 - **Targeted rerun of exactly those 3** (`runs30/laguna-xs2-rerun/RESULTS.txt`, 2026-07-05): **P7 PASS, P17 PASS, P25 PASS → 3/3**.
