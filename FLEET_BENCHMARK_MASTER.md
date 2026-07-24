@@ -1,6 +1,7 @@
 # pi Agent-Loop Fleet Benchmark — Master Report
 
-**Updated:** 2026-07-06 (v7 — ONE integrated master table: all 24 unique model×backend lanes deduped across local-dgx/uicgpu/chiatta00/spark/OpenRouter, score order, with wall-times)
+**Updated:** 2026-07-24 (v8 — added two new lanes: `inkling` (OpenRouter, eff. 30/30) and `laguna-s-2.1` (larger Laguna MoE now on chicago-2, 26/30); 26 unique model×backend lanes)
+**Prior:** 2026-07-06 (v7 — ONE integrated master table: 24 lanes deduped across local-dgx/uicgpu/chiatta00/spark/OpenRouter, score order, with wall-times)
 **Owner:** Kukla (m1-mac-mini) · co-run with Ollie (CherryRd/OpenClaw)
 **Harnesses:** THREE segmented sets — do NOT cross-merge (different problem numbering / subsets).
 
@@ -70,31 +71,33 @@ The same model on two different backends is kept as two rows (serving path is a 
 | # | Model | Provider / backend | Score | Total time | Notes |
 |---|-------|--------------------|-------|-----------|-------|
 | 1 | **oss120** (gpt-oss-120b) | local dgx → vLLM 0.14.1 | **30/30** | 9m | clean; fastest lane |
-| 2 | **kimi** (Kimi-K2.6) | local dgx | **30/30** | 3h18m | clean |
-| 3 | **qwen36-27b** | Intel PVC (1 tile) → agg | **30/30** | 1h22m | clean |
-| 4 | **ornith-9b** (reasoning) | Intel PVC (1 tile) → agg | **30/30** | 3h05m | P30 PASS after `SCORE_TIMEOUT` fix; excl. ~6.5h harness hang |
-| 5 | **uic-qwen36-35b-a3b** | nVIDIA A100 (MoE) → agg | **30/30** | 52m | P30 PASS after `SCORE_TIMEOUT` fix |
-| 6 | **uic-laguna-xs2** | nVIDIA A100 (MoE) → agg | **30/30** | 49m | clean cold pass — confirms §1.5 |
-| 7 | **laguna-xs2** (33B.A3B MoE) | nVIDIA A100 ik_llama.cpp :8080 | **27/30** (eff. 30) | 56m | canonical single-shot 27/30; 3 misses all PASS on targeted rerun (§1.5) |
-| 8 | **glm-5.2** | OpenRouter (paid) | **29/30** | 44m | reasoning+tools; miss P25; replaces retired glm-4.7-flash (1/28) |
-| 9 | **gemma4-31b** | Intel PVC (1 tile) → agg | 29/30 | 3h01m | |
-| 10 | **uic-ornith-9b** (reasoning) | nVIDIA A100 llama.cpp → agg | **28/30** | 1h36m | fixed from 0/30 broken Ollama template → real score; misses P4, P9 |
-| 11 | gemma4-12b | Intel PVC (1 tile) → agg | 28/30 | 3h15m | |
-| 12 | devstral-small-2 | Intel PVC (1 tile) → agg | 28/30 | 1h27m | |
-| 13 | uic-gemma4-26b-q4 | uicgpu (Q4) → agg | 26/30 | 1h12m | Q4 ≥ Q8 here = run variance, not quant signal |
-| 14 | **nemotron-3-super 120B** | OpenRouter free | **26/30** | 1h48m | real score (§1.3) |
-| 15 | uic-gemma4-26b-q8 | uicgpu (Q8) → agg | 24/30 | 1h40m | |
-| 16 | devstral2-24b | spark (ollama) | 24/30 | 2h14m | separate serving path from row 12 |
-| 17 | uic-ornith-35b | nVIDIA A100 → agg | 23/30 | 1h29m | |
-| 18 | **nemotron-3-ultra 550B** (NVFP4) | local dgx (rbh101) | 22/26 | hung @P27 | ⚠️ partial — hung at P27 (no clean finish) |
-| 19 | qwen3-14b | spark (ollama) | 20/28 | 4h41m | ⚠️ stopped ~P29 |
-| 20 | gemma4-e4b | Intel PVC (1 tile) → agg | 20/30 | 1h39m | |
-| 21 | gemma4-e2b | Intel PVC (1 tile) → agg | 20/30 | 1h02m | |
-| 22 | **nemotron-3-nano 30B** (Nemotron-H MoE) | spark (ollama) | **19/30** | 7h36m | best locally-serveable nemotron (§1.3) |
-| 23 | llama70 | local dgx | 18/29 | 7h16m | |
-| 24 | **nemotron3 33B** (Nemotron-H Omni) | spark (ollama) | **16/30** | 7h31m | vision-capable hybrid; §1.3 |
+| 2 | **inkling** (thinkingmachines/inkling) | OpenRouter | **30/30** (eff.) | 24m | 29/30 canonical (P4 fail) → P4 PASS after 2026-07-24 oracle rescore (maxerr 1.1e-16); see §1.8 |
+| 3 | **kimi** (Kimi-K2.6) | local dgx | **30/30** | 3h18m | clean |
+| 4 | **qwen36-27b** | Intel PVC (1 tile) → agg | **30/30** | 1h22m | clean |
+| 5 | **ornith-9b** (reasoning) | Intel PVC (1 tile) → agg | **30/30** | 3h05m | P30 PASS after `SCORE_TIMEOUT` fix; excl. ~6.5h harness hang |
+| 6 | **uic-qwen36-35b-a3b** | nVIDIA A100 (MoE) → agg | **30/30** | 52m | P30 PASS after `SCORE_TIMEOUT` fix |
+| 7 | **uic-laguna-xs2** | nVIDIA A100 (MoE) → agg | **30/30** | 49m | clean cold pass — confirms §1.5 |
+| 8 | **laguna-xs2** (33B.A3B MoE) | nVIDIA A100 ik_llama.cpp :8080 | **27/30** (eff. 30) | 56m | canonical single-shot 27/30; 3 misses all PASS on targeted rerun (§1.5) |
+| 9 | **glm-5.2** | OpenRouter (paid) | **29/30** | 44m | reasoning+tools; miss P25; replaces retired glm-4.7-flash (1/28) |
+| 10 | **gemma4-31b** | Intel PVC (1 tile) → agg | 29/30 | 3h01m | |
+| 11 | **uic-ornith-9b** (reasoning) | nVIDIA A100 llama.cpp → agg | **28/30** | 1h36m | fixed from 0/30 broken Ollama template → real score; misses P4, P9 |
+| 12 | gemma4-12b | Intel PVC (1 tile) → agg | 28/30 | 3h15m | |
+| 13 | devstral-small-2 | Intel PVC (1 tile) → agg | 28/30 | 1h27m | |
+| 14 | uic-gemma4-26b-q4 | uicgpu (Q4) → agg | 26/30 | 1h12m | Q4 ≥ Q8 here = run variance, not quant signal |
+| 15 | **nemotron-3-super 120B** | OpenRouter free | **26/30** | 1h48m | real score (§1.3) |
+| 16 | **laguna-s-2.1** (48L MoE, 256exp/10act) | local dgx (rbdgx2) ik_llama.cpp → chicago-2:80 | **26/30** | 2h17m | new lane 2026-07-22; misses P9, P10, P27, P30 (tournament/benchmark-scored); see §1.9 |
+| 17 | uic-gemma4-26b-q8 | uicgpu (Q8) → agg | 24/30 | 1h40m | |
+| 18 | devstral2-24b | spark (ollama) | 24/30 | 2h14m | separate serving path from row 12 |
+| 19 | uic-ornith-35b | nVIDIA A100 → agg | 23/30 | 1h29m | |
+| 20 | **nemotron-3-ultra 550B** (NVFP4) | local dgx (rbh101) | 22/26 | hung @P27 | ⚠️ partial — hung at P27 (no clean finish) |
+| 21 | qwen3-14b | spark (ollama) | 20/28 | 4h41m | ⚠️ stopped ~P29 |
+| 22 | gemma4-e4b | Intel PVC (1 tile) → agg | 20/30 | 1h39m | |
+| 23 | gemma4-e2b | Intel PVC (1 tile) → agg | 20/30 | 1h02m | |
+| 24 | **nemotron-3-nano 30B** (Nemotron-H MoE) | spark (ollama) | **19/30** | 7h36m | best locally-serveable nemotron (§1.3) |
+| 25 | llama70 | local dgx | 18/29 | 7h16m | ⚠️ retired 2026-07-22 — endpoint chicago-2 replaced by laguna-s-2.1 (row 16) |
+| 26 | **nemotron3 33B** (Nemotron-H Omni) | spark (ollama) | **16/30** | 7h31m | vision-capable hybrid; §1.3 |
 
-**Seven clean 30/30 lanes** (rows 1–6 single-shot + laguna row 7 effective): oss120, kimi, qwen36-27b, ornith-9b, uic-qwen36-35b-a3b, uic-laguna-xs2, and laguna-direct (27/30 canonical, effective 30/30). **glm-5.2** (29/30, paid OpenRouter) and the newly-fixed **uic-ornith-9b** (28/30) lead the next tier — glm-5.2 is a full-generation leap over the retired glm-4.7-flash (1/28). laguna is the best perf-per-active-param lane (33B active, single A100).
+**Eight clean 30/30 lanes** (rows 1–7 single-shot + laguna-xs2 row 8 effective): oss120, inkling (effective), kimi, qwen36-27b, ornith-9b, uic-qwen36-35b-a3b, uic-laguna-xs2, and laguna-xs2-direct (27/30 canonical, effective 30/30). **glm-5.2** (29/30, paid OpenRouter) and the newly-fixed **uic-ornith-9b** (28/30) lead the next tier — glm-5.2 is a full-generation leap over the retired glm-4.7-flash (1/28). laguna-xs2 is the best perf-per-active-param lane (33B active, single A100). **New 2026-07-22 lanes:** `inkling` (OpenRouter, effective 30/30 in 24m) and `laguna-s-2.1` (the larger 48-layer Laguna MoE now serving on chicago-2 in place of llama70, 26/30) — Laguna-S misses the four tournament/benchmark-scored problems (P9/P10/P27/P30) that the smaller laguna-xs2 cleared on rerun.
 
 **Total time = active START→DONE wall-clock** (summed across resume segments; the ~6.5h P30 harness hang on ornith-9b/uic-qwen36 is excluded — that was a bug, not compute). Provider speed is a first-class axis: fast local-dgx/nVIDIA-A100/Intel-PVC backends finish in minutes–hours at 30/30, while spark-Ollama local lanes burn 7–8h for lower scores. Rows sorted by score, then perf-per-problem.
 
@@ -211,6 +214,28 @@ Both gpt-oss models re-run across **every sanctioned provider** on the same Flee
 | oss20b | OpenRouter free | 6/30 | 63m | ⚠️ **DEGRADED PROVIDER** — same free-tier degradation signature as oss120-OpenRouter |
 
 **Provider-delta finding:** on the *identical* gpt-oss weights, sanctioned self-hosted endpoints (CELS/Sophia/spark) score 27–30/30 while **OpenRouter free tier collapses to 14/30 (oss120) and 6/30 (oss20b)** — with 6–7× longer wall times and ~800× slower measurement throughput. This is a provider-infrastructure result, not a model-capability result: the free-tier endpoint serves a throttled/truncated variant. **Canonical oss120 = 30/30 (CELS); canonical oss20b = 27/30 (spark).** The OpenRouter numbers are retained only as evidence of the free-tier quality gap, never quoted as the model's score.
+
+---
+
+### 1.8 inkling (thinkingmachines/inkling) — effective 30/30 (OpenRouter), added 2026-07-22
+
+Run `runs30/fleet-inkling-openrouter-20260722-0058` (Thinking Machines **Inkling**, served via OpenRouter). START 2026-07-22 00:58:56 CDT → last-problem artifact 01:22:37 = **~24 min** wall-clock — among the fastest full-fleet lanes.
+
+- **Canonical single run: 29/30** — the only miss was **P4 (stable softmax vs oracle)**, `P4: FAIL after 6`.
+- **P4 rescore (2026-07-24):** after an **oracle fix** in the P4 verifier (the reference oracle itself had a defect), P4 was re-scored against the corrected oracle → **PASS, maxerr = 1.11e-16** (machine-precision correct). The original run output is preserved at `RESULTS.txt.bak-p4rescore`.
+- **Effective score: 30/30.** All 30 problems pass under the corrected verifier; the canonical pre-rescore number (29/30) is retained for provenance.
+
+Inkling clears every tournament/benchmark-scored problem (P9, P10, P19, P23, P27, P30) cleanly, placing it in the top tier alongside oss120 for both score and throughput. NOTE: OpenRouter is a **paid/out-of-free-benchmark-policy** provider — tagged as such; score is attributed to *provider × model* per §1.7.
+
+### 1.9 laguna-s-2.1 — 26/30 (larger Laguna MoE now on chicago-2), added 2026-07-22
+
+Run `runs30/laguna-s21-chicago2-20260722-2016` (**Laguna-S-2.1**, custom `LagunaForCausalLM` MoE — 48 layers, 256 experts / 10 active, Q8_0). This is the **larger sibling of laguna-xs2** (§1.5). It replaced the retired `llama70` (Llama-3.3-70B, vLLM/Ray) on **cels-rbdgx2**, served via `ik_llama.cpp` and fronted by the public **chicago-2:80** endpoint (cutover 2026-07-22). START 20:16:17 → END 22:33:12 CDT = **~2h17m**, one clean pass.
+
+- **Score: 26/30.** Misses **P9, P10, P27, P30** — `no correct candidate` on all four.
+- **Failure signature:** all four misses are the **best-of-N tournament / benchmark-scored** class (levenshtein tournament, prime-sieve capstone, and the two later benchmark-scored problems). It cleared every deterministic-verifier problem (P1–P8, P11–P26 except P27, P28–P29) as well as the measurement problems P5/P15/P23.
+- **Contrast with laguna-xs2:** the smaller 33B.A3B laguna-xs2 missed P7/P17/P25 (parallel-orchestration) on its base run but recovered all three to effective 30/30 on rerun (§1.5). Laguna-S-2.1's misses are a *different* class (tournament/benchmark-scored, not fan-out) and were not rerun — 26/30 is the canonical single-shot number. A targeted rerun of P9/P10/P27/P30 is a reasonable follow-up to establish an effective ceiling.
+
+Context: this lane is now the **production chicago-2 model** (llama70 torn down, rollback saved at `rbdgx2:~/rollback_llama70.sh`), so its Fleet-30 score doubles as a smoke-quality signal for that public endpoint.
 
 ---
 

@@ -1,0 +1,2 @@
+Bug: range(1, size) excludes last odd index (n when odd included). FIXED.
+FIXED: off-by-one excluded index size-1 (n included for odd n)

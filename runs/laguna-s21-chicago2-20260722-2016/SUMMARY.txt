@@ -1,0 +1,32 @@
+===== SUMMARY (laguna-s21-chicago2-20260722-2016 / laguna-s-2.1) =====
+P1: PASS
+P2: PASS
+P3: PASS green in 2
+P4: PASS in 5
+P5: PASS 8.2897 GFLOP/s
+P6: PASS critic+verifier in 1
+P7: PASS
+P8: PASS in 2
+P9: FAIL no correct candidate
+P10: FAIL no correct candidate
+P11: PASS green in 2
+P12: PASS in 2
+P13: PASS green in 2
+P14: PASS in 2
+P15: PASS 30.6829 Mtok/s
+P16: PASS critic+verifier in 2
+P17: PASS
+P18: PASS in 2
+P19: PASS champion=cand_4 @ 207.6179
+P20: PASS green in 2
+P21: PASS in 2
+P22: PASS green in 2
+P23: PASS 214.8709 Mn/s
+P24: PASS critic+verifier in 3
+P25: PASS
+P26: PASS in 2
+P27: FAIL no correct candidate
+P28: PASS in 2
+P29: PASS green in 2
+P30: FAIL no correct candidate
+SCORE: 26/30 passed

@@ -1,0 +1,1 @@
+VERDICT: CLEAN — stable (<=), empty/neg/dupes handled, no bugs found.
