@@ -1,6 +1,20 @@
 // Shared deck library — palette, helpers, and DIAGRAM primitives.
 // HARD RULE: no fontSize below 16 anywhere (footers included).
-const PptxGenJS = require("/Users/stevens/.nvm/versions/node/v24.16.0/lib/node_modules/pptxgenjs");
+// Resolve pptxgenjs portably: prefer normal resolution, fall back to the user's
+// global node_modules or an OPT env override (avoids a hardcoded per-machine path).
+let PptxGenJS;
+try {
+  PptxGenJS = require("pptxgenjs");
+} catch (e) {
+  const os = require("os"), path = require("path");
+  const candidates = [
+    process.env.PPTXGENJS_PATH,
+    path.join(os.homedir(), "node_modules", "pptxgenjs"),
+    "/usr/local/lib/node_modules/pptxgenjs",
+  ].filter(Boolean);
+  for (const c of candidates) { try { PptxGenJS = require(c); break; } catch (_) {} }
+  if (!PptxGenJS) throw new Error("pptxgenjs not found; set PPTXGENJS_PATH or `npm i pptxgenjs`");
+}
 
 const C = {
   NAVY:"0B1F3A", NAVY2:"13294B", TEAL:"1C7293", CYAN:"33C3F0", ICE:"CADCFC",

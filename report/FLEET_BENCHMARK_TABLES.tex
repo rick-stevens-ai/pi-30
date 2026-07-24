@@ -1,37 +1,58 @@
 % pi Agent-Loop Fleet Benchmark --- LaTeX booktabs tables
-% Updated 2026-07-04 (reconciled against on-disk state: m1 + sparks + CherryRd)
-% Requires: \usepackage{booktabs}
+% Updated 2026-07-24 (v8; reconciled against FLEET_BENCHMARK_MASTER.md v8).
+% Requires: \usepackage{booktabs}, \usepackage{longtable}
 % THREE segmented sets --- do NOT cross-merge (different numbering/subsets).
+% NOTE: the authoritative integrated table is the longtable in
+% FLEET_BENCHMARK_REPORT.tex; this file mirrors it for standalone \input use.
 
 % ---------------------------------------------------------------
-% Table 1: Fleet-30 summary (P1--P30, run_model_30.sh)
+% Table 1: Fleet-30 integrated master (P1--P30, run_model_30.sh), all 26 lanes
 % ---------------------------------------------------------------
 \begin{table}[t]
   \centering
-  \caption{Fleet-30 benchmark (P1--P30). Verdicts from verifier exit codes.
-    oss120 and kimi are complete, valid 30/30 lanes. The three all-fail
-    spark lanes are run defects (same models score 8--9/10 on mesh-10),
-    not capability, and are candidates for a clean re-run.}
+  \footnotesize
+  \caption{Fleet-30 benchmark (P1--P30), all 26 unique model$\times$backend lanes in
+    score order. Verdicts from verifier exit codes. Every former $0/N$ lane was
+    root-caused as an infrastructure defect and fixed or documented (zero-score rule);
+    none remain as a capability score. Rows 2 and 16 (\texttt{inkling},
+    \texttt{laguna-s-2.1}) added 2026-07-22.}
   \label{tab:fleet30}
-  \begin{tabular}{llrl}
+  \begin{tabular}{rllr}
     \toprule
-    Model & Provider / path & Score & Status \\
+    \# & Model & Provider / backend & Score \\
     \midrule
-    oss120 (gpt-oss-120b)      & cels-chicago-3-direct $\to$ vLLM 0.14.1 & 30/30 & complete, clean \\
-    kimi (Kimi-K2.6)           & cels-direct            & 30/30 & complete, clean \\
-    nemotron-3 (cels)          & cels-direct            & 22 P  & partial, hung @P27 \\
-    llama70                    & cels-direct            & 18 P  & full run, 18/30 \\
-    spark devstral2-24b        & spark (ollama)         & 24/30 & full run \\
-    spark qwen3-14b            & spark (ollama)         & 18 P  & stopped $\sim$P29 \\
-    spark glm-4.7-flash        & spark (ollama)         & 0/23  & all-fail (harness/adapter) \\
-    spark nemotron3-super-120b & spark (ollama)         & 0/27  & all-fail (harness/adapter) \\
-    spark deepseek-r1-32b      & spark (ollama)         & 0/22  & all-fail (harness/adapter) \\
+    1  & oss120 (gpt-oss-120b)         & local dgx $\to$ vLLM 0.14.1        & 30/30 \\
+    2  & inkling (thinkingmachines)    & OpenRouter                        & 30/30 (eff.) \\
+    3  & kimi (Kimi-K2.6)              & local dgx                         & 30/30 \\
+    4  & qwen36-27b                    & Intel PVC $\to$ agg               & 30/30 \\
+    5  & ornith-9b (reasoning)         & Intel PVC $\to$ agg               & 30/30 \\
+    6  & uic-qwen36-35b-a3b            & nVIDIA A100 $\to$ agg             & 30/30 \\
+    7  & uic-laguna-xs2                & nVIDIA A100 $\to$ agg             & 30/30 \\
+    8  & laguna-xs2 (33B.A3B MoE)      & nVIDIA A100 ik\_llama.cpp         & 27/30 (eff.30) \\
+    9  & glm-5.2                       & OpenRouter (paid)                 & 29/30 \\
+    10 & gemma4-31b                    & Intel PVC $\to$ agg               & 29/30 \\
+    11 & uic-ornith-9b (reasoning)     & nVIDIA A100 llama.cpp $\to$ agg   & 28/30 \\
+    12 & gemma4-12b                    & Intel PVC $\to$ agg               & 28/30 \\
+    13 & devstral-small-2              & Intel PVC $\to$ agg               & 28/30 \\
+    14 & uic-gemma4-26b-q4             & nVIDIA A100 (Q4) $\to$ agg        & 26/30 \\
+    15 & nemotron-3-super 120B         & OpenRouter free                   & 26/30 \\
+    16 & laguna-s-2.1 (48L MoE)        & local dgx ik\_llama.cpp $\to$ chicago-2 & 26/30 \\
+    17 & uic-gemma4-26b-q8             & nVIDIA A100 (Q8) $\to$ agg        & 24/30 \\
+    18 & devstral2-24b                 & spark (ollama)                    & 24/30 \\
+    19 & uic-ornith-35b                & nVIDIA A100 $\to$ agg             & 23/30 \\
+    20 & nemotron-3-ultra 550B (NVFP4) & local dgx (rbh101)                & 22/26$^{p}$ \\
+    21 & qwen3-14b                     & spark (ollama)                    & 20/28$^{p}$ \\
+    22 & gemma4-e4b                    & Intel PVC $\to$ agg               & 20/30 \\
+    23 & gemma4-e2b                    & Intel PVC $\to$ agg               & 20/30 \\
+    24 & nemotron-3-nano 30B           & spark (ollama)                    & 19/30 \\
+    25 & llama70 (retired 07-22)       & local dgx                         & 18/29$^{p}$ \\
+    26 & nemotron3 33B (Nemotron-H Omni) & spark (ollama)                  & 16/30 \\
     \bottomrule
   \end{tabular}
 
   \vspace{2pt}
   {\footnotesize
-   ``P'' = PASS count where the run did not cover all 30 problems.}
+   $^{p}$ = partial run (did not cover all 30 problems: interrupted / hung).}
 \end{table}
 
 % ---------------------------------------------------------------

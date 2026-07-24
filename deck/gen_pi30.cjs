@@ -15,7 +15,7 @@ const S = () => p.addSlide();
   s.addText("The pi Agent-Loop\nFleet-30 Benchmark",{x:0.95,y:1.9,w:11.5,h:2.0,fontFace:HF,fontSize:52,bold:true,color:C.WHITE,lineSpacingMultiple:1.0});
   s.addText("A tool-use coding evaluation across the free / self-hosted model fleet",{x:1.0,y:4.05,w:11,h:0.6,fontFace:BF,fontSize:22,color:C.ICE});
   // three stat pills
-  const pills=[["24","lanes evaluated"],["30","agent-loop problems"],["7","clean 30/30"]];
+  const pills=[["26","lanes evaluated"],["30","agent-loop problems"],["8","clean 30/30"]];
   pills.forEach((pl,i)=>{
     const x=1.0+i*3.9;
     s.addShape(p.ShapeType.roundRect,{x,y:5.15,w:3.5,h:1.35,rectRadius:0.12,fill:{color:C.NAVY2},line:{color:C.TEAL,width:1.5}});
@@ -98,9 +98,10 @@ const S = () => p.addSlide();
 (() => {
   const s = S(); L.bgLight(s);
   L.kicker(s,"Results \u00b7 top of the board",C.TEAL);
-  L.title(s,"Seven lanes reached a clean 30/30");
+  L.title(s,"Eight lanes reached a clean 30/30");
   const rows=[
     ["oss120 (gpt-oss-120b)","local dgx \u00b7 vLLM 0.14.1","30/30","9m",true],
+    ["inkling (thinkingmachines)","OpenRouter","30/30 (eff.)","24m",true],
     ["uic-laguna-xs2","nVIDIA A100 (MoE)","30/30","49m",true],
     ["uic-qwen36-35b-a3b","nVIDIA A100 (MoE)","30/30","52m",true],
     ["qwen36-27b","Intel PVC (1 tile)","30/30","1h22m",true],
@@ -248,35 +249,37 @@ function tableSlide(title,rows,slideNo){
   L.foot(s,slideNo,TOTAL,false);
   return s;
 }
-tableSlide("All 24 lanes \u2014 ranks 1\u201312",[
+tableSlide("All 26 lanes \u2014 ranks 1\u201313",[
   [1,"oss120 (gpt-oss-120b)","local dgx \u00b7 vLLM 0.14.1","30/30","9m"],
-  [2,"kimi (Kimi-K2.6)","local dgx","30/30","3h18m"],
-  [3,"qwen36-27b","Intel PVC (1 tile)","30/30","1h22m"],
-  [4,"ornith-9b (reasoning)","Intel PVC (1 tile)","30/30","3h05m"],
-  [5,"uic-qwen36-35b-a3b","nVIDIA A100 (MoE)","30/30","52m"],
-  [6,"uic-laguna-xs2","nVIDIA A100 (MoE)","30/30","49m"],
-  [7,"laguna-xs2 (33B.A3B MoE)","nVIDIA A100 ik_llama","27/30*","56m"],
-  [8,"glm-5.2","OpenRouter (paid)","29/30","44m"],
-  [9,"gemma4-31b","Intel PVC (1 tile)","29/30","3h01m"],
-  [10,"uic-ornith-9b (reasoning)","nVIDIA A100 llama.cpp","28/30","1h36m"],
-  [11,"gemma4-12b","Intel PVC (1 tile)","28/30","3h15m"],
-  [12,"devstral-small-2","Intel PVC (1 tile)","28/30","1h27m"],
+  [2,"inkling (thinkingmachines)","OpenRouter","30/30*","24m"],
+  [3,"kimi (Kimi-K2.6)","local dgx","30/30","3h18m"],
+  [4,"qwen36-27b","Intel PVC (1 tile)","30/30","1h22m"],
+  [5,"ornith-9b (reasoning)","Intel PVC (1 tile)","30/30","3h05m"],
+  [6,"uic-qwen36-35b-a3b","nVIDIA A100 (MoE)","30/30","52m"],
+  [7,"uic-laguna-xs2","nVIDIA A100 (MoE)","30/30","49m"],
+  [8,"laguna-xs2 (33B.A3B MoE)","nVIDIA A100 ik_llama","27/30*","56m"],
+  [9,"glm-5.2","OpenRouter (paid)","29/30","44m"],
+  [10,"gemma4-31b","Intel PVC (1 tile)","29/30","3h01m"],
+  [11,"uic-ornith-9b (reasoning)","nVIDIA A100 llama.cpp","28/30","1h36m"],
+  [12,"gemma4-12b","Intel PVC (1 tile)","28/30","3h15m"],
+  [13,"devstral-small-2","Intel PVC (1 tile)","28/30","1h27m"],
 ],10);
 
 // ---------- 11. FULL TABLE part B ----------
-tableSlide("All 24 lanes \u2014 ranks 13\u201324",[
-  [13,"uic-gemma4-26b-q4","nVIDIA A100 (Q4)","26/30","1h12m"],
-  [14,"nemotron-3-super 120B","OpenRouter free","26/30","1h48m"],
-  [15,"uic-gemma4-26b-q8","nVIDIA A100 (Q8)","24/30","1h40m"],
-  [16,"devstral2-24b","spark (ollama)","24/30","2h14m"],
-  [17,"uic-ornith-35b","nVIDIA A100","23/30","1h29m"],
-  [18,"nemotron-3-ultra 550B","local dgx (rbh101)","22/26","hung@P27"],
-  [19,"qwen3-14b","spark (ollama)","20/28","4h41m"],
-  [20,"gemma4-e4b","Intel PVC (1 tile)","20/30","1h39m"],
-  [21,"gemma4-e2b","Intel PVC (1 tile)","20/30","1h02m"],
-  [22,"nemotron-3-nano 30B","spark (ollama)","19/30","7h36m"],
-  [23,"llama70","local dgx","18/29","7h16m"],
-  [24,"nemotron3 33B (Omni)","spark (ollama)","16/30","7h31m"],
+tableSlide("All 26 lanes \u2014 ranks 14\u201326",[
+  [14,"uic-gemma4-26b-q4","nVIDIA A100 (Q4)","26/30","1h12m"],
+  [15,"nemotron-3-super 120B","OpenRouter free","26/30","1h48m"],
+  [16,"laguna-s-2.1 (48L MoE)","local dgx ik_llama \u00b7 chicago-2","26/30","2h17m"],
+  [17,"uic-gemma4-26b-q8","nVIDIA A100 (Q8)","24/30","1h40m"],
+  [18,"devstral2-24b","spark (ollama)","24/30","2h14m"],
+  [19,"uic-ornith-35b","nVIDIA A100","23/30","1h29m"],
+  [20,"nemotron-3-ultra 550B","local dgx (rbh101)","22/26","hung@P27"],
+  [21,"qwen3-14b","spark (ollama)","20/28","4h41m"],
+  [22,"gemma4-e4b","Intel PVC (1 tile)","20/30","1h39m"],
+  [23,"gemma4-e2b","Intel PVC (1 tile)","20/30","1h02m"],
+  [24,"nemotron-3-nano 30B","spark (ollama)","19/30","7h36m"],
+  [25,"llama70 (retired 07-22)","local dgx","18/29","7h16m"],
+  [26,"nemotron3 33B (Omni)","spark (ollama)","16/30","7h31m"],
 ],11);
 
 // ---------- 12. MODEL IDENTITY note (light) ----------
@@ -347,4 +350,5 @@ tableSlide("All 24 lanes \u2014 ranks 13\u201324",[
     {x:0.95,y:6.75,w:11.5,h:0.4,fontFace:BF,fontSize:16,color:C.GREY});
 })();
 
-p.writeFile({ fileName: "/Users/stevens/code/pi30-deck/pi30_Fleet_Benchmark.pptx" }).then(f=>console.log("WROTE",f));
+const OUT = process.env.PI30_DECK_OUT || require("path").join(__dirname, "pi30_Fleet_Benchmark.pptx");
+p.writeFile({ fileName: OUT }).then(f=>console.log("WROTE",f));

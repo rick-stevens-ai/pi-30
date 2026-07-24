@@ -13,12 +13,12 @@
 \usepackage{fancyhdr}
 \pagestyle{fancy}\fancyhf{}
 \lhead{\small pi Agent-Loop Fleet-30 Benchmark}\rhead{\small\thepage}
-\lfoot{\small Rick Stevens fleet / m1 \textperiodcentered{} 2026-07-06}
+\lfoot{\small Rick Stevens fleet / m1 \textperiodcentered{} 2026-07-24}
 
 \title{\vspace{-1.5em}\textbf{The pi Agent-Loop Fleet-30 Benchmark}\\[0.3em]
 \large A tool-use coding evaluation across the free / self-hosted model fleet}
 \author{}
-\date{2026-07-06 \quad (report v7)}
+\date{2026-07-24 \quad (report v8)}
 
 \begin{document}
 \maketitle
@@ -85,14 +85,28 @@ The benchmark serves three concrete goals for the fleet:
 %==================================================================
 \section{Executive summary}
 
-Twenty-four unique (model $\times$ backend) lanes completed the sweep. \textbf{Seven
+Twenty-six unique (model $\times$ backend) lanes completed the sweep. \textbf{Eight
 lanes reached a clean 30/30}: \texttt{oss120} (gpt-oss-120b, local dgx, vLLM 0.14.1),
-\texttt{kimi} (Kimi-K2.6, local dgx), \texttt{qwen36-27b} (chiatta00), \texttt{ornith-9b}
-(chiatta00, a reasoning model), \texttt{uic-qwen36-35b-a3b} and
-\texttt{uic-laguna-xs2} (uicgpu), plus \texttt{laguna-xs2} served directly on uicgpu
+\texttt{inkling} (Thinking Machines, OpenRouter --- effective, see below),
+\texttt{kimi} (Kimi-K2.6, local dgx), \texttt{qwen36-27b} (Intel PVC), \texttt{ornith-9b}
+(Intel PVC, a reasoning model), \texttt{uic-qwen36-35b-a3b} and
+\texttt{uic-laguna-xs2} (nVIDIA A100), plus \texttt{laguna-xs2} served directly on nVIDIA A100
 (27/30 single-shot, effective 30/30 on a targeted rerun). \texttt{glm-5.2} (29/30,
 paid OpenRouter) and the newly-fixed \texttt{uic-ornith-9b} (28/30) lead the next
 tier.
+
+\textbf{Two lanes were added in the 2026-07-22 round.} \texttt{inkling}
+(\texttt{thinkingmachines/inkling}, OpenRouter) is \emph{effective 30/30} --- a clean
+29/30 canonical single-shot (the only miss, P4 softmax stability, flipped to PASS on
+2026-07-24 after a defect in the P4 \emph{oracle} itself was fixed; corrected
+\texttt{maxerr}${=}1.1{\times}10^{-16}$, machine precision) --- and among the fastest
+full-fleet lanes at $\sim$24\,min. \texttt{laguna-s-2.1} is the \emph{larger} Laguna MoE
+(custom \texttt{LagunaForCausalLM}, 48 layers, 256 experts / 10 active) that replaced
+the retired \texttt{llama70} on the public chicago-2 endpoint (served via
+\texttt{ik\_llama.cpp} on a local dgx); it scores \textbf{26/30} in one clean 2h17m
+pass, missing exactly the four best-of-$N$ / benchmark-scored problems
+(P9, P10, P27, P30) --- a different failure class from its smaller sibling
+\texttt{laguna-xs2}, which missed the fan-out problems but recovered them on rerun.
 
 Two findings stand out. First, \textbf{provider speed is a first-class axis}: fast
 local-dgx / nVIDIA-A100 / Intel-PVC backends finish 30/30 in minutes-to-hours, while
@@ -117,6 +131,8 @@ passed by every lane that attempted them.
 Every unique \textbf{model $\times$ backend} lane, deduped, in score order. The same
 model on two backends is two rows --- serving path is a first-class variable. Score
 $N/M$ with $M<30$ = the lane did not cover all 30 problems (interrupted / partial).
+Two lanes (rows 2 and 16) were added in the 2026-07-22 round; see the executive
+summary and \S7 for \texttt{inkling} and \texttt{laguna-s-2.1}.
 
 {\footnotesize
 \begin{longtable}{@{}rp{4.7cm}p{4.3cm}rr@{}}
@@ -125,29 +141,31 @@ $N/M$ with $M<30$ = the lane did not cover all 30 problems (interrupted / partia
 \midrule
 \endhead
 1  & oss120 (gpt-oss-120b)            & local dgx $\to$ vLLM 0.14.1   & \textbf{30/30} & 9m \\
-2  & kimi (Kimi-K2.6)                 & local dgx                        & \textbf{30/30} & 3h18m \\
-3  & qwen36-27b                       & Intel PVC (1 tile) $\to$ agg          & \textbf{30/30} & 1h22m \\
-4  & ornith-9b (reasoning)            & Intel PVC (1 tile) $\to$ agg          & \textbf{30/30} & 3h05m$^{*}$ \\
-5  & uic-qwen36-35b-a3b               & nVIDIA A100 (MoE) $\to$ agg                   & \textbf{30/30} & 52m \\
-6  & uic-laguna-xs2                   & nVIDIA A100 (MoE) $\to$ agg                   & \textbf{30/30} & 49m \\
-7  & laguna-xs2 (33B.A3B MoE)         & nVIDIA A100 ik\_llama.cpp :8080& 27/30 (eff.30) & 56m \\
-8  & glm-5.2                          & OpenRouter (paid)                  & 29/30       & 44m \\
-9  & gemma4-31b                       & Intel PVC (1 tile) $\to$ agg          & 29/30       & 3h01m \\
-10 & uic-ornith-9b (reasoning)        & nVIDIA A100 llama.cpp $\to$ agg  & 28/30       & 1h36m \\
-11 & gemma4-12b                       & Intel PVC (1 tile) $\to$ agg          & 28/30       & 3h15m \\
-12 & devstral-small-2                 & Intel PVC (1 tile) $\to$ agg          & 28/30       & 1h27m \\
-13 & uic-gemma4-26b-q4                & uicgpu (Q4) $\to$ agg              & 26/30       & 1h12m \\
-14 & nemotron-3-super 120B            & OpenRouter free                    & 26/30       & 1h48m \\
-15 & uic-gemma4-26b-q8                & uicgpu (Q8) $\to$ agg              & 24/30       & 1h40m \\
-16 & devstral2-24b                    & spark (ollama)                     & 24/30       & 2h14m \\
-17 & uic-ornith-35b                   & nVIDIA A100 $\to$ agg                   & 23/30       & 1h29m \\
-18 & nemotron-3-ultra 550B (NVFP4)    & local dgx (rbh101)                 & 22/26       & hung@P27 \\
-19 & qwen3-14b                        & spark (ollama)                     & 20/28       & 4h41m \\
-20 & gemma4-e4b                       & Intel PVC (1 tile) $\to$ agg          & 20/30       & 1h39m \\
-21 & gemma4-e2b                       & Intel PVC (1 tile) $\to$ agg          & 20/30       & 1h02m \\
-22 & nemotron-3-nano 30B (Nemotron-H MoE) & spark (ollama)                & 19/30       & 7h36m \\
-23 & llama70                          & local dgx                          & 18/29       & 7h16m \\
-24 & nemotron3 33B (Nemotron-H Omni)  & spark (ollama)                     & 16/30       & 7h31m \\
+2  & inkling (thinkingmachines)       & OpenRouter                         & \textbf{30/30} (eff.) & 24m \\
+3  & kimi (Kimi-K2.6)                 & local dgx                        & \textbf{30/30} & 3h18m \\
+4  & qwen36-27b                       & Intel PVC (1 tile) $\to$ agg          & \textbf{30/30} & 1h22m \\
+5  & ornith-9b (reasoning)            & Intel PVC (1 tile) $\to$ agg          & \textbf{30/30} & 3h05m$^{*}$ \\
+6  & uic-qwen36-35b-a3b               & nVIDIA A100 (MoE) $\to$ agg                   & \textbf{30/30} & 52m \\
+7  & uic-laguna-xs2                   & nVIDIA A100 (MoE) $\to$ agg                   & \textbf{30/30} & 49m \\
+8  & laguna-xs2 (33B.A3B MoE)         & nVIDIA A100 ik\_llama.cpp :8080& 27/30 (eff.30) & 56m \\
+9  & glm-5.2                          & OpenRouter (paid)                  & 29/30       & 44m \\
+10 & gemma4-31b                       & Intel PVC (1 tile) $\to$ agg          & 29/30       & 3h01m \\
+11 & uic-ornith-9b (reasoning)        & nVIDIA A100 llama.cpp $\to$ agg  & 28/30       & 1h36m \\
+12 & gemma4-12b                       & Intel PVC (1 tile) $\to$ agg          & 28/30       & 3h15m \\
+13 & devstral-small-2                 & Intel PVC (1 tile) $\to$ agg          & 28/30       & 1h27m \\
+14 & uic-gemma4-26b-q4                & uicgpu (Q4) $\to$ agg              & 26/30       & 1h12m \\
+15 & nemotron-3-super 120B            & OpenRouter free                    & 26/30       & 1h48m \\
+16 & laguna-s-2.1 (48L MoE, 256e/10a) & local dgx ik\_llama.cpp $\to$ chicago-2 & 26/30 & 2h17m \\
+17 & uic-gemma4-26b-q8                & uicgpu (Q8) $\to$ agg              & 24/30       & 1h40m \\
+18 & devstral2-24b                    & spark (ollama)                     & 24/30       & 2h14m \\
+19 & uic-ornith-35b                   & nVIDIA A100 $\to$ agg                   & 23/30       & 1h29m \\
+20 & nemotron-3-ultra 550B (NVFP4)    & local dgx (rbh101)                 & 22/26       & hung@P27 \\
+21 & qwen3-14b                        & spark (ollama)                     & 20/28       & 4h41m \\
+22 & gemma4-e4b                       & Intel PVC (1 tile) $\to$ agg          & 20/30       & 1h39m \\
+23 & gemma4-e2b                       & Intel PVC (1 tile) $\to$ agg          & 20/30       & 1h02m \\
+24 & nemotron-3-nano 30B (Nemotron-H MoE) & spark (ollama)                & 19/30       & 7h36m \\
+25 & llama70 (retired 07-22)          & local dgx                          & 18/29       & 7h16m \\
+26 & nemotron3 33B (Nemotron-H Omni)  & spark (ollama)                     & 16/30       & 7h31m \\
 \bottomrule
 \end{longtable}
 }
@@ -375,6 +393,23 @@ perfectly capable models.
 \item \textbf{glm-5.2} is paid OpenRouter (\texttt{z-ai/glm-5.2}, no free tier);
   tagged as paid. It replaces the retired \texttt{glm-4.7-flash} (1/28 capability
   ceiling) --- a full-generation leap.
+\item \textbf{inkling} (\texttt{thinkingmachines/inkling}, OpenRouter --- tagged as a
+  hosted/paid provider). Effective 30/30: canonical single-shot 29/30 with the sole
+  miss on P4 (softmax stability). On 2026-07-24 a defect in the \emph{P4 oracle
+  itself} was corrected and P4 re-scored to PASS (\texttt{maxerr}${=}1.1{\times}10^{-16}$);
+  the pre-rescore output is preserved as \texttt{RESULTS.txt.bak-p4rescore}. It clears
+  every best-of-$N$ / benchmark-scored problem cleanly, placing it in the top tier for
+  both score and throughput ($\sim$24\,min).
+\item \textbf{laguna-s-2.1} is the \emph{larger} sibling of \texttt{laguna-xs2} ---
+  custom \texttt{LagunaForCausalLM} MoE, 48 layers, 256 experts / 10 active, served
+  via \texttt{ik\_llama.cpp}. As of 2026-07-22 it is the \emph{production} model on the
+  public chicago-2 endpoint, having replaced the retired \texttt{llama70}
+  (Llama-3.3-70B, vLLM/Ray; rollback preserved). Its Fleet-30 score (26/30, one clean
+  2h17m pass) therefore doubles as a smoke-quality signal for that live endpoint. The
+  four misses (P9, P10, P27, P30) are all best-of-$N$ tournament / benchmark-scored
+  problems --- a distinct failure class from \texttt{laguna-xs2}'s fan-out misses; a
+  targeted rerun of those four to establish an effective ceiling is a reasonable
+  follow-up.
 \item \textbf{Sanctioned providers:} OpenRouter (free tier preferred; paid allowed
   when tagged), Argo/ALCF, and locally-served DGX endpoints. Local-dgx sweeps run direct, never
   through LiteLLM. Scores are attributed per provider $\times$ model.
@@ -386,8 +421,10 @@ perfectly capable models.
 \hrule
 \vspace{0.5em}
 {\footnotesize Source of truth: \texttt{\char`~/pi-problems-30/FLEET\_BENCHMARK\_MASTER.md}
-(v7). Harness: \texttt{run\_model\_30.sh}. Problem definitions: \texttt{p1/}--\texttt{p30/}
-+ embedded task prompts. All artifacts synced to
+(v8, 2026-07-24). Harness: \texttt{run\_model\_30.sh}. Problem definitions:
+\texttt{p1/}--\texttt{p30/} + embedded task prompts. New-lane run dirs:
+\texttt{runs/fleet-inkling-openrouter-20260722-0058} and
+\texttt{runs/laguna-s21-chicago2-20260722-2016}. All artifacts synced to
 \texttt{\char`~/Dropbox/XFER/pi-fleet-benchmark/}.}
 
 \end{document}
