@@ -1,0 +1,268 @@
+{
+  "P1": {
+    "title": "stats CLI",
+    "kind": "write",
+    "verify": "verify.py",
+    "max_iters": 1,
+    "prompts": [
+      "Write cli.py: reads whitespace/newline-separated numbers from STDIN, prints exactly one line 'count=N min=.. max=.. mean=.. median=.. stdev=..' (stdev = SAMPLE stdev, n-1). median of even count = avg of two middle. Stdlib only. Exit 0."
+    ]
+  },
+  "P2": {
+    "title": "LRU cache + bundled tests",
+    "kind": "write",
+    "verify": "verify.py",
+    "max_iters": 1,
+    "prompts": [
+      "Implement lru.py with class LRUCache(capacity): get(key)->value-or-None, put(key,value), O(1), correct LRU eviction (get and put both count as use; put on existing key updates value AND refreshes recency). ALSO write test_lru.py with pytest tests and RUN pytest before done. Stdlib only."
+    ]
+  },
+  "P3": {
+    "title": "Roman numerals iterate-until-green",
+    "kind": "fix",
+    "verify": "test_thing.py",
+    "max_iters": 8,
+    "prompts": [
+      "pytest test_thing.py failing. Fix roman.py to use subtractive notation (IV IX XL XC CD CM). Smallest fix. DO NOT edit test_thing.py. Failures:\n$F"
+    ]
+  },
+  "P4": {
+    "title": "stable softmax vs oracle",
+    "kind": "numerical",
+    "verify": "check.py",
+    "max_iters": 6,
+    "prompts": [
+      "fast.py softmax overflows / disagrees with reference in check.py. Fix for numerical stability (subtract max before exp). DO NOT edit check.py. Diagnostic:\n$O"
+    ]
+  },
+  "P5": {
+    "title": "matmul GFLOP/s",
+    "kind": "optimize",
+    "verify": "bench.py",
+    "max_iters": 8,
+    "prompts": [
+      "kernel.matmul INCORRECT. Fix correctness (match numpy). DO NOT edit check.py/bench.py. $O",
+      "kernel.matmul does ${g} GFLOP/s on 256x256 GEMM. Make ONE change to go faster (numpy vectorize / np.dot / @). Stay correct vs check.py. DO NOT edit check.py/bench.py."
+    ]
+  },
+  "P6": {
+    "title": "reproducible FP reduction",
+    "kind": "write",
+    "verify": "verify.py",
+    "max_iters": 5,
+    "prompts": [
+      "Improve reduce.py parallel_sum(xs,nchunks) so result is BIT-IDENTICAL regardless of nchunks. Address CRITIQUE.md if present. Hint: math.fsum over all data or a fixed ordering independent of nchunks. DO NOT edit verify.py.",
+      "HOSTILE reviewer fresh eyes: inspect reduce.py ONLY for dependence of result on nchunks / non-deterministic FP ordering. Write findings to CRITIQUE.md. If zero real issues write exactly NO_ISSUES on first line."
+    ]
+  },
+  "P7": {
+    "title": "parallel backends fan-out",
+    "kind": "write",
+    "verify": "verify.py",
+    "max_iters": 1,
+    "prompts": [
+      "Backends exist at work/{csv,kv,json}/backend.py each exposing parse(text)->dict. Write dispatch.py exposing dispatch(kind,text)->dict routing kind in {csv,kv,json}. Run verify.py. DO NOT edit verify.py."
+    ]
+  },
+  "P8": {
+    "title": "ODE convergence + reflection",
+    "kind": "reflection",
+    "verify": "converge_check.py",
+    "max_iters": 6,
+    "prompts": [
+      "integrator.solve fails converge_check.py. Use RK4 and compute t=t0+step*h (never accumulate). Append a one-line ROOT-CAUSE LESSON to ~/.pi/agent/memory.md. DO NOT edit converge_check.py. $O"
+    ]
+  },
+  "P9": {
+    "title": "levenshtein tournament best-of-4",
+    "kind": "tournament",
+    "verify": "score.py",
+    "max_iters": 1,
+    "prompts": []
+  },
+  "P10": {
+    "title": "prime sieve capstone",
+    "kind": "tournament",
+    "verify": "score.py",
+    "max_iters": 1,
+    "prompts": []
+  },
+  "P11": {
+    "title": "balanced parens iterate-until-green",
+    "kind": "fix",
+    "verify": "test_thing.py",
+    "max_iters": 5,
+    "prompts": [
+      "Fix parens.py: is_balanced(s)->bool validates (), [], {} matching via a stack, ignoring other chars. DO NOT edit test_thing.py. pytest failures:\n$F"
+    ]
+  },
+  "P12": {
+    "title": "base-N conversion oracle",
+    "kind": "numerical",
+    "verify": "check.py",
+    "max_iters": 5,
+    "prompts": [
+      "Fix baseconv.py: to_base(n,base)->lowercase string and parse_int(s,base)->int for base 2..36, round-tripping and matching int(s,base). Handle 0 and negatives. DO NOT edit check.py. Diagnostic:\n$O"
+    ]
+  },
+  "P13": {
+    "title": "mini-JSON parser iterate-until-green",
+    "kind": "fix",
+    "verify": "test_thing.py",
+    "max_iters": 6,
+    "prompts": [
+      "Fix miniparse.py: parse(s) parses a JSON subset (null/true/false/int/float/string/array/object, nesting, whitespace) WITHOUT using the json module or eval. DO NOT edit test_thing.py. pytest failures:\n$F"
+    ]
+  },
+  "P14": {
+    "title": "weighted Dijkstra vs BFS-ref oracle",
+    "kind": "numerical",
+    "verify": "check.py",
+    "max_iters": 5,
+    "prompts": [
+      "Fix graph.py: shortest_path(graph,src,dst)->total weight of the min-cost path (graph is dict node->list[(neighbor,weight)], non-negative weights). Use Dijkstra (heapq). Return None/inf if unreachable per check.py's expectation. DO NOT edit check.py. Diagnostic:\n$O"
+    ]
+  },
+  "P15": {
+    "title": "word-frequency top-k measurement (Mtok/s)",
+    "kind": "optimize",
+    "verify": "bench.py",
+    "max_iters": 6,
+    "prompts": [
+      "Fix wordcount.py correctness: top_k(text,k)->list of (word,count) top-k by count then word, lowercased, split on whitespace. DO NOT edit check.py/bench.py. $O",
+      "wordcount.top_k does ${g} Mtok/s. Make ONE change to go faster (collections.Counter / heapq.nlargest). Stay correct vs check.py. DO NOT edit check.py/bench.py."
+    ]
+  },
+  "P16": {
+    "title": "thread-safe counter generator+critic",
+    "kind": "write",
+    "verify": "verify.py",
+    "max_iters": 5,
+    "prompts": [
+      "Fix counter.py so class Counter with increment() is thread-safe under concurrent threads (use threading.Lock around the shared count). Address CRITIQUE.md if present. DO NOT edit verify.py.",
+      "HOSTILE reviewer fresh eyes: inspect counter.py ONLY for data races / missing lock on the shared counter. Write findings to CRITIQUE.md. If zero real issues write exactly NO_ISSUES on first line."
+    ]
+  },
+  "P17": {
+    "title": "serializer fan-out (csv/kv/pylit + codec)",
+    "kind": "write",
+    "verify": "verify.py",
+    "max_iters": 1,
+    "prompts": [
+      "Backends exist at work/{csv,kv,pylit}/backend.py each exposing dumps(obj)->str and loads(s)->obj. Write codec.py exposing round_trip(fmt,obj)->loads(dumps(obj)) using the matching backend (import from work/<fmt>/backend.py). Run verify.py. DO NOT edit verify.py."
+    ]
+  },
+  "P18": {
+    "title": "Welford online variance reflection",
+    "kind": "reflection",
+    "verify": "converge_check.py",
+    "max_iters": 5,
+    "prompts": [
+      "Fix stats.py: running_variance(data)->SAMPLE variance (n-1) using Welford's online algorithm (numerically stable, no catastrophic cancellation, constant streams -> 0). Append a one-line LESSON to ~/.pi/agent/memory.md. DO NOT edit converge_check.py. $O"
+    ]
+  },
+  "P19": {
+    "title": "fast-doubling Fibonacci tournament",
+    "kind": "tournament",
+    "verify": "score.py",
+    "max_iters": 1,
+    "prompts": []
+  },
+  "P20": {
+    "title": "TTL-LRU with injected clock iterate-until-green",
+    "kind": "fix",
+    "verify": "test_thing.py",
+    "max_iters": 5,
+    "prompts": [
+      "Fix ttlcache.py: class TTLCache(capacity, ttl, clock) \u2014 get/put honor LRU eviction AND TTL expiry using the injected clock() for time. Expired entries are misses. DO NOT edit test_thing.py. pytest failures:\n$F"
+    ]
+  },
+  "P21": {
+    "title": "interval merge oracle",
+    "kind": "numerical",
+    "verify": "check.py",
+    "max_iters": 5,
+    "prompts": [
+      "Fix intervals.py: merge(intervals)->list of merged non-overlapping intervals, sorted, touching/overlapping intervals combined. DO NOT edit check.py. Diagnostic:\n$O"
+    ]
+  },
+  "P22": {
+    "title": "toposort + cycle detect iterate-until-green",
+    "kind": "fix",
+    "verify": "test_thing.py",
+    "max_iters": 5,
+    "prompts": [
+      "Fix topo.py: toposort(graph)->a valid topological order (graph dict node->list[deps]); raise ValueError (or per test) on a cycle. DO NOT edit test_thing.py. pytest failures:\n$F"
+    ]
+  },
+  "P23": {
+    "title": "prime-count sieve measurement (Mn/s)",
+    "kind": "optimize",
+    "verify": "bench.py",
+    "max_iters": 6,
+    "prompts": [
+      "Fix primecount.py: count_primes(n)->number of primes below n, CORRECT for small n. DO NOT edit check.py/bench.py. $O",
+      "primecount.count_primes does ${g} Mn/s. Make ONE change to go faster (Sieve of Eratosthenes with bytearray, skip evens). Stay correct vs check.py. DO NOT edit check.py/bench.py."
+    ]
+  },
+  "P24": {
+    "title": "token-bucket rate limiter generator+critic",
+    "kind": "write",
+    "verify": "verify.py",
+    "max_iters": 5,
+    "prompts": [
+      "Fix limiter.py so class TokenBucket(rate, capacity, clock) allows at most 'capacity' burst then refills at 'rate' tokens/sec using the injected clock(); allow(n=1)->bool. Address CRITIQUE.md if present. DO NOT edit verify.py.",
+      "HOSTILE reviewer fresh eyes: inspect limiter.py ONLY for burst-exceeds-capacity / wrong refill math / clock misuse. Write findings to CRITIQUE.md. If zero real issues write exactly NO_ISSUES on first line."
+    ]
+  },
+  "P25": {
+    "title": "3-stage stats pipeline fan-out",
+    "kind": "write",
+    "verify": "verify.py",
+    "max_iters": 1,
+    "prompts": [
+      "Stages exist at work/{clean,agg,fmt}/stage.py exposing clean/agg/fmt respectively. Write pipeline.py exposing run(rows)->fmt(agg(clean(rows))) (import each stage). Run verify.py. DO NOT edit verify.py."
+    ]
+  },
+  "P26": {
+    "title": "Newton sqrt to full precision reflection",
+    "kind": "reflection",
+    "verify": "converge_check.py",
+    "max_iters": 5,
+    "prompts": [
+      "Fix nsqrt.py: nsqrt(x)->sqrt(x) to full double precision via Newton's method (iterate until convergence, handle 0 and 1, no math.sqrt). Append a one-line LESSON to ~/.pi/agent/memory.md. DO NOT edit converge_check.py. $O"
+    ]
+  },
+  "P27": {
+    "title": "overlapping substring count tournament",
+    "kind": "tournament",
+    "verify": "score.py",
+    "max_iters": 1,
+    "prompts": []
+  },
+  "P28": {
+    "title": "matrix determinant vs numpy oracle",
+    "kind": "numerical",
+    "verify": "check.py",
+    "max_iters": 5,
+    "prompts": [
+      "Fix det.py: determinant(matrix)->float determinant of an NxN matrix (list of lists), matching numpy.linalg.det within tolerance for n>2 (LU / cofactor expansion). DO NOT edit check.py. Diagnostic:\n$O"
+    ]
+  },
+  "P29": {
+    "title": "precedence calculator (no eval) iterate-until-green",
+    "kind": "fix",
+    "verify": "test_thing.py",
+    "max_iters": 6,
+    "prompts": [
+      "Fix calc.py: calc(expr)->number, evaluating +-*/ with correct precedence and parentheses, WITHOUT using eval() (shunting-yard or recursive descent). DO NOT edit test_thing.py. pytest failures:\n$F"
+    ]
+  },
+  "P30": {
+    "title": "sort-kernel capstone tournament + critic + bench",
+    "kind": "tournament",
+    "verify": "score.py",
+    "max_iters": 1,
+    "prompts": []
+  }
+}
