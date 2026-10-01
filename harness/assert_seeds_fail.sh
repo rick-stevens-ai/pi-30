@@ -3,14 +3,24 @@
 # DOCTRINE: every seed MUST genuinely FAIL its verifier before any model loops.
 # PASS-on-bare-seed = contamination (pre-solved arena) -> abort the sweep.
 #
-# Usage: bash assert_seeds_fail.sh            # all p1..p10 in-place
+# Usage: bash assert_seeds_fail.sh            # all p1..p30 (auto-locates problems/)
 #        bash assert_seeds_fail.sh p1 p5      # subset
 # Exit 0 = all clean; Exit 1 = contamination detected.
 set -u
-cd "$(dirname "$0")"
-PY=/opt/anaconda3/bin/python3
-PYTEST=/opt/anaconda3/bin/pytest
-read -ra PROBS <<< "${*:-p1 p2 p3 p4 p5 p6 p7 p8 p9 p10}"
+# Locate the problems directory: prefer ../problems (repo layout), else cwd/in-place.
+HERE="$(cd "$(dirname "$0")" && pwd)"
+REPO="$(dirname "$HERE")"
+if [ -d "$REPO/problems/p1" ]; then
+  cd "$REPO/problems"
+elif [ -d "./p1" ]; then
+  :  # problem dirs already in cwd (legacy in-place layout)
+else
+  cd "$HERE"
+fi
+# Python/pytest: honor PI30_PY/PI30_PYTEST overrides, else fall back to PATH.
+PY="${PI30_PY:-$(command -v python3 || echo /opt/anaconda3/bin/python3)}"
+PYTEST="${PI30_PYTEST:-$PY -m pytest}"
+read -ra PROBS <<< "${*:-p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12 p13 p14 p15 p16 p17 p18 p19 p20 p21 p22 p23 p24 p25 p26 p27 p28 p29 p30}"
 
 bad=0
 check_cmd() { ( cd "$1" && shift && "$@" >/dev/null 2>&1 ); }
@@ -18,13 +28,33 @@ check_cmd() { ( cd "$1" && shift && "$@" >/dev/null 2>&1 ); }
 for p in "${PROBS[@]}"; do
   [ -d "$p" ] || { echo "$p: MISSING dir"; bad=1; continue; }
   case "$p" in
-    p1|p2|p6|p7) cmd=($PY verify.py) ;;
-    p3)          cmd=($PYTEST -q test_thing.py) ;;
-    p4|p5)       cmd=($PY check.py) ;;
-    p8)          cmd=($PY converge_check.py) ;;
-    p9|p10)
+    p1|p2|p6|p7|p16|p17|p24|p25) cmd=($PY verify.py) ;;
+    p3|p11|p13|p20|p22|p29)      cmd=($PYTEST -q test_thing.py) ;;
+    p4|p12|p14|p21|p28)          cmd=($PY check.py) ;;
+    p5|p15|p23)
+      # OPTIMIZE task: the seed is intentionally CORRECT but SLOW. Correctness
+      # (check.py) legitimately passes on the seed; the challenge is the bench
+      # target. Contamination here = the bare seed ALREADY MEETS the speed target.
+      # We treat it clean as long as the seed does NOT already clear bench's target.
+      if ! check_cmd "$p" $PY check.py; then
+        echo "$p: clean (optimize seed not yet correct — will be fixed+sped up)"; continue; fi
+      # correct seed: check whether bench already passes its internal target (exit 0 = met)
+      if ( cd "$p" && $PY bench.py >/dev/null 2>&1 ); then
+        echo "$p: CONTAMINATED (optimize seed already meets the bench target — pre-optimized!)"; bad=1
+      else
+        echo "$p: clean (correct but below bench target, as required)"
+      fi
+      continue ;;
+    p8|p18|p26)                  cmd=($PY converge_check.py) ;;
+    p9|p10|p19|p27|p30)
       # Tournament: contamination = arena/ already holds a candidate that scores > 0.
-      art=$( [ "$p" = p9 ] && echo levenshtein.py || echo sieve.py )
+      case "$p" in
+        p9)  art=levenshtein.py ;;
+        p10) art=sieve.py ;;
+        p19) art=fib.py ;;
+        p27) art=substr.py ;;
+        p30) art=sortkernel.py ;;
+      esac
       hit=0
       if [ -d "$p/arena" ]; then
         for d in "$p"/arena/cand_*; do

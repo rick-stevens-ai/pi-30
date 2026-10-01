@@ -98,6 +98,11 @@ def run_verifier(task_id, dest, timeout=120):
                                cwd=dest, capture_output=True, timeout=timeout)
             return ("pass" if r.returncode == 0 else "fail", score)
         if v == "bench.py":
+            # OPTIMIZE task: correctness (check.py) must pass AND the benchmark
+            # throughput must meet the task's target. bench.py prints the metric but
+            # does NOT gate on the target, so we enforce the target here (the values
+            # match the reference harness run_model_30.sh).
+            OPT_TARGETS = {"P5": 5.0, "P15": 1.0, "P23": 8.0}
             r = subprocess.run([py, "check.py"], cwd=dest, capture_output=True, timeout=timeout)
             if r.returncode != 0:
                 return ("fail", score)
@@ -107,7 +112,10 @@ def run_verifier(task_id, dest, timeout=120):
                 score = float((b.stdout or "0").strip().split()[0])
             except Exception:
                 score = "unknown"
-            return ("pass", score)
+            target = OPT_TARGETS.get(task_id)
+            if target is not None and isinstance(score, float):
+                return ("pass" if score >= target else "fail", score)
+            return ("fail" if score == "unknown" else "pass", score)
         if v == "score.py":
             r = subprocess.run([py, "score.py"], cwd=dest, capture_output=True, timeout=timeout, text=True)
             try:
