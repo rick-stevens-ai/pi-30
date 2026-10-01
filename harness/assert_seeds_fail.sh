@@ -33,16 +33,18 @@ for p in "${PROBS[@]}"; do
     p4|p12|p14|p21|p28)          cmd=($PY check.py) ;;
     p5|p15|p23)
       # OPTIMIZE task: the seed is intentionally CORRECT but SLOW. Correctness
-      # (check.py) legitimately passes on the seed; the challenge is the bench
-      # target. Contamination here = the bare seed ALREADY MEETS the speed target.
-      # We treat it clean as long as the seed does NOT already clear bench's target.
+      # (check.py) legitimately passes; the challenge is the bench THROUGHPUT target.
+      # bench.py only PRINTS the metric (it does not exit-gate on the target), so we
+      # compare the reported metric against the task target (same values as the
+      # reference harness run_model_30.sh). Contamination = seed already >= target.
+      case "$p" in p5) tgt=5.0 ;; p15) tgt=1.0 ;; p23) tgt=8.0 ;; esac
       if ! check_cmd "$p" $PY check.py; then
         echo "$p: clean (optimize seed not yet correct — will be fixed+sped up)"; continue; fi
-      # correct seed: check whether bench already passes its internal target (exit 0 = met)
-      if ( cd "$p" && $PY bench.py >/dev/null 2>&1 ); then
-        echo "$p: CONTAMINATED (optimize seed already meets the bench target — pre-optimized!)"; bad=1
+      metric=$(cd "$p" && $PY bench.py --report 2>/dev/null | head -1); [ -z "$metric" ] && metric=0
+      if awk "BEGIN{exit !($metric >= $tgt)}"; then
+        echo "$p: CONTAMINATED (optimize seed metric $metric already >= target $tgt — pre-optimized!)"; bad=1
       else
-        echo "$p: clean (correct but below bench target, as required)"
+        echo "$p: clean (metric $metric below target $tgt, as required)"
       fi
       continue ;;
     p8|p18|p26)                  cmd=($PY converge_check.py) ;;
