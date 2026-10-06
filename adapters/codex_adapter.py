@@ -15,7 +15,7 @@ Usage:
      --problems ./problems --runs ./runs_lab1 --csv ./runs.csv \
      [--tasks P1,P2] [--codex /path/to/codex] [--timeout 400]
 """
-import argparse, json, os, re, subprocess, sys
+import argparse, json, os, re, shutil, subprocess, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -63,20 +63,81 @@ def web_search_flag(codex_bin):
     return flag
 
 
+_SANDBOX_MODE_CACHE = {}
+
+
+def _bwrap_can_spawn():
+    """Return True iff bubblewrap can actually build a sandbox on this host.
+
+    Codex's Linux sandbox uses bubblewrap (bwrap), which must create an
+    unprivileged user namespace + uid map (and a loopback netns). On Ubuntu
+    24.04+ the AppArmor default `kernel.apparmor_restrict_unprivileged_userns=1`
+    denies exactly those ops, so every sandboxed Codex command dies at spawn
+    with 'bwrap: setting up uid map: Permission denied' / 'bwrap: loopback:
+    Failed RTM_NEWADDR' BEFORE any work runs (0/30 tasks executable).
+
+    We probe bwrap directly with the same class of operation Codex needs. If it
+    can't spawn, the caller drops to an unsandboxed mode (this course does not
+    require strong isolation; the fresh per-attempt workspace + approval=never
+    already bound authority).
+    """
+    bw = shutil.which("bwrap")
+    if not bw:
+        return False  # no bwrap at all -> can't sandbox; caller falls back
+    try:
+        # Mirror Codex's sandbox setup: new userns + uid map + bind root + netns.
+        r = subprocess.run(
+            [bw, "--unshare-user", "--unshare-net", "--dev-bind", "/", "/",
+             "true"],
+            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=15)
+        return r.returncode == 0
+    except Exception:
+        return False
+
+
+def sandbox_mode(codex_bin):
+    """Pick the Codex sandbox mode for this host.
+
+    - 'workspace-write' when bwrap works (keep the sandbox).
+    - 'danger-full-access' when bwrap cannot spawn (Ubuntu 24.04 AppArmor userns
+      restriction, or no bwrap). This lab does not need strong sandboxing; the
+      alternative is 0 executable tasks. Override with env CODEX_SANDBOX_MODE.
+    """
+    forced = os.environ.get("CODEX_SANDBOX_MODE")
+    if forced:
+        return forced
+    if codex_bin in _SANDBOX_MODE_CACHE:
+        return _SANDBOX_MODE_CACHE[codex_bin]
+    if sys.platform.startswith("linux") and not _bwrap_can_spawn():
+        mode = "danger-full-access"
+        sys.stderr.write(
+            "[codex_adapter] bwrap cannot spawn a sandbox on this host "
+            "(likely Ubuntu 24.04 apparmor_restrict_unprivileged_userns=1); "
+            "falling back to --sandbox danger-full-access. This lab does not "
+            "require strong isolation. Set CODEX_SANDBOX_MODE to override.\n")
+    else:
+        mode = "workspace-write"
+    _SANDBOX_MODE_CACHE[codex_bin] = mode
+    return mode
+
+
 def make_codex_runner(codex_bin, timeout):
     _search_flag = web_search_flag(codex_bin)
+    _sandbox = sandbox_mode(codex_bin)
     def run_once(workdir, prompt, attempt_idx):
         logdir = os.path.join(workdir, "_logs")
         os.makedirs(logdir, exist_ok=True)
         out_p = os.path.join(logdir, f"attempt{attempt_idx}.stdout")
         err_p = os.path.join(logdir, f"attempt{attempt_idx}.stderr")
         last_p = os.path.join(logdir, f"attempt{attempt_idx}.last")
-        # Bounded authority: workspace-write sandbox, approvals never (non-interactive),
-        # web search on. No --dangerously-* flags.
+        # Bounded authority: approvals never (non-interactive), web search on.
+        # Sandbox mode is host-aware (sandbox_mode()): 'workspace-write' when
+        # bwrap works, 'danger-full-access' only when bwrap cannot spawn (Ubuntu
+        # 24.04 AppArmor userns restriction) so the Codex lane can run at all.
         # Web-search flag is version-aware: `--search` (Codex <0.159) or
         # `--enable web_search` (Codex >=0.159). See web_search_flag().
         cmd = [codex_bin, "exec", "--skip-git-repo-check",
-               "--sandbox", "workspace-write",
+               "--sandbox", _sandbox,
                "-c", "approval_policy=never",
                *_search_flag,
                "-o", last_p, prompt]
