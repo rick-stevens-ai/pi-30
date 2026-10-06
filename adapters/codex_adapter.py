@@ -32,7 +32,39 @@ def codex_version(codex_bin):
         return "unknown"
 
 
+_WEB_SEARCH_FLAG_CACHE = {}
+
+
+def web_search_flag(codex_bin):
+    """Return the argv tokens that enable Codex web search for THIS Codex version.
+
+    Web search moved from the `--search` CLI flag to the generic feature-gate
+    mechanism (`--enable web_search`, equivalent to `-c features.web_search=true`)
+    around Codex 0.159. Older Codex rejects `--enable`; newer Codex (>=0.159)
+    rejects `--search` with "unexpected argument '--search'" and produces ZERO
+    valid runs. Probe `codex exec --help` once and pick the flag this binary
+    actually accepts, so the adapter keeps web search ON across versions instead
+    of silently dropping it (which would break the paired Pi-vs-Codex control).
+    """
+    if codex_bin in _WEB_SEARCH_FLAG_CACHE:
+        return _WEB_SEARCH_FLAG_CACHE[codex_bin]
+    flag = ["--search"]  # safe default for older Codex
+    try:
+        help_txt = subprocess.check_output(
+            [codex_bin, "exec", "--help"], text=True, stderr=subprocess.STDOUT)
+        if "--search" in help_txt:
+            flag = ["--search"]
+        elif "--enable" in help_txt:
+            # 0.159+: web search is a named feature.
+            flag = ["--enable", "web_search"]
+    except Exception:
+        pass
+    _WEB_SEARCH_FLAG_CACHE[codex_bin] = flag
+    return flag
+
+
 def make_codex_runner(codex_bin, timeout):
+    _search_flag = web_search_flag(codex_bin)
     def run_once(workdir, prompt, attempt_idx):
         logdir = os.path.join(workdir, "_logs")
         os.makedirs(logdir, exist_ok=True)
@@ -41,10 +73,12 @@ def make_codex_runner(codex_bin, timeout):
         last_p = os.path.join(logdir, f"attempt{attempt_idx}.last")
         # Bounded authority: workspace-write sandbox, approvals never (non-interactive),
         # web search on. No --dangerously-* flags.
+        # Web-search flag is version-aware: `--search` (Codex <0.159) or
+        # `--enable web_search` (Codex >=0.159). See web_search_flag().
         cmd = [codex_bin, "exec", "--skip-git-repo-check",
                "--sandbox", "workspace-write",
                "-c", "approval_policy=never",
-               "--search",
+               *_search_flag,
                "-o", last_p, prompt]
         infra = False
         stdout_text = ""
